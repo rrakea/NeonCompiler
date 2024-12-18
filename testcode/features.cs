@@ -1,14 +1,10 @@
 /*
 TODO:
 
-Modulo
 args[]
 Statische variablen
 !
-no empty declaration
-doubles im lexer? + "-" vor zahlen
 keine klammern um if / else/ while mit einer anweisung
-
 */
 using system;
 using bba;

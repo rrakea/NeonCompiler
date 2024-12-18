@@ -24,12 +24,12 @@ func createParser(test bool) (*SLR_parsing_Table, *Grammar) {
 
 	automata := grammar.CreateSLRAutomata()
 	table := automata.CreateSLRTable(grammar)
-	
+
 	return table, grammar
 }
 
 func Parse(path string, test bool) (parseTree, bool) {
-	
+
 	parseTreeChannel := make(chan any)
 	go createParseTree(parseTreeChannel)
 
@@ -97,7 +97,7 @@ func Parse(path string, test bool) (parseTree, bool) {
 		parseTreeChannel <- true
 		fmt.Println("Code passed parser")
 		select {
-		case tree := <- parseTreeChannel:
+		case tree := <-parseTreeChannel:
 			PrintTree(tree.(parseTree))
 			return tree.(parseTree), true
 		}
@@ -107,11 +107,9 @@ func Parse(path string, test bool) (parseTree, bool) {
 	}
 }
 
-
-
 func parseError(token lexer.Token, linecount int, stack Stack, table *SLR_parsing_Table, donechan chan any) {
 	donechan <- false
-	
+
 	lineString := strconv.Itoa(linecount)
 	state := stack.peek().(*any)
 	next := table.getNextExpectedTokens((*state).(int))
@@ -129,7 +127,7 @@ func parseError(token lexer.Token, linecount int, stack Stack, table *SLR_parsin
 	}
 	unexpected := formatToken(token)
 
-	fmt.Println("Syntax Error. Unexpected: \"" + unexpected + "\" at line " + lineString + ".\nExpecting: " + nextString)
+	fmt.Println("Syntax Error: Unexpected: \"" + unexpected + "\" at line " + lineString + ".\nExpecting: " + nextString)
 }
 
 func formatNext(next []string) string {
@@ -145,10 +143,12 @@ func formatNext(next []string) string {
 			nextString = "+, -"
 		case "name":
 			// Nothing :)
-		case "intliteral":
+		case "intliteral", "doubleliteral":
 			nextString = "num"
 		case "boolliteral":
 			nextString = "bool"
+		case "$":
+			nextString = "End of file"
 		default:
 			nextString = n
 		}
@@ -164,6 +164,8 @@ func formatToken(token lexer.Token) string {
 		return token.Value.(string)
 	case "intliteral":
 		return strconv.Itoa(token.Value.(int))
+	case "doubleliteral":
+		return strconv.FormatFloat(token.Value.(float64), 'f', -1, 64)
 	case "stringliteral":
 		return "string"
 	default:
