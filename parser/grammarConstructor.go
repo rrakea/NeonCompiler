@@ -57,8 +57,7 @@ func testGrammar() []Rule {
 		MakeRule("INPUTBLOCK", []string{"INPUTSTART"}),
 		MakeRule("INPUTSTART", []string{"TYPE", "name", "INPUTCONTINUED"}),
 		MakeRule("INPUTCONTINUED", []string{",", "TYPE", "name"}),
-		MakeRule("INPUTCONTINUED", []string{")"}),
-
+		MakeRule("INPUTCONTINUED", []string{")"}),		
 		MakeRule("ARGBLOCK", []string{")"}),
 		MakeRule("ARGBLOCK", []string{"ARGSSTART"}),
 		MakeRule("ARGSSTART", []string{"EXPRESSION", "ARGCONTINUED"}),

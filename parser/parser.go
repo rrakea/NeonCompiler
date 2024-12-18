@@ -96,19 +96,27 @@ func Parse(path string, test bool) (parseTree, bool) {
 	if accepts {
 		parseTreeChannel <- true
 		fmt.Println("Code passed parser")
-		select {
-		case tree := <-parseTreeChannel:
-			PrintTree(tree.(parseTree))
-			return tree.(parseTree), true
+		for true {
+			select {
+			case tree := <-parseTreeChannel:
+				if tree == nil {
+					return parseTree{}, true
+				}
+				PrintTree(tree.(parseTree))
+			}
 		}
-	} else {
-		parseError(lexer.Token{}, linecount, *stack, slrTable, parseTreeChannel)
-		return parseTree{}, false
 	}
+	parseError(lexer.Token{}, linecount, *stack, slrTable, parseTreeChannel)
+	return parseTree{}, false
 }
 
-func parseError(token lexer.Token, linecount int, stack Stack, table *SLR_parsing_Table, donechan chan any) {
-	donechan <- false
+func parseError(token lexer.Token, linecount int, stack Stack, table *SLR_parsing_Table, parseTreeChannel chan any) {
+	parseTreeChannel <- false
+	select {
+	case tree := <-parseTreeChannel:
+		PrintTree(tree.(parseTree))
+	}
+	fmt.Println("DID NOT PASS")
 
 	lineString := strconv.Itoa(linecount)
 	state := stack.peek().(*any)

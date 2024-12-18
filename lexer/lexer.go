@@ -146,7 +146,7 @@ func Lex(path string, tokenChannel chan Token) {
 
 			// If could be converted to int
 			if intConvErr == nil {
-				if len(tokens) >= i + 2{
+				if len(tokens) > i + 2{
 					doubleCheck, doubleerr := strconv.ParseFloat(tokens[i]+tokens[i+1]+tokens[i+2], 64)
 					if doubleerr == nil {
 						sendToken("doubleliteral", doubleCheck, tokenChannel)

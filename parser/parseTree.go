@@ -45,11 +45,15 @@ func createParseTree(parseChan chan any) {
 			newTree.branches = newBranches
 			Trees = append(Trees, newTree)
 		case bool:
-			parseChan <- Trees[0]
+			for _, t := range Trees {
+				parseChan <- t
+			}
 			close(parseChan)
 		}
 	}
-	parseChan <- Trees[0]
+	for _, t := range Trees {
+		parseChan <- t
+	}
 	close(parseChan)
 }
 
