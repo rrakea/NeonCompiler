@@ -18,6 +18,10 @@ type parseLeaf struct {
 }
 
 func createParseTree(parseChan chan any) {
+	typeCheckerChan := make(chan any)
+	go typecheck(typeCheckerChan)
+
+	
 	Trees := []parseTree{}
 	for true {
 		newItem := <-parseChan
@@ -56,7 +60,7 @@ func createParseTree(parseChan chan any) {
 	}
 	close(parseChan)
 }
-
+ 
 func PrintTree(tree parseTree) {
 	ptree := makePTree(tree)
 	renderTree := pterm.DefaultTree.WithRoot(ptree)

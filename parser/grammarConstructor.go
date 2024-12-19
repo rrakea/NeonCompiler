@@ -12,11 +12,6 @@ func defGrammar(test bool) []Rule {
 
 func testGrammar() []Rule {
 	rules := []Rule{
-
-		// NAME, LITERALS
-		// INPUT BLOCK; ARGBLOCK
-
-		//
 		MakeRule("TYPE", []string{"double"}),
 		MakeRule("TYPE", []string{"int"}),
 		MakeRule("TYPE", []string{"string"}),
@@ -44,20 +39,21 @@ func testGrammar() []Rule {
 		MakeRule("FUNC", []string{"static", "RETURNTYPE", "name", "(", "INPUTBLOCK", "{", "VIRTUALVARBLOCK"}),
 		MakeRule("VIRTUALVARBLOCK", []string{"TYPE", "name", "=", "EXPRESSION", ";"}),
 		MakeRule("VIRTUALVARBLOCK", []string{"STATEMENTBLOCK"}),
+		MakeRule("STATEMENTBLOCK", []string{"STATEMENT", "STATEMENTBLOCK"}),
 		MakeRule("STATEMENTBLOCK", []string{"}"}),
-		MakeRule("STATEMENTBLOCK", []string{"FUNCCALL", ";", "STATEMENTBLOCK"}),
-		MakeRule("STATEMENTBLOCK", []string{"RETURN", "STATEMENTBLOCK"}),
-		MakeRule("STATEMENTBLOCK", []string{"VARASSIGN", "STATEMENTBLOCK"}),
-		MakeRule("STATEMENTBLOCK", []string{"ARRAYASSIGN", "STATEMENTBLOCK"}),
-		MakeRule("STATEMENTBLOCK", []string{"IF", "STATEMENTBLOCK"}),
-		MakeRule("STATEMENTBLOCK", []string{"WHILE", "STATEMENTBLOCK"}),
+		MakeRule("STATEMENT", []string{"FUNCCALL", ";"}),
+		MakeRule("STATEMENT", []string{"RETURN"}),
+		MakeRule("STATEMENT", []string{"VARASSIGN"}),
+		MakeRule("STATEMENT", []string{"ARRAYASSIGN"}),
+		MakeRule("STATEMENT", []string{"IF"}),
+		MakeRule("STATEMENT", []string{"WHILE"}),
 
 		MakeRule("INPUTBLOCK", []string{")"}),
 		MakeRule("INPUTBLOCK", []string{"string", "[", "]", "name", ")"}),
 		MakeRule("INPUTBLOCK", []string{"INPUTSTART"}),
 		MakeRule("INPUTSTART", []string{"TYPE", "name", "INPUTCONTINUED"}),
 		MakeRule("INPUTCONTINUED", []string{",", "TYPE", "name"}),
-		MakeRule("INPUTCONTINUED", []string{")"}),		
+		MakeRule("INPUTCONTINUED", []string{")"}),
 		MakeRule("ARGBLOCK", []string{")"}),
 		MakeRule("ARGBLOCK", []string{"ARGSSTART"}),
 		MakeRule("ARGSSTART", []string{"EXPRESSION", "ARGCONTINUED"}),
@@ -72,9 +68,11 @@ func testGrammar() []Rule {
 		MakeRule("ARRAYASSIGN", []string{"name", "[", "EXPRESSION", "]", "=", "EXPRESSION", ";"}),
 		MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "{", "STATEMENTBLOCK"}),
 		MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "{", "STATEMENTBLOCK", "ELSE"}),
+		MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "STATEMENT"}),
 		MakeRule("ELSE", []string{"else", "{", "STATEMENTBLOCK"}),
 		MakeRule("WHILE", []string{"while", "(", "EXPRESSION", ")", "{", "STATEMENTBLOCK"}),
-
+		MakeRule("WHILE", []string{"while", "(", "EXPRESSION", ")", "STATEMENT"}),
+		
 		MakeRule("EXPRESSION", []string{"EXPRESSION", "logicaloperator", "TERM"}),
 		//MakeRule("EXPRESSION", []string{"!", "EXPRESSION"}),
 		MakeRule("EXPRESSION", []string{"TERM"}),
@@ -86,6 +84,7 @@ func testGrammar() []Rule {
 		MakeRule("PRIMARY", []string{"ARRAYACCESS"}),
 		MakeRule("PRIMARY", []string{"LITERAL"}),
 		MakeRule("PRIMARY", []string{"name"}),
+		MakeRule("PRIMARY", []string{"!", "PRIMARY"}),
 		MakeRule("PRIMARY", []string{"unaryoperator", "PRIMARY"}),
 		MakeRule("PRIMARY", []string{"(", "EXPRESSION", ")"}),
 	}

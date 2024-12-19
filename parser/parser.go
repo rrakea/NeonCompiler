@@ -29,7 +29,6 @@ func createParser(test bool) (*SLR_parsing_Table, *Grammar) {
 }
 
 func Parse(path string, test bool) (parseTree, bool) {
-
 	parseTreeChannel := make(chan any)
 	go createParseTree(parseTreeChannel)
 

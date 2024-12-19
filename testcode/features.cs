@@ -1,11 +1,3 @@
-/*
-TODO:
-
-args[]
-Statische variablen
-!
-keine klammern um if / else/ while mit einer anweisung
-*/
 using system;
 using bba;
 using asda;
