@@ -3,7 +3,7 @@ package parser
 import (
 	"compiler/lexer"
 	"slices"
-
+	_"compiler/typechecker"
 	"github.com/pterm/pterm"
 )
 
@@ -18,8 +18,8 @@ type parseLeaf struct {
 }
 
 func createParseTree(parseChan chan any) {
-	typeCheckerChan := make(chan any)
-	go typecheck(typeCheckerChan)
+	//typeCheckerChan := make(chan any)
+	//go typechecker.typecheck(typeCheckerChan)
 
 	
 	Trees := []parseTree{}
@@ -41,7 +41,6 @@ func createParseTree(parseChan chan any) {
 				if len == 0 {
 					panic("Parse Tree Error, no new node possible")
 				}
-
 				newBranches = append(newBranches, Trees[len-i-1])
 			}
 			Trees = Trees[:len(Trees)-len(rule.production)]
@@ -50,8 +49,9 @@ func createParseTree(parseChan chan any) {
 			Trees = append(Trees, newTree)
 		case bool:
 			for _, t := range Trees {
-				parseChan <- t
+				PrintTree(t)
 			}
+			parseChan <- Trees[0]
 			close(parseChan)
 		}
 	}
@@ -60,7 +60,7 @@ func createParseTree(parseChan chan any) {
 	}
 	close(parseChan)
 }
- 
+
 func PrintTree(tree parseTree) {
 	ptree := makePTree(tree)
 	renderTree := pterm.DefaultTree.WithRoot(ptree)

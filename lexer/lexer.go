@@ -146,7 +146,7 @@ func Lex(path string, tokenChannel chan Token) {
 
 			// If could be converted to int
 			if intConvErr == nil {
-				if len(tokens) > i + 2{
+				if len(tokens) > i+2 {
 					doubleCheck, doubleerr := strconv.ParseFloat(tokens[i]+tokens[i+1]+tokens[i+2], 64)
 					if doubleerr == nil {
 						sendToken("doubleliteral", doubleCheck, tokenChannel)
@@ -206,15 +206,30 @@ func Lex(path string, tokenChannel chan Token) {
 				identifier = ","
 			case "=":
 				identifier = "="
-			case ">", "<", ">=", "<=", "||", "&&", "==", "!=":
-				identifier = "logicaloperator"
+
+			// Operator Presedence
+			case "||":
+				identifier = "oplv1"
+				tokenVal = token
+			case "&&":
+				identifier = "oplv2"
+				tokenVal = token
+			case "==", "!=":
+				identifier = "oplv3"
+				tokenVal = token
+			case "<", ">", ">=", "<=":
+				identifier = "oplv4"
 				tokenVal = token
 			case "+", "-":
-				identifier = "unaryoperator"
+				identifier = "oplv5"
 				tokenVal = token
 			case "*", "/", "%":
-				identifier = "multoperator"
+				identifier = "oplv6"
 				tokenVal = token
+			case "!":
+				identifier = "oplv7"
+				tokenVal = token
+
 			case ";":
 				identifier = ";"
 			case "{":

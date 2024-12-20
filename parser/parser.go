@@ -96,15 +96,8 @@ func Parse(path string, test bool) (parseTree, bool) {
 	if accepts {
 		parseTreeChannel <- true
 		fmt.Println("Code passed parser")
-		for true {
-			select {
-			case tree := <-parseTreeChannel:
-				if tree == nil {
-					return parseTree{}, true
-				}
-				PrintTree(tree.(parseTree))
-			}
-		}
+		tree := <- parseTreeChannel
+		return tree.(parseTree), true
 	}
 	parseError(lexer.Token{}, linecount, *stack, slrTable, parseTreeChannel)
 	return parseTree{}, false
@@ -163,7 +156,10 @@ func formatNext(next []string) string {
 		returnstring += nextString + "," + " "
 		nextString = ""
 	}
-	return returnstring[:len(returnstring)-2]
+	if len(returnstring) >= 2{
+		return returnstring[:len(returnstring)-2]
+	}
+	return ""
 }
 
 func formatToken(token lexer.Token) string {
