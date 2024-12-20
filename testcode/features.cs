@@ -8,7 +8,7 @@ namespace features{
         /*static int i = 2;
         static bool sada = false;
         static string buu = ";";*/ 
-        static void main (string[] args){
+        static void Main (string[] args){
             // Comments - Special Characters?
             /* Multiline
             Comments+

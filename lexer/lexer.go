@@ -176,6 +176,8 @@ func Lex(path string, tokenChannel chan Token) {
 				identifier = "namespace"
 			case "using":
 				identifier = "using"
+			case "Main":
+				identifier = "main"
 			case "class":
 				identifier = "class"
 			case "void":
