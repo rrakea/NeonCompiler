@@ -51,7 +51,12 @@ func main() {
 		}
 		fmt.Println("Starting Typecheck")
 
-		typechecker.Typecheck(tree)
+		info, typechecksuccesful := typechecker.Typecheck(tree)
+		if !typechecksuccesful {
+			return
+		}
+		fmt.Print("Type Check Succesful!")
+		_ = info
 	}
 
 	if *liveness {
