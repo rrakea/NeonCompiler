@@ -146,9 +146,18 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 		functree := f.CodeTree
 		returnarr := treeSearch(*functree, "RETURN")
 		for _, r := range returnarr {
+			if len(r.Branches) == 0 {
+				if f.ReturnType == "void" {
+					continue
+				} else {
+					TypeCheckError("Void function returns a value")
+					return info, false
+				}
+			}
 			extype, err := typeCheckExpression(r.Branches[0], f.Name, info)
 			if extype != f.ReturnType || err != nil {
-				TypeCheckError(err.Error() + "\nReturned value does not match return type in function signature")
+				TypeCheckError(err.Error() + "\nReturned value of type " + extype + " does not match return type in function signature (" + f.ReturnType)
+				return info, false
 			}
 		}
 
@@ -171,6 +180,10 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 			}
 		}
 	}
+	fmt.Println(info.Main)
+	fmt.Println(info.Functions)
+	fmt.Println(info.GlobalVars)
+	fmt.Println(info.LocalVar)
 	return info, true
 }
 
@@ -268,8 +281,7 @@ func determineVariables(tree ParseTree, vars map[string]Variable, static int, fu
 func typeCheckExpression(expression ParseTree, funcName string, info TypeCheckerInfo) (string, error) {
 	switch len(expression.Branches) {
 	case 0:
-		return "", errors.New("Expression has 0 Children")
-
+		return "", errors.New("Expression has 0 Children: " + expression.Leaf.Name)
 	case 1:
 		switch expression.Branches[0].Leaf.Name {
 		case "EL1", "EL2", "EL3", "EL4", "EL5", "EL6", "EL7":

@@ -3,9 +3,13 @@ namespace HelloWorld{
         static void Main(string[] args){
             // asdasdad Comments :&///@*(///)
                 if (a){
-                    int b = 2 + "q";
+                    b = 2 + "q";
                 }
                 a();
+        }
+
+        static int a(){
+            return 1;
         }
     }
 }
