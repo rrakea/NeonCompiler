@@ -67,6 +67,7 @@ func testGrammar() []Rule {
 		MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "{", "STATEMENTBLOCK"}),
 		MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "{", "STATEMENTBLOCK", "ELSE"}),
 		MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "STATEMENT"}),
+		//MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "STATEMENT", "ELSE"}),
 		MakeRule("ELSE", []string{"else", "{", "STATEMENTBLOCK"}),
 		MakeRule("ELSE", []string{"else", "STATEMENT"}),
 		MakeRule("WHILE", []string{"while", "(", "EXPRESSION", ")", "{", "STATEMENTBLOCK"}),
