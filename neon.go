@@ -2,6 +2,7 @@ package main
 
 import (
 	"compiler/parser"
+	"compiler/typechecker"
 	"flag"
 	"fmt"
 	"os"
@@ -42,14 +43,15 @@ func main() {
 		}
 		path = os.Args[2]
 		// Send code to tokenizer
-		_, parsingSuccesful := parser.Parse(path, true)
+		tree, parsingSuccesful := parser.Parse(path, true)
 		fmt.Println()
 
 		if !parsingSuccesful{
 			return
 		}
+		fmt.Println("Starting Typecheck")
 
-		
+		typechecker.Typecheck(tree)
 	}
 
 	if *liveness {

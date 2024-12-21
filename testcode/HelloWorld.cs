@@ -8,6 +8,10 @@ namespace HelloWorld{
             while (a == b)
                 a = 1;
         }
+
+        static void b(int a, int b){
+
+        }
         //
     }
 }

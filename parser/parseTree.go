@@ -3,39 +3,38 @@ package parser
 import (
 	"compiler/lexer"
 	"slices"
-	_"compiler/typechecker"
+
 	"github.com/pterm/pterm"
 )
 
-type parseTree struct {
-	leaf     parseLeaf
-	branches []parseTree
+type ParseTree struct {
+	Leaf     ParseLeaf
+	Branches []ParseTree
 }
 
-type parseLeaf struct {
-	name  string
-	value any
+type ParseLeaf struct {
+	Name  string
+	Value any
 }
 
 func createParseTree(parseChan chan any) {
 	//typeCheckerChan := make(chan any)
 	//go typechecker.typecheck(typeCheckerChan)
 
-	
-	Trees := []parseTree{}
+	Trees := []ParseTree{}
 	for true {
 		newItem := <-parseChan
 		switch newItem.(type) {
 		case lexer.Token:
 			token := newItem.(lexer.Token)
-			newLeaf := parseLeaf{name: token.Identifier, value: token.Value}
-			newTree := parseTree{leaf: newLeaf, branches: []parseTree{}}
+			newLeaf := ParseLeaf{Name: token.Identifier, Value: token.Value}
+			newTree := ParseTree{Leaf: newLeaf, Branches: []ParseTree{}}
 			Trees = append(Trees, newTree)
 		case Rule:
 			rule := newItem.(Rule)
-			newTree := parseTree{}
-			newBranches := []parseTree{}
-			newTree.leaf = parseLeaf{name: rule.nonTerminal, value: 0}
+			newTree := ParseTree{}
+			newBranches := []ParseTree{}
+			newTree.Leaf = ParseLeaf{Name: rule.nonTerminal, Value: 0}
 			for i := range rule.production {
 				len := len(Trees)
 				if len == 0 {
@@ -45,7 +44,7 @@ func createParseTree(parseChan chan any) {
 			}
 			Trees = Trees[:len(Trees)-len(rule.production)]
 			slices.Reverse(newBranches)
-			newTree.branches = newBranches
+			newTree.Branches = newBranches
 			Trees = append(Trees, newTree)
 		case bool:
 			for _, t := range Trees {
@@ -61,15 +60,15 @@ func createParseTree(parseChan chan any) {
 	close(parseChan)
 }
 
-func PrintTree(tree parseTree) {
+func PrintTree(tree ParseTree) {
 	ptree := makePTree(tree)
 	renderTree := pterm.DefaultTree.WithRoot(ptree)
 	renderTree.Render()
 }
 
-func makePTree(tree parseTree) pterm.TreeNode {
-	root := pterm.TreeNode{Text: tree.leaf.name, Children: []pterm.TreeNode{}}
-	for _, t := range tree.branches {
+func makePTree(tree ParseTree) pterm.TreeNode {
+	root := pterm.TreeNode{Text: tree.Leaf.Name, Children: []pterm.TreeNode{}}
+	for _, t := range tree.Branches {
 		root.Children = append(root.Children, makePTree(t))
 	}
 	return root

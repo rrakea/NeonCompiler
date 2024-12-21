@@ -6,11 +6,6 @@ import (
 	"strconv"
 )
 
-type ParseTree struct {
-	identifier string
-	leaves     *ParseTree
-}
-
 func createParser(test bool) (*SLR_parsing_Table, *Grammar) {
 	rules := defGrammar(test)
 	grammar := MakeGrammar(rules, "START")
@@ -29,7 +24,7 @@ func createParser(test bool) (*SLR_parsing_Table, *Grammar) {
 	return table, grammar
 }
 
-func Parse(path string, test bool) (parseTree, bool) {
+func Parse(path string, test bool) (ParseTree, bool) {
 	parseTreeChannel := make(chan any)
 	go createParseTree(parseTreeChannel)
 
@@ -63,7 +58,7 @@ func Parse(path string, test bool) (parseTree, bool) {
 			res, err := slrTable.GetAction((*stackVal).(int), token.Identifier)
 			if err != nil {
 				parseError(*token, linecount, *stack, slrTable, parseTreeChannel)
-				return parseTree{}, false
+				return ParseTree{}, false
 			}
 			switch res.actionType {
 			case "Shift":
@@ -84,7 +79,7 @@ func Parse(path string, test bool) (parseTree, bool) {
 				gotoVal, err := slrTable.GetGoto((*stateBefore).(int), reductionRule.nonTerminal)
 				if err != nil {
 					parseError(*token, linecount, *stack, slrTable, parseTreeChannel)
-					return parseTree{}, false
+					return ParseTree{}, false
 				}
 				stack.add(reductionRule.nonTerminal)
 				stack.add(gotoVal.val)
@@ -97,17 +92,17 @@ func Parse(path string, test bool) (parseTree, bool) {
 		parseTreeChannel <- true
 		fmt.Println("Code passed parser")
 		tree := <- parseTreeChannel
-		return tree.(parseTree), true
+		return tree.(ParseTree), true
 	}
 	parseError(lexer.Token{}, linecount, *stack, slrTable, parseTreeChannel)
-	return parseTree{}, false
+	return ParseTree{}, false
 }
 
 func parseError(token lexer.Token, linecount int, stack Stack, table *SLR_parsing_Table, parseTreeChannel chan any) {
 	parseTreeChannel <- false
 	select {
 	case tree := <-parseTreeChannel:
-		PrintTree(tree.(parseTree))
+		PrintTree(tree.(ParseTree))
 	}
 	fmt.Println("DID NOT PASS")
 
