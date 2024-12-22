@@ -49,13 +49,14 @@ func main() {
 		if !parsingSuccesful{
 			return
 		}
-		fmt.Println("Starting Typecheck")
+		//fmt.Println("Starting Typecheck")
 
 		info, typechecksuccesful := typechecker.Typecheck(tree)
 		if !typechecksuccesful {
 			return
 		}
-		fmt.Print("Type Check Succesful!")
+		fmt.Println("Type Check Succesful!")
+		fmt.Println()
 		_ = info
 	}
 

@@ -144,6 +144,11 @@ func Lex(path string, tokenChannel chan Token) {
 
 			tmpdigit, intConvErr := strconv.Atoi(token)
 
+			// Is string literal 
+			if []rune(token)[0] == '"'{
+				sendToken("stringliteral", token, tokenChannel)
+				continue
+			}
 			// If could be converted to int
 			if intConvErr == nil {
 				if len(tokens) > i+2 {

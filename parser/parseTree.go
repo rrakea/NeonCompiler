@@ -47,8 +47,11 @@ func createParseTree(parseChan chan any) {
 			newTree.Branches = newBranches
 			Trees = append(Trees, newTree)
 		case bool:
-			for _, t := range Trees {
-				PrintTree(t)
+			// Change for debug
+			if true {
+				for _, t := range Trees {
+					PrintTree(t)
+				}
 			}
 			parseChan <- Trees[0]
 			close(parseChan)
