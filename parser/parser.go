@@ -100,10 +100,10 @@ func Parse(path string, test bool) (ParseTree, bool) {
 
 func parseError(token lexer.Token, linecount int, stack Stack, table *SLR_parsing_Table, parseTreeChannel chan any) {
 	parseTreeChannel <- false
-	select {
+	/*select {
 	case tree := <-parseTreeChannel:
 		PrintTree(tree.(ParseTree))
-	}
+	}*/
 	fmt.Println("DID NOT PASS")
 
 	lineString := strconv.Itoa(linecount)

@@ -3,8 +3,6 @@ package parser
 import (
 	"compiler/lexer"
 	"slices"
-
-	"github.com/pterm/pterm"
 )
 
 type ParseTree struct {
@@ -48,10 +46,10 @@ func createParseTree(parseChan chan any) {
 			Trees = append(Trees, newTree)
 		case bool:
 			// Change for debug
-			if true {
-				for _, t := range Trees {
+			if false {
+				/*for _, t := range Trees {
 					PrintTree(t)
-				}
+				}*/
 			}
 			parseChan <- Trees[0]
 			close(parseChan)
@@ -63,7 +61,7 @@ func createParseTree(parseChan chan any) {
 	close(parseChan)
 }
 
-func PrintTree(tree ParseTree) {
+/*func PrintTree(tree ParseTree) {
 	ptree := makePTree(tree)
 	renderTree := pterm.DefaultTree.WithRoot(ptree)
 	renderTree.Render()
@@ -76,3 +74,4 @@ func makePTree(tree ParseTree) pterm.TreeNode {
 	}
 	return root
 }
+*/

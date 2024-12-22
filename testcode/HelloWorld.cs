@@ -13,7 +13,7 @@ namespace HelloWorld{
                 a(a, a);
         }
 
-        static int a(int a, bool b){
+        static int a(bool a, int b){
             int x = 2;
             if (true) {
 

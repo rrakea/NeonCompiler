@@ -185,8 +185,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 				TypeCheckError("Wrong number of Inputs for function call of function " + name)
 				return info, false
 			}
-			for i, calltype := range calltype { 
-				i++
+			/*for i, calltype := range calltype { 
 				for _, input := range f.InputTypes {
 					if input.Index == i{
 						if calltype != input.Inputtype {
@@ -195,7 +194,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 						} 
 					}
 				}
-			}
+			}*/
 		}
 
 		functree := f.CodeTree
