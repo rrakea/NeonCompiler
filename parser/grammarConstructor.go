@@ -22,9 +22,8 @@ func testGrammar() []Rule {
 		//
 		MakeRule("LITERAL", []string{"stringliteral"}),
 		MakeRule("LITERAL", []string{"boolliteral"}),
-		MakeRule("LITERAL", []string{"NUMLITERAL"}),
-		MakeRule("NUMLITERAL", []string{"intliteral"}),
-		MakeRule("NUMLITERAL", []string{"doubleliteral"}),
+		MakeRule("LITERAL", []string{"intliteral"}),
+		MakeRule("LITERAL", []string{"doubleliteral"}),
 
 		MakeRule("START", []string{"USINGBLOCK"}),
 		MakeRule("USINGBLOCK", []string{"using", "name", ";", "USINGBLOCK"}),

@@ -55,9 +55,10 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 	funcArr := treeSearch(tree, "FUNC")
 	for _, f := range funcArr {
 		name := f.Branches[locationOfNameInFuncDec].Leaf.Value.(string)
-		fmt.Println(name)
-		fmt.Println(len(f.Branches))
-		returnType := f.Branches[locationOfRetTypeInFuncDec].Branches[0].Leaf.Name
+		//fmt.Println(name)
+		//fmt.Println(len(f.Branches))
+		returnType := f.Branches[locationOfRetTypeInFuncDec].Branches[0].Branches[0].Leaf.Name
+		//fmt.Print(returnType)
 		input, err := detFuncInput(f.Branches[4])
 		if err != nil {
 			TypeCheckError(err.Error())
@@ -146,7 +147,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 		functree := f.CodeTree
 		returnarr := treeSearch(*functree, "RETURN")
 		for _, r := range returnarr {
-			if len(r.Branches) == 0 {
+			if len(r.Branches) <= 1 {
 				if f.ReturnType == "void" {
 					continue
 				} else {
@@ -154,9 +155,12 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 					return info, false
 				}
 			}
-			extype, err := typeCheckExpression(r.Branches[0], f.Name, info)
+			extype, err := typeCheckExpression(r.Branches[1], f.Name, info)
 			if extype != f.ReturnType || err != nil {
-				TypeCheckError(err.Error() + "\nReturned value of type " + extype + " does not match return type in function signature (" + f.ReturnType)
+				if err != nil {
+					extype = "expression error"
+				}
+				TypeCheckError(err.Error() + "\nReturned value of type " + extype + " does not match return type \nin function signature (" + f.ReturnType + ")")
 				return info, false
 			}
 		}
@@ -188,7 +192,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 }
 
 func TypeCheckError(s string) {
-	fmt.Print(s)
+	fmt.Println(s)
 }
 
 func treeSearch(tree ParseTree, name string) []ParseTree {
@@ -301,14 +305,14 @@ func typeCheckExpression(expression ParseTree, funcName string, info TypeChecker
 
 		case "LITERAL":
 			switch expression.Branches[0].Branches[0].Leaf.Name {
-			case "intliteral", "doubleliteral":
+			case "intliteral", "doubleliteral", "num":
 				return "num", nil
 			case "boolliteral":
 				return "bool", nil
 			case "stringliteral":
 				return "string", nil
 			default:
-				return "", errors.New("Literal error ~ Most likely error in compiler :)")
+				return "", errors.New("Literal error ~ Most likely error in compiler :).\n Calculated Type: " + expression.Branches[0].Branches[0].Leaf.Name)
 			}
 
 		case "FUNCCALL":
