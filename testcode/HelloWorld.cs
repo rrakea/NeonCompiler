@@ -6,15 +6,18 @@ namespace HelloWorld{
             // asdasdad Comments :&///@*(///)
                 int a = 2;
                 
-                if (a){
-                    a = 2 + "q";
+                if (true){
+                    a = 3;
                 }
                 a = 3 % 4;
-                a(a);
+                a(a, a);
         }
 
         static int a(int a, bool b){
             int x = 2;
+            if (true) {
+
+            }
             return x;
         }
     }

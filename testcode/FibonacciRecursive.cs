@@ -38,7 +38,7 @@ namespace  FibonacciRecursive
                     return Fib (n - 1) + Fib(n - 2);
                 }
             } else{
-                return;
+                return 1;
             }
         }
     }

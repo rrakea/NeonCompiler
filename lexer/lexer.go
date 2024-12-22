@@ -13,6 +13,10 @@ type Token struct {
 	Value      any
 }
 
+type LineNumber struct {
+	Line int
+}
+
 // Runs as go routine; called by the parser
 func GetNext(tokenChannel chan Token) *Token {
 	// Wait until the channel with tokens has a value inside
@@ -144,8 +148,8 @@ func Lex(path string, tokenChannel chan Token) {
 
 			tmpdigit, intConvErr := strconv.Atoi(token)
 
-			// Is string literal 
-			if []rune(token)[0] == '"'{
+			// Is string literal
+			if []rune(token)[0] == '"' {
 				sendToken("stringliteral", token, tokenChannel)
 				continue
 			}
@@ -258,6 +262,9 @@ func Lex(path string, tokenChannel chan Token) {
 				}
 				isSingleLineComment = false
 			} else {
+				if tokenVal == nil {
+					tokenVal = LineNumber{Line: lineNumber}
+				}
 				sendToken(identifier, tokenVal, tokenChannel)
 			}
 		}
@@ -273,9 +280,6 @@ func sendToken(identifier string, value any, channel chan Token) {
 	returnToken := new(Token)
 	returnToken.Identifier = identifier
 	returnToken.Value = value
-	if returnToken.Value == nil {
-		returnToken.Value = 0
-	}
 	channel <- *returnToken
 }
 
