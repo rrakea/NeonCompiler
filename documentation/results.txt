@@ -1,0 +1,2629 @@
+=============================================
+valid codesnipsets
+=============================================
+/Users/lukas/Library/CloudStorage/OneDrive-Personal/job/compilerbau 2024/projekt/frontend/valid_codesnipsets
+DoubleInWhile.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+AssignBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Wrong amount of main function in source file
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileIf4.cs
+--------------------------------------------
+
+your compilation stdout:
+
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [0] with length 0
+
+goroutine 19 [running]:
+compiler/lexer.Lex({0x16b77f728, 0xb}, 0x1400008e150)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/lexer/lexer.go:97 +0x1884
+created by compiler/parser.Parse in goroutine 1
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/parser/parser.go:34 +0x10c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithStringExpression2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [0] with length 0
+
+goroutine 19 [running]:
+compiler/lexer.Lex({0x16ef5b718, 0x1a}, 0x1400008e150)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/lexer/lexer.go:97 +0x1884
+created by compiler/parser.Parse in goroutine 1
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/parser/parser.go:34 +0x10c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWhileIf3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [0] with length 0
+
+goroutine 7 [running]:
+compiler/lexer.Lex({0x16f9a3728, 0xd}, 0x140000201c0)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/lexer/lexer.go:97 +0x1884
+created by compiler/parser.Parse in goroutine 1
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/parser/parser.go:34 +0x10c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignIntToDouble.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: The variable declaration of s does not typecheck.
+The variable is declared as type double while the expression evaluates to int
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithStringExpression.cs
+--------------------------------------------
+
+your compilation stdout:
+
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [0] with length 0
+
+goroutine 5 [running]:
+compiler/lexer.Lex({0x16d8c7718, 0x19}, 0x140000201c0)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/lexer/lexer.go:97 +0x1884
+created by compiler/parser.Parse in goroutine 1
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/parser/parser.go:34 +0x10c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+DoubleLessThanInteger.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Wrong amount of main function in source file
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+CallDoubleFunctionWithIntArg.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+ExpressionSubInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable i was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWhileIf2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [0] with length 0
+
+goroutine 19 [running]:
+compiler/lexer.Lex({0x16bdd7728, 0xd}, 0x1400008e150)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/lexer/lexer.go:97 +0x1884
+created by compiler/parser.Parse in goroutine 1
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/parser/parser.go:34 +0x10c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignString3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "if" at line 9.
+Expecting: descriptor, stringliteral, bool, num, num, oplv5, oplv7, (
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+CallInIf.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "(" at line 11.
+Expecting: ;, ), oplv1, oplv5, ,, oplv2, oplv3, oplv4, oplv6
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionModInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable i was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWhileIf.cs
+--------------------------------------------
+
+your compilation stdout:
+
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [0] with length 0
+
+goroutine 5 [running]:
+compiler/lexer.Lex({0x16d95b728, 0xc}, 0x140000201c0)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/lexer/lexer.go:97 +0x1884
+created by compiler/parser.Parse in goroutine 1
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/parser/parser.go:34 +0x10c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignNegativeDouble.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: The variable declaration of d does not typecheck.
+The variable is declared as type double while the expression evaluates to int
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionLessBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable i was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+NestedCalls.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+WhileWithBoolExpression.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+MultilineComment.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+AssignString2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable le'foo was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfNoElse2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [0] with length 0
+
+goroutine 19 [running]:
+compiler/lexer.Lex({0x16b4af728, 0xc}, 0x1400008e150)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/lexer/lexer.go:97 +0x1884
+created by compiler/parser.Parse in goroutine 1
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/parser/parser.go:34 +0x10c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionAddInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable i was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+CallInWhile.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "(" at line 11.
+Expecting: oplv1, oplv2, oplv5, ;, ), oplv4, oplv6, ,, oplv3
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionNotBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable a was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignString.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable foo was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionGreaterBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable i was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionEqualBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable i was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+EmptyMethodWithArgs.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+IfWithIntExpression3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+WhileIf.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+ExpressionDivInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable i was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignIntCompare2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+AssignDoubleFunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+FunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+AddInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+
+++++++++++++++
+your compilation stderr:
+panic: interface conversion: interface {} is int, not string
+
+goroutine 1 [running]:
+compiler/typechecker.Typecheck({{{0x102666ab3, 0x5}, {0x1026a2900, 0x102695858}}, {0x14000098c40, 0x1, 0x1}})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/typechecker/typechecker.go:161 +0x1680
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/neon.go:54 +0x22c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+DeclareBoolean.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+ExpressionMulInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable i was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignStringFunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable foo was not initialized.
+Returned value of type Variable foo was not initialized. does not match return type 
+in function signature (string)
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+EmptyWhileLoop.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+IfNoElse.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+IfWithIntExpression2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+EmptyMethod.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+ExpressionOrBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable b was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileWithIntExpression2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+AssignNegativeNumber.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+TwoFunctions.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+ExpressionUnaryPlusInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable i was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithElse.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+WhileIf2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+ExpressionLessEqualBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable i was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileWithIntExpression.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+ExpressionGreaterEqualBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable i was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+SinglelineComment.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+IfWithElseNoBlock.cs
+--------------------------------------------
+
+your compilation stdout:
+
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [0] with length 0
+
+goroutine 19 [running]:
+compiler/lexer.Lex({0x16d907720, 0x14}, 0x14000110150)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/lexer/lexer.go:97 +0x1884
+created by compiler/parser.Parse in goroutine 1
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/parser/parser.go:34 +0x10c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionUnaryMinusInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable i was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+DeclareInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+DeclareString.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable foo was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+DeclareDouble.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+AssignIntFunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+AssignNumber.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+AssignIntCompare.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+ExpressionAndBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable b was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionUnequalBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable i was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+EmptyMainMethod.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+FunctionCallWithArgs.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+WhileIf3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [0] with length 0
+
+goroutine 7 [running]:
+compiler/lexer.Lex({0x16ba1f728, 0xb}, 0x140000201c0)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/lexer/lexer.go:97 +0x1884
+created by compiler/parser.Parse in goroutine 1
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/parser/parser.go:34 +0x10c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignBooleanFunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+IfWithIntExpression.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: True
+ PASSED the test
+
+
+IfWhileIf4.cs
+--------------------------------------------
+
+your compilation stdout:
+
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [0] with length 0
+
+goroutine 21 [running]:
+compiler/lexer.Lex({0x16f78f728, 0xd}, 0x140000a80e0)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/lexer/lexer.go:97 +0x1884
+created by compiler/parser.Parse in goroutine 1
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/parser/parser.go:34 +0x10c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+failed
+TOTAL: passed 32 tests, failed 38 tests
+
+=============================================
+valid programs
+=============================================
+/Users/lukas/Library/CloudStorage/OneDrive-Personal/job/compilerbau 2024/projekt/frontend/valid_programs
+Gcditerative.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+
+++++++++++++++
+your compilation stderr:
+panic: interface conversion: interface {} is int, not string
+
+goroutine 1 [running]:
+compiler/typechecker.Typecheck({{{0x104d32ab3, 0x5}, {0x104d6e900, 0x104d61858}}, {0x1400018adc0, 0x1, 0x1}})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/typechecker/typechecker.go:161 +0x1680
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/neon.go:54 +0x22c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+CelsiusToFahrenheit.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+
+++++++++++++++
+your compilation stderr:
+panic: interface conversion: interface {} is int, not string
+
+goroutine 1 [running]:
+compiler/typechecker.Typecheck({{{0x1048beab3, 0x5}, {0x1048fa900, 0x1048ed858}}, {0x1400028a800, 0x1, 0x1}})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/typechecker/typechecker.go:161 +0x1680
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/neon.go:54 +0x22c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+FahrenheitToCelsius.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+
+++++++++++++++
+your compilation stderr:
+panic: interface conversion: interface {} is int, not string
+
+goroutine 1 [running]:
+compiler/typechecker.Typecheck({{{0x1005d2ab3, 0x5}, {0x10060e900, 0x100601858}}, {0x1400028ec00, 0x1, 0x1}})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/typechecker/typechecker.go:161 +0x1680
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/neon.go:54 +0x22c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+HelloWorld.cs
+--------------------------------------------
+
+your compilation stdout:
+
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [0] with length 0
+
+goroutine 7 [running]:
+compiler/lexer.Lex({0x16f333728, 0xd}, 0x140000201c0)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/lexer/lexer.go:97 +0x1884
+created by compiler/parser.Parse in goroutine 1
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/parser/parser.go:34 +0x10c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+FibonacciRecursive.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+
+++++++++++++++
+your compilation stderr:
+panic: interface conversion: interface {} is int, not string
+
+goroutine 1 [running]:
+compiler/typechecker.Typecheck({{{0x104aceab3, 0x5}, {0x104b0a900, 0x104afd858}}, {0x1400018b180, 0x1, 0x1}})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/typechecker/typechecker.go:161 +0x1680
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/neon.go:54 +0x22c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+Fibonacci.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+
+++++++++++++++
+your compilation stderr:
+panic: interface conversion: interface {} is int, not string
+
+goroutine 1 [running]:
+compiler/typechecker.Typecheck({{{0x102ae2ab3, 0x5}, {0x102b1e900, 0x102b11858}}, {0x1400009c9c0, 0x1, 0x1}})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/typechecker/typechecker.go:161 +0x1680
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/neon.go:54 +0x22c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+RgbToCYMK.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: The variable declaration of w does not typecheck.
+The variable is declared as type double while the expression evaluates to int
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+Gcdrecursive.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+
+++++++++++++++
+your compilation stderr:
+panic: interface conversion: interface {} is int, not string
+
+goroutine 1 [running]:
+compiler/typechecker.Typecheck({{{0x10222eab3, 0x5}, {0x10226a900, 0x10225d858}}, {0x140000a7500, 0x1, 0x1}})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/typechecker/typechecker.go:161 +0x1680
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/neon.go:54 +0x22c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+GaussRecursive.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+
+++++++++++++++
+your compilation stderr:
+panic: interface conversion: interface {} is int, not string
+
+goroutine 1 [running]:
+compiler/typechecker.Typecheck({{{0x104266ab3, 0x5}, {0x1042a2900, 0x104295858}}, {0x1400028b380, 0x1, 0x1}})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/typechecker/typechecker.go:161 +0x1680
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/neon.go:54 +0x22c
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+failed
+TOTAL: passed 0 tests, failed 9 tests
+
+=============================================
+parse errors
+=============================================
+/Users/lukas/Library/CloudStorage/OneDrive-Personal/job/compilerbau 2024/projekt/frontend/parse_errors
+StringLiteral.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "}" at line 10.
+Expecting: ;, oplv1, oplv3, ), ,, oplv2, oplv4, oplv5, oplv6, (, .
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+DoubleWithComma.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "," at line 9.
+Expecting: ;
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongIfElse.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "}" at line 12.
+Expecting: {
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+AssgningValueToFunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "=" at line 9.
+Expecting: ;, ), ,, oplv2, oplv3, oplv1, oplv4, oplv5, oplv6
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingReturnType.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "Foo" at line 12.
+Expecting: void, double, int, string, bool
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingBracket3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "args" at line 7.
+Expecting: ]
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingArgAfterUnaryPlus.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: ";" at line 9.
+Expecting: oplv7, (, descriptor, stringliteral, bool, num, num, oplv5
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingBracket2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "{" at line 8.
+Expecting: )
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingSpace.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "staticvoid" at line 7.
+Expecting: static
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+NoneExistingType.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "b" at line 9.
+Expecting: (, =, .
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+PlusOneOperator.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: ";" at line 9.
+Expecting: num, num, oplv5, oplv7, (, descriptor, stringliteral, bool
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+CommentInDeclaration.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "}" at line 10.
+Expecting: descriptor, stringliteral, bool, num, num, oplv5, oplv7, (
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+IllegalProgramName.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "oplv6" at line 3.
+Expecting: {
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongIfElse2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "else" at line 9.
+Expecting: descriptor, return, int, string, bool, }, if, while, double
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+NoneExistingType2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "i" at line 9.
+Expecting: (, =, .
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongSpace.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "nt" at line 9.
+Expecting: (, =, .
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingSemicolon.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "int" at line 10.
+Expecting: ), ,, oplv2, oplv6, ;, oplv1, oplv3, oplv4, oplv5
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+DeclarationInsteadOfExpression.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "int" at line 9.
+Expecting: oplv5, stringliteral, bool, ), (, descriptor, num, num, oplv7
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingArgAfterNot.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: ";" at line 9.
+Expecting: stringliteral, bool, num, num, oplv5, oplv7, (, descriptor
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongSemicolon.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: ";" at line 3.
+Expecting: {
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingBracket.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Unexpected end of file reached. At line: 10.
+Expecting: }
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+IllegalIDName.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: False
+ FAILED the test
+
+
+NotANumber.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable 42EXP was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingBracket4.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "string" at line 7.
+Expecting: (
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+NoneExistingCompare.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "=" at line 9.
+Expecting: ), oplv4, oplv6, oplv3, oplv5, ;, ,, oplv1, oplv2
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+CommaToMuch.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: ")" at line 9.
+Expecting: oplv5, oplv7, (, descriptor, stringliteral, bool, num, num
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+ColonInsteadOfSemi.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "}" at line 10.
+Expecting: ., ;, ,, oplv1, oplv4, oplv5, oplv6, (, ), oplv2, oplv3
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+StringWrongQuote.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable ''Hallo'' was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+failed
+TOTAL: passed 27 tests, failed 1 tests
+
+=============================================
+type errors
+=============================================
+/Users/lukas/Library/CloudStorage/OneDrive-Personal/job/compilerbau 2024/projekt/frontend/type_errors
+MissingSpace2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable has not been initialized. Variable name: inti
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+AssgningBoolVarToIntVar.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: invalid memory address or nil pointer dereference
+[signal SIGSEGV: segmentation violation code=0x2 addr=0x18 pc=0x101043404]
+
+goroutine 1 [running]:
+compiler/typechecker.Typecheck({{{0x10104aab3, 0x5}, {0x101086900, 0x101079858}}, {0x140000aac00, 0x1, 0x1}})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/typechecker/typechecker.go:147 +0x1854
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/neon.go:54 +0x22c
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongTypesInArithmetic.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: invalid memory address or nil pointer dereference
+[signal SIGSEGV: segmentation violation code=0x2 addr=0x18 pc=0x100ddf404]
+
+goroutine 1 [running]:
+compiler/typechecker.Typecheck({{{0x100de6ab3, 0x5}, {0x100e22900, 0x100e15858}}, {0x140000a7a80, 0x1, 0x1}})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/typechecker/typechecker.go:147 +0x1854
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/neon.go:54 +0x22c
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+BoolFunctionToInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: The variable declaration of i does not typecheck.
+The variable is declared as type int while the expression evaluates to bool
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongArgNumber.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Wrong number of Inputs for function call of function Add
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+UndeclaredFunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: False
+ FAILED the test
+
+
+WrongCompare.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable Hallo was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+DuplicateIdentifier2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable name declared twice in function Signature  double
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongTypesInLogic.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: ! did not stand before a boolen expression
+Variable assingnment did not type check.
+Variable has been declared as type bool while Expression has type: undefined
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+PutDoubleInInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: The variable declaration of d does not typecheck.
+The variable is declared as type int while the expression evaluates to double
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+TypoBool2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Wrong amount of main function in source file
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+AssgningBoolExprToIntVar.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: The variable declaration of i does not typecheck.
+The variable is declared as type int while the expression evaluates to bool
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+UndeclaredVariable.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable y was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+AssgningStringExprToBoolVar.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable Hallo was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+AssgningIntExprToBoolVar.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: The variable declaration of b does not typecheck.
+The variable is declared as type bool while the expression evaluates to int
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+PlusOnBoolean.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: The variable declaration of b does not typecheck.
+The variable is declared as type bool while the expression evaluates to undefined
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+NotDeclared.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable has not been initialized. Variable name: i
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongTypesInLogic3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable Hello was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongTypesInLogic2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: invalid memory address or nil pointer dereference
+[signal SIGSEGV: segmentation violation code=0x2 addr=0x18 pc=0x1006a7404]
+
+goroutine 1 [running]:
+compiler/typechecker.Typecheck({{{0x1006aeab3, 0x5}, {0x1006ea900, 0x1006dd858}}, {0x14000101180, 0x1, 0x1}})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/typechecker/typechecker.go:147 +0x1854
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/neon.go:54 +0x22c
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+ReturnWithoutExpression.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Expression has 0 Children: ;
+Returned value of type Expression has 0 Children: ; does not match return type 
+in function signature (int)
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongReturnValue.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: 
+Returned value of type bool does not match return type 
+in function signature (int)
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongFunctionArgs.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+Type Check Succesful!
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: True, expected: False
+ FAILED the test
+
+
+DuplicateIdentifier.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: The variable declaration of d does not typecheck.
+The variable is declared as type double while the expression evaluates to int
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongTypesInArithmetic2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: invalid memory address or nil pointer dereference
+[signal SIGSEGV: segmentation violation code=0x2 addr=0x18 pc=0x1007db404]
+
+goroutine 1 [running]:
+compiler/typechecker.Typecheck({{{0x1007e2ab3, 0x5}, {0x10081e900, 0x100811858}}, {0x1400009c340, 0x1, 0x1}})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/typechecker/typechecker.go:147 +0x1854
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 1 final/Konrad Burgi/neon.go:54 +0x22c
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongTypesInArithmetic3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable Hello was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+TypoBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+
+TYPE ERROR: Variable ture was not initialized.
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+failed
+TOTAL: passed 24 tests, failed 2 tests
+
+=============================================
+SUMMARY
+=============================================
+valid codesnipsets:  32 / 70 passed, 38 / 70 failed
+valid programs:      0 / 9 passed, 9 / 9 failed
+parse errors:        27 / 28 passed, 1 / 28 failed
+type errors:         24 / 26 passed, 2 / 26 failed
