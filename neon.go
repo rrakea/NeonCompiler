@@ -9,26 +9,41 @@ import (
 )
 
 func main() {
-	fmt.Println()
-	if len(os.Args) < 2 {
-		fmt.Println("Please provide a code path and a flag")
-		fmt.Println()
-		return
-	}
-	if len(os.Args) > 3 {
-		fmt.Println("To many arguments")
-		fmt.Println()
-		return
-	}
-
+	help := flag.Bool("help", false, "Display this Info")
 	compile := flag.Bool("compile", false, "Compile the code")
 	liveness := flag.Bool("liveness", false, "Start liveness analysis")
 	constants := flag.Bool("constants", false, "Start constant propagation analysis")
-
+	
 	flag.Parse()
 
+	fmt.Println()
+
+	if *help {
+		flag.PrintDefaults()
+		fmt.Println()
+		return
+	}
+
+	if len(os.Args) < 2 {
+		fmt.Println("Please provide a code path and a flag")
+		fmt.Println()
+		flag.PrintDefaults()
+		fmt.Println()
+		return
+	}
+
+	if len(os.Args) > 3 {
+		fmt.Println("To many arguments")
+		fmt.Println()
+		flag.PrintDefaults()
+		fmt.Println()
+		return
+	}
+
 	if !*compile && !*liveness && !*constants {
-		fmt.Println("Please specify what the program should do. Use -help if needed")
+		fmt.Println("Please specify what the program should do.")
+		fmt.Println()
+		flag.PrintDefaults()
 		fmt.Println()
 		return
 	}
@@ -49,15 +64,14 @@ func main() {
 		if !parsingSuccesful{
 			return
 		}
-		//fmt.Println("Starting Typecheck")
 
-		info, typechecksuccesful := typechecker.Typecheck(tree)
+		typeinfo, typechecksuccesful := typechecker.Typecheck(tree)
 		if !typechecksuccesful {
 			return
 		}
 		fmt.Println("Type Check Succesful!")
 		fmt.Println()
-		_ = info
+		_ = typeinfo
 	}
 
 	if *liveness {

@@ -11,6 +11,7 @@ import (
 type Token struct {
 	Identifier string
 	Value      any
+	Line int
 }
 
 type LineNumber struct {
@@ -27,8 +28,6 @@ func GetNext(tokenChannel chan Token) *Token {
 }
 
 func Lex(path string, tokenChannel chan Token) {
-	//fmt.Println("Started Lexing...")
-	//fmt.Println()
 	// Open File
 	file, err := os.Open(path)
 	if err != nil {
@@ -136,6 +135,7 @@ func Lex(path string, tokenChannel chan Token) {
 			}
 		}
 
+		// Last Token
 		if buffer != "" {
 			tokens = append(tokens, buffer)
 		}
@@ -153,6 +153,7 @@ func Lex(path string, tokenChannel chan Token) {
 				sendToken("stringliteral", token, tokenChannel)
 				continue
 			}
+			
 			// If could be converted to int
 			if intConvErr == nil {
 				if len(tokens) > i+2 {
@@ -275,11 +276,12 @@ func Lex(path string, tokenChannel chan Token) {
 	//fmt.Println("Lexer finished")
 }
 
-func sendToken(identifier string, value any, channel chan Token) {
+func sendToken(identifier string, value any, channel chan Token, linenumber int) {
 	// Make return token and add to channel
 	returnToken := new(Token)
 	returnToken.Identifier = identifier
 	returnToken.Value = value
+	returnToken.Line = linenumber
 	channel <- *returnToken
 }
 

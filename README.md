@@ -20,4 +20,4 @@ Run:
 
 ## Info
 
-Uses go 1.23.2 & 2.4
+Uses go 1.23.2 & Jasmin 2.4

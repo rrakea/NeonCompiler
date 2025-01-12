@@ -13,7 +13,6 @@ func createParser(test bool) (*SLR_parsing_Table, *Grammar) {
 	first := grammar.FIRST()
 	first["S"] = append(first["S"], "namespace") // TODO
 	first["START"] = append(first["START"], "namespace")
-	//PrintFirst(first)
 	follow := grammar.FOLLOW(first)
 	grammar.follow = follow
 	grammar.CalcClosure()
