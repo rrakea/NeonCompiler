@@ -1,12 +1,9 @@
 package parser
 
 func defGrammar(test bool) []Rule {
+	_ = test
 	grammar := []Rule{}
-	if test {
-		grammar = append(grammar, testGrammar()...)
-	} else {
-		grammar = append(grammar, compilerGrammar()...)
-	}
+	grammar = append(grammar, testGrammar()...)
 	return grammar
 }
 
@@ -96,8 +93,4 @@ func testGrammar() []Rule {
 		MakeRule("EL7", []string{"name"}),
 	}
 	return rules
-}
-
-func compilerGrammar() []Rule {
-	return []Rule{}
 }

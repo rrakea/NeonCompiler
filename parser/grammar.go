@@ -84,7 +84,6 @@ func (grammar *Grammar) firstrecursive(input string, firstMap map[string][]strin
 	}
 	for _, r := range grammar.rules {
 		if r.nonTerminal == input {
-
 			if isNT(r.production[0]) {
 				grammar.firstrecursive(r.production[0], firstMap)
 				for _, s := range firstMap[r.production[0]] {

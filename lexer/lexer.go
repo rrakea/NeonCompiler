@@ -150,7 +150,7 @@ func Lex(path string, tokenChannel chan Token) {
 
 			// Is string literal
 			if []rune(token)[0] == '"' {
-				sendToken("stringliteral", token, tokenChannel)
+				sendToken("stringliteral", token, tokenChannel, lineNumber)
 				continue
 			}
 			
@@ -159,12 +159,12 @@ func Lex(path string, tokenChannel chan Token) {
 				if len(tokens) > i+2 {
 					doubleCheck, doubleerr := strconv.ParseFloat(tokens[i]+tokens[i+1]+tokens[i+2], 64)
 					if doubleerr == nil {
-						sendToken("doubleliteral", doubleCheck, tokenChannel)
+						sendToken("doubleliteral", doubleCheck, tokenChannel, lineNumber)
 						i = i + 2
 						continue
 					}
 				}
-				sendToken("intliteral", tmpdigit, tokenChannel)
+				sendToken("intliteral", tmpdigit, tokenChannel, lineNumber)
 				continue
 			}
 
@@ -172,7 +172,7 @@ func Lex(path string, tokenChannel chan Token) {
 
 			// If could be converted to bool
 			if boolConvErr == nil {
-				sendToken("boolliteral", tmpbool, tokenChannel)
+				sendToken("boolliteral", tmpbool, tokenChannel, lineNumber)
 				continue
 			}
 
@@ -266,14 +266,12 @@ func Lex(path string, tokenChannel chan Token) {
 				if tokenVal == nil {
 					tokenVal = LineNumber{Line: lineNumber}
 				}
-				sendToken(identifier, tokenVal, tokenChannel)
+				sendToken(identifier, tokenVal, tokenChannel, lineNumber)
 			}
 		}
 	}
-	sendToken("$", "$", tokenChannel)
+	sendToken("$", "$", tokenChannel, lineNumber)
 	close(tokenChannel)
-	//fmt.Println()
-	//fmt.Println("Lexer finished")
 }
 
 func sendToken(identifier string, value any, channel chan Token, linenumber int) {
