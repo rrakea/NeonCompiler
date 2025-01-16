@@ -4,7 +4,7 @@ import "compiler/parser"
 
 type tree = parser.ParseTree
 
-func Statement_evaluate(statement_tree tree) (string, int) {
+func Statement_evaluate(statement_tree tree, class_name string) (string, int) {
 	statement := statement_tree.Branches[0]
 	switch statement.Leaf.Name {
 	case "FUNCCALL":
@@ -14,7 +14,7 @@ func Statement_evaluate(statement_tree tree) (string, int) {
 		if err != nil {
 			panic("Invalid funccall found in parse tree")
 		}
-		func_call_evaluate(name, argblock)
+		func_call_evaluate(name, argblock, class_name)
 
 	case "VARASSIGN":
 		name_tree, err := statement.Find_child("name")
@@ -54,8 +54,11 @@ func return_evaluate(expression *tree) (string, int) {
 	ex_string, ex_length := expression_evaluation(expression)
 }
 
-func func_call_evaluate(name string, arg_block *tree) (string, int) {
+func func_call_evaluate(func_name string, arg_block *tree, class_name string) (string, int) {
 
+	call := "" +
+		"invokestatic " + class_name + "/" + func_name + "()"
+	return call, 1
 }
 
 func if_evaluate() (string int) {
