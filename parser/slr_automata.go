@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-type SLR_automata struct {
+type slr_automata struct {
 	states []State
 }
 type State struct {
@@ -24,9 +24,9 @@ type GrammarClosure struct {
 
 var stateIndex int
 
-func (grammar *Grammar) CreateSLRAutomata() *SLR_automata {
+func (grammar *Grammar) CreateSLRAutomata() *slr_automata {
 	stateIndex = 0
-	automata := new(SLR_automata)
+	automata := new(slr_automata)
 	var startRule Rule
 	for _, r := range grammar.rules {
 		if r.nonTerminal == "S" {
@@ -109,7 +109,7 @@ func (state *State) addClosureRecursive(closure GrammarClosure, done map[string]
 	}
 }
 
-func (oldState *State) GoTo(automata *SLR_automata, closure GrammarClosure) {
+func (oldState *State) GoTo(automata *slr_automata, closure GrammarClosure) {
 	rulesPerSymbol := make(map[string][]ItemRule)
 
 	for _, r := range oldState.rules {
@@ -157,7 +157,7 @@ func (oldState *State) GoTo(automata *SLR_automata, closure GrammarClosure) {
 	}
 }
 
-func (automata *SLR_automata) stateDoesNotExist(newState *State) (*State, bool) {
+func (automata *slr_automata) stateDoesNotExist(newState *State) (*State, bool) {
 	for _, existingState := range automata.states {
 		if len(existingState.rules) != len(newState.rules) {
 			continue
@@ -199,7 +199,7 @@ func areTheRulesTheSame(existingRule ItemRule, newRule ItemRule) bool {
 	return true
 }
 
-func (automata *SLR_automata) Print() {
+func (automata *slr_automata) Print() {
 	fmt.Println()
 	fmt.Println()
 	for _, state := range automata.states {

@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-func createParser(test bool) (*SLR_parsing_Table, *Grammar) {
+func createParser(test bool) (*slr_parsing_Table, *Grammar) {
 	rules := defGrammar(test)
 	grammar := MakeGrammar(rules, "START")
 	grammar.Augment()
@@ -90,14 +90,14 @@ func Parse(path string, test bool) (ParseTree, bool) {
 	if accepts {
 		parseTreeChannel <- true
 		fmt.Println("Code passed parser")
-		tree := <- parseTreeChannel
+		tree := <-parseTreeChannel
 		return tree.(ParseTree), true
 	}
 	parseError(lexer.Token{}, linecount, *stack, slrTable, parseTreeChannel)
 	return ParseTree{}, false
 }
 
-func parseError(token lexer.Token, linecount int, stack Stack, table *SLR_parsing_Table, parseTreeChannel chan any) {
+func parseError(token lexer.Token, linecount int, stack Stack, table *slr_parsing_Table, parseTreeChannel chan any) {
 	parseTreeChannel <- false
 	/*select {
 	case tree := <-parseTreeChannel:
@@ -150,7 +150,7 @@ func formatNext(next []string) string {
 		returnstring += nextString + "," + " "
 		nextString = ""
 	}
-	if len(returnstring) >= 2{
+	if len(returnstring) >= 2 {
 		return returnstring[:len(returnstring)-2]
 	}
 	return ""

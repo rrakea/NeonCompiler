@@ -2,6 +2,7 @@ package parser
 
 import (
 	"compiler/lexer"
+	"errors"
 	"slices"
 )
 
@@ -59,6 +60,15 @@ func createParseTree(parseChan chan any) {
 		parseChan <- t
 	}
 	close(parseChan)
+}
+
+func (tree *ParseTree) Find_child(name string) (*ParseTree,error) {
+	for _, b := range tree.Branches {
+		if b.Leaf.Name == name {
+			return &b, nil
+		}
+	}
+	return nil, errors.New("Child not found: " + name)
 }
 
 /*func PrintTree(tree ParseTree) {
