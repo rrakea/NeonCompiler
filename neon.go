@@ -75,6 +75,7 @@ func main() {
 	}
 
 	if *liveness {
+		// Only main function!!
 		fmt.Println("Not implemented")
 		fmt.Println()
 		return

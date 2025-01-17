@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-type SLR_parsing_Table struct {
+type slr_parsing_Table struct {
 	actionTable map[int]map[string]*Action
 	gotoToTable map[int]map[string]*GoTo
 }
@@ -20,8 +20,8 @@ type GoTo struct {
 	val int
 }
 
-func (automata *SLR_automata) CreateSLRTable(grammar *Grammar) *SLR_parsing_Table {
-	table := makeSlrParsingTable()
+func (automata *slr_automata) CreateSLRTable(grammar *Grammar) *slr_parsing_Table {
+	table := make_slr_parsing_table()
 
 	for _, state := range automata.states {
 		for _, itemrule := range state.rules {
@@ -53,21 +53,21 @@ func (automata *SLR_automata) CreateSLRTable(grammar *Grammar) *SLR_parsing_Tabl
 	return table
 }
 
-func makeSlrParsingTable() *SLR_parsing_Table {
-	newTable := new(SLR_parsing_Table)
+func make_slr_parsing_table() *slr_parsing_Table {
+	newTable := new(slr_parsing_Table)
 	newTable.actionTable = make(map[int]map[string]*Action)
 	newTable.gotoToTable = make(map[int]map[string]*GoTo)
 	return newTable
 }
 
-func (table *SLR_parsing_Table) GetAction(state int, symbol string) (Action, error) {
+func (table *slr_parsing_Table) GetAction(state int, symbol string) (Action, error) {
 	if table.actionTable[state][symbol] != nil {
 		return *table.actionTable[state][symbol], nil
 	}
 	return Action{}, errors.New("Could not get next Action")
 }
 
-func (table *SLR_parsing_Table) GetGoto(state int, symbol string) (GoTo, error) {
+func (table *slr_parsing_Table) GetGoto(state int, symbol string) (GoTo, error) {
 	if table.gotoToTable[state][symbol] != nil {
 		return *table.gotoToTable[state][symbol], nil
 	}
@@ -81,7 +81,7 @@ func MakeAction(ty string, value int) Action {
 	return *newAction
 }
 
-func (table *SLR_parsing_Table) AddAction(state int, terminal string, actionType string, ActionValue int) {
+func (table *slr_parsing_Table) AddAction(state int, terminal string, actionType string, ActionValue int) {
 	newAction := MakeAction(actionType, ActionValue)
 	if table.actionTable[state] == nil {
 		table.actionTable[state] = make(map[string]*Action)
@@ -98,7 +98,7 @@ func MakeGoto(val int) *GoTo {
 	return newGoto
 }
 
-func (table *SLR_parsing_Table) AddGoTo(state int, symbol string, newstate int) {
+func (table *slr_parsing_Table) AddGoTo(state int, symbol string, newstate int) {
 	if table.gotoToTable[state] == nil {
 		table.gotoToTable[state] = make(map[string]*GoTo)
 	}
@@ -108,7 +108,7 @@ func (table *SLR_parsing_Table) AddGoTo(state int, symbol string, newstate int) 
 	table.gotoToTable[state][symbol] = MakeGoto(newstate)
 }
 
-func (table *SLR_parsing_Table) PrintTable(grammar *Grammar) {
+func (table *slr_parsing_Table) PrintTable(grammar *Grammar) {
 	fmt.Println("Action: ")
 	for i, m := range table.actionTable {
 		fmt.Println(i)
@@ -139,16 +139,16 @@ func (table *SLR_parsing_Table) PrintTable(grammar *Grammar) {
 	}
 }
 
-func (table SLR_parsing_Table) getNextExpectedTokens(state int) []string {
+func (table slr_parsing_Table) getNextExpectedTokens(state int) []string {
 	retString := []string{}
 	for s := range table.actionTable[state] {
-		if table.actionTable[state][s] != nil{
+		if table.actionTable[state][s] != nil {
 			retString = append(retString, s)
 		}
-		
+
 	}
 	for i := range table.gotoToTable[state] {
-		if table.actionTable[state][i] != nil{
+		if table.actionTable[state][i] != nil {
 			retString = append(retString, i)
 		}
 	}
