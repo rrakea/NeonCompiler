@@ -1,10 +1,13 @@
 package jasmin
 
-import "compiler/parser"
+import (
+	"compiler/parser"
+	"strconv"
+)
 
 type tree = parser.ParseTree
 
-func Statement_evaluate(statement_tree tree, class_name string) (string, int) {
+func Statement_evaluate(statement_tree tree, class_name string, varmap map[string]int) (string, int) {
 	statement := statement_tree.Branches[0]
 	switch statement.Leaf.Name {
 	case "FUNCCALL":
@@ -23,14 +26,14 @@ func Statement_evaluate(statement_tree tree, class_name string) (string, int) {
 		if err != nil {
 			panic("Invalid var assign in parse tree")
 		}
-		return var_assign_evaluate(name, expression)
+		return var_assign_evaluate(name, expression, varmap)
 
 	case "RETURN":
 		expression, err := statement.Find_child("expression")
 		if err != nil {
 			expression = nil
 		}
-		return return_evaluate(expression)
+		return return_evaluate(expression, varmap)
 	case "IF":
 		// TODO If/ Else
 
@@ -39,19 +42,39 @@ func Statement_evaluate(statement_tree tree, class_name string) (string, int) {
 		if err != nil {
 			panic("Invalid while found in parse tree")
 		}
-		return while_evaluate(expression)
+		return while_evaluate(expression, varmap)
 	default:
 		panic("Unrecognized statement in parse tree")
 	}
 	return "\n", 1
 }
 
-func var_assign_evaluate(var_name string, expression *tree) (string, int) {
-	ex_string, ex_length := expression_evaluation(expression)
+func var_assign_evaluate(var_name string, expression *tree, varmap map[string]int) (string, int) {
+	ex_string, extype, ex_length := expression_evaluation(expression)
+	location, ok := varmap[var_name]
+	if !ok {
+		panic("Unitialized Variable " + var_name)
+	}
+	location_string := strconv.Itoa(location)
+
+	retstring := "" + 
+	ex_string +
+	extype + "load " + location_string + "\n"
+	return retstring, ex_length + 1
 }
 
-func return_evaluate(expression *tree) (string, int) {
+func return_evaluate(expression *tree, varmap map[string]int) (string, int) {
+	if expression == nil {
+		// Void Return
+		return "return V", 1
+	}
+
 	ex_string, ex_length := expression_evaluation(expression)
+
+	retstring := "" + 
+	ex_string + 
+	"return" 
+	return retstring, ex_length + 1
 }
 
 func func_call_evaluate(func_name string, arg_block *tree, class_name string) (string, int) {
@@ -61,10 +84,10 @@ func func_call_evaluate(func_name string, arg_block *tree, class_name string) (s
 	return call, 1
 }
 
-func if_evaluate() (string int) {
+func if_evaluate(varmap map[string]int) (string int) {
 	ex_string, ex_length := expression_evaluation(expression)
 }
 
-func while_evaluate(expression *tree) (string, int) {
+func while_evaluate(expression *tree, varmap map[string]int) (string, int) {
 	ex_string, ex_length := expression_evaluation(expression)
 }
