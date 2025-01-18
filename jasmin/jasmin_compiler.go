@@ -44,12 +44,23 @@ func Compile(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name strin
 	// Functions
 	for _, function := range info.Functions {
 		func_stack_limit := 0
+		func_arg_type := ""
 
 		// Which locals are used by name, so that we dont set a local limit that is too high
 		locals_used_map := make(map[string]bool)
 
 		// Maps the var name to its local var number
-		var_map := make(map[string]int)
+		var_map_count := make(map[string]int)
+		var_map_type := make (map[string]string)
+
+		// Function Arguments
+		arg_count := 0
+		for arg_name, arg_type := range info.Functions[function.Name].InputTypes {
+			func_arg_type += arg_type.Inputtype
+			var_map_count[arg_name] = arg_count
+			var_map_type[arg_name] = arg_type.Inputtype
+			arg_count++ 
+		}
 
 		// Local Variables
 		local_var_code := ""
@@ -69,15 +80,16 @@ func Compile(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name strin
 
 			var_code := local_var_dec(local_var.Name, local_var.Vartype, var_index, ex_code)
 			local_var_code += var_code
-			var_map[local_var.Name] = var_index
+			var_map_count[local_var.Name] = var_index + arg_count
+			var_map_type[local_var.Name] = local_var.Vartype
 		}
 		func_local_limit := len(locals_used_map)
 
-		statements, statement_local_limit, statement_stack_limit := Statement_block_evaluate(function.CodeTree, file_name, var_map)
+		statements, statement_local_limit, statement_stack_limit := Statement_block_evaluate(function.CodeTree, file_name, var_map_count, var_map_type)
 		func_code := local_var_code + statements
 		func_stack_limit += statement_stack_limit
 		func_local_limit += statement_local_limit
 
-		add_function(jasmin_file, function.Name, function.ReturnType, func_stack_limit, func_local_limit, func_code)
+		add_function(jasmin_file, function.Name, function.ReturnType, func_arg_type ,func_stack_limit, func_local_limit, func_code)
 	}
 }

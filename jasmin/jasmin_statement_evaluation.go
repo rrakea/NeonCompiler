@@ -7,7 +7,7 @@ import (
 )
 
 // Returns: The code as string, statement local limit, statement stack
-func Statement_block_evaluate(statement_block *tree, class_name string, var_map map[string]int) (string, int, int){
+func Statement_block_evaluate(statement_block *tree, class_name string, var_map_index map[string]int, var_map_type map[string]string) (string, int, int){
 	// TODO
 }
 

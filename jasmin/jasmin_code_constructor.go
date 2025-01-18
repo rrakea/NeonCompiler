@@ -60,11 +60,11 @@ func add_clinit(jasmin_file *os.File, static_vars map[string]string, var_type ma
 	jasmin_file.WriteString(clinit)
 }
 
-func add_function(jasmin_file *os.File, method_name string, return_type string, stack_limit int, local_limit int, statements string) {
+func add_function(jasmin_file *os.File, method_name string, return_type string, arg_types string, stack_limit int, local_limit int, statements string) {
 	stack_limit_string := strconv.Itoa(stack_limit)
 	local_limit_string := strconv.Itoa(local_limit)
 	func_dec := "" +
-		".method public static " + method_name + "()" + return_type + "\n" +
+		".method public static " + method_name + "(" + arg_types + ")" + return_type + "\n" +
 		".limit stack " + stack_limit_string + "\n" +
 		".limit locals " + local_limit_string + "\n" +
 		method_name + ":\n" +
