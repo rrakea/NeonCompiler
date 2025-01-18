@@ -34,7 +34,20 @@ func add_global_var(jasmin_file *os.File, name string, vartype string, expressio
 	return 1 + expression_length
 }
 
-func add_method(jasmin_file *os.File, method_name string, return_type string, stack_limit int, local_limit int, statements string, statement_length int) int {
+func add_main_function(jasmin_file *os.File, stack_limit int, local_limit int, statements string, statement_length int) int{
+	stack_limit_string := strconv.Itoa(stack_limit)
+	local_limit_string := strconv.Itoa(local_limit)
+	
+	main_func_def := ""
+
+	_, err := jasmin_file.WriteString(main_func_def)
+	if err != nil {
+		panic("Could not write to file")
+	}
+	return 0 + statement_length
+}
+
+func add_function(jasmin_file *os.File, method_name string, return_type string, stack_limit int, local_limit int, statements string, statement_length int) int {
 	stack_limit_string := strconv.Itoa(stack_limit)
 	local_limit_string := strconv.Itoa(local_limit)
 	func_dec := "" +
@@ -53,7 +66,7 @@ func add_method(jasmin_file *os.File, method_name string, return_type string, st
 	return 6 + statement_length
 }
 
-func local_var_dec(name string, vartype string, var_count int, expression string, expression_length int, func_name string) (string, int) {
+func local_var_jasmin_code(name string, vartype string, var_count int, expression string, expression_length int, func_name string) (string, int) {
 	var_count_string := strconv.Itoa(var_count)
 	var_dec := "" +
 		expression +

@@ -3,6 +3,7 @@ package main
 import (
 	"compiler/parser"
 	"compiler/typechecker"
+	"compiler/jasmin"
 	"flag"
 	"fmt"
 	"os"
@@ -58,7 +59,7 @@ func main() {
 		}
 		path = os.Args[2]
 		// Send code to tokenizer
-		tree, parsingSuccesful := parser.Parse(path, true)
+		tree, file_name, parsingSuccesful := parser.Parse(path, true)
 		fmt.Println()
 
 		if !parsingSuccesful{
@@ -71,7 +72,10 @@ func main() {
 		}
 		fmt.Println("Type Check Succesful!")
 		fmt.Println()
-		_ = typeinfo
+		jasmin.Compile(&tree, &typeinfo, file_name)
+		
+		fmt.Println("Compilation completed!")
+		fmt.Println("Jasmin file created!")
 	}
 
 	if *liveness {

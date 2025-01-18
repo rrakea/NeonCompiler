@@ -3,11 +3,12 @@ package jasmin
 
 
 import (
-	"compiler/parser"
 	"strconv"
 )
 
-type tree = parser.ParseTree
+func Statement_block_evaluate(statement_block *tree, class_name string, var_map map[string]int) (string, int){
+	// TODO
+}
 
 func Statement_evaluate(statement_tree tree, class_name string, varmap map[string]int) (string, int) {
 	statement := statement_tree.Branches[0]
@@ -71,11 +72,11 @@ func return_evaluate(expression *tree, varmap map[string]int) (string, int) {
 		return "return V", 1
 	}
 
-	ex_string, ex_length := expression_evaluation(expression)
+	ex_string, ex_type, ex_length := expression_evaluation(expression)
 
 	retstring := "" + 
 	ex_string + 
-	"return" 
+	ex_type + "return" 
 	return retstring, ex_length + 1
 }
 
@@ -87,9 +88,9 @@ func func_call_evaluate(func_name string, arg_block *tree, class_name string) (s
 }
 
 func if_evaluate(varmap map[string]int) (string int) {
-	ex_string, ex_length := expression_evaluation(expression)
+	ex_string, ex_type, ex_length := expression_evaluation(expression)
 }
 
 func while_evaluate(expression *tree, varmap map[string]int) (string, int) {
-	ex_string, ex_length := expression_evaluation(expression)
+	ex_string, ex_type, ex_length := expression_evaluation(expression)
 }

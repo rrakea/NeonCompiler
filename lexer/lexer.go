@@ -34,6 +34,8 @@ func Lex(path string, tokenChannel chan Token) {
 		panic("Lexer Error: File not able to be opened. Likely to be the wrong path. Path given: " + path)
 	}
 	defer file.Close()
+	name := file.Name()
+	tokenChannel <- Token{Identifier: name}
 
 	// Scan over the file
 	scanner := bufio.NewScanner(file)

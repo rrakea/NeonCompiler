@@ -21,14 +21,16 @@ type Function struct {
 }
 
 type Variable struct {
-	Vartype string
-	Name    string
+	Vartype    string
+	Name       string
+	Expression ParseTree
 }
 
 type InputType struct {
 	Inputtype string
 	Index     int
 }
+
 type TypeCheckerInfo struct {
 	Main       Function
 	Functions  map[string]Function            // Name -> Function
@@ -185,13 +187,13 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 				TypeCheckError("Wrong number of Inputs for function call of function " + name)
 				return info, false
 			}
-			/*for i, calltype := range calltype { 
+			/*for i, calltype := range calltype {
 				for _, input := range f.InputTypes {
 					if input.Index == i{
 						if calltype != input.Inputtype {
 							TypeCheckError("Function \"" + f.Name + "\" called with wrong parameter at index " + strconv.Itoa(i))
 							return info, false
-						} 
+						}
 					}
 				}
 			}*/
@@ -323,7 +325,7 @@ func detFuncInputRec(tree ParseTree, inputs *map[string]InputType, index int) er
 		return errors.New("Variable name declared twice in function Signature " + (*inputs)[tree.Branches[2].Leaf.Name].Inputtype + " " + tree.Branches[1].Branches[0].Leaf.Name)
 	}
 	(*inputs)[tree.Branches[2].Leaf.Value.(string)] = InputType{tree.Branches[1].Branches[0].Leaf.Name, index}
-	return detFuncInputRec(tree.Branches[3], inputs, index +1)
+	return detFuncInputRec(tree.Branches[3], inputs, index+1)
 }
 
 func determineVariables(tree ParseTree, vars map[string]Variable, static int, funcname string, info TypeCheckerInfo) (bool, error) {

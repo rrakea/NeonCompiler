@@ -23,7 +23,7 @@ func createParser(test bool) (*slr_parsing_Table, *Grammar) {
 	return table, grammar
 }
 
-func Parse(path string, test bool) (ParseTree, bool) {
+func Parse(path string, test bool) (ParseTree, string, bool) {
 	parseTreeChannel := make(chan any)
 	go createParseTree(parseTreeChannel)
 
@@ -31,6 +31,12 @@ func Parse(path string, test bool) (ParseTree, bool) {
 	slrTable, grammar := createParser(test)
 
 	go lexer.Lex(path, tokenChannel)
+	var nameToken lexer.Token
+	select {
+	case nameToken = <-tokenChannel:
+		break
+	}
+	file_name := nameToken.Identifier
 
 	linecount := 0
 	stack := makeStack(0)
@@ -57,7 +63,7 @@ func Parse(path string, test bool) (ParseTree, bool) {
 			res, err := slrTable.GetAction((*stackVal).(int), token.Identifier)
 			if err != nil {
 				parseError(*token, linecount, *stack, slrTable, parseTreeChannel)
-				return ParseTree{}, false
+				return ParseTree{}, file_name, false
 			}
 			switch res.actionType {
 			case "Shift":
@@ -78,7 +84,7 @@ func Parse(path string, test bool) (ParseTree, bool) {
 				gotoVal, err := slrTable.GetGoto((*stateBefore).(int), reductionRule.nonTerminal)
 				if err != nil {
 					parseError(*token, linecount, *stack, slrTable, parseTreeChannel)
-					return ParseTree{}, false
+					return ParseTree{}, file_name, false
 				}
 				stack.add(reductionRule.nonTerminal)
 				stack.add(gotoVal.val)
@@ -91,10 +97,10 @@ func Parse(path string, test bool) (ParseTree, bool) {
 		parseTreeChannel <- true
 		fmt.Println("Code passed parser")
 		tree := <-parseTreeChannel
-		return tree.(ParseTree), true
+		return tree.(ParseTree), file_name, true
 	}
 	parseError(lexer.Token{}, linecount, *stack, slrTable, parseTreeChannel)
-	return ParseTree{}, false
+	return ParseTree{}, file_name, false
 }
 
 func parseError(token lexer.Token, linecount int, stack Stack, table *slr_parsing_Table, parseTreeChannel chan any) {
