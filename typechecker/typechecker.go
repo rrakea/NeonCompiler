@@ -33,9 +33,9 @@ type InputType struct {
 
 type TypeCheckerInfo struct {
 	Main       Function
-	Functions  map[string]Function            // Name -> Function
-	GlobalVars map[string]Variable            // Name -> Variable
-	LocalVar   map[string]map[string]Variable // Func Name -> Var Name -> Variable
+	Functions  map[string]Function   // Name -> Function
+	GlobalVars map[string]Variable   // Name -> Variable
+	LocalVar   map[string][]Variable // Func Name -> []Variables
 	Code       map[string]ParseTree
 }
 

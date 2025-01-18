@@ -6,7 +6,8 @@ import (
 	"strconv"
 )
 
-func Statement_block_evaluate(statement_block *tree, class_name string, var_map map[string]int) (string, int){
+// Returns: The code as string, statement local limit, statement stack
+func Statement_block_evaluate(statement_block *tree, class_name string, var_map map[string]int) (string, int, int){
 	// TODO
 }
 
