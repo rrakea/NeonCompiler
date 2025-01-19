@@ -149,6 +149,7 @@ func func_call_evaluate(func_name string, arg_block *tree, func_sigs *function_s
 }
 
 func if_evaluate(condition *tree, statement_block *tree, var_info *variable_info, build *build_info, labels *label_info, func_sigs *function_signatures) (string, int) {
+	// TODO else
 	cond_code, cond_type, cond_stack_limit, _ := expression_evaluation(condition, var_info, build, func_sigs)
 	if cond_type != "Z" { // "Z" is bool in jasmin for some reason
 		panic("Internal error: Typecheck passed, but conditional expression does not evaluate to bool")

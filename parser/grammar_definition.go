@@ -62,6 +62,7 @@ func testGrammar() []Rule {
 		MakeRule("RETURN", []string{"return", ";"}),
 		MakeRule("VARASSIGN", []string{"name", "=", "EXPRESSION", ";"}),
 		
+		// TODO else without {}
 		MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "{", "STATEMENTBLOCK"}),
 		MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "{", "STATEMENTBLOCK", "ELSE"}),
 		MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "STATEMENT"}),
