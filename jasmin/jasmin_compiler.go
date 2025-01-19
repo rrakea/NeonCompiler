@@ -3,13 +3,31 @@ package jasmin
 import (
 	"compiler/parser"
 	"compiler/typechecker"
+	"os"
 )
 
 type tree = parser.ParseTree
 
+type variable_info struct {
+	global_vars      map[string]string // Name -> Type
+	local_vars_index map[string]int    // Name -> Index
+	local_vars_type  map[string]string // Name -> Type
+}
+
+type build_info struct {
+	file_name   string
+	jasmin_file *os.File
+	parse_info        *typechecker.TypeCheckerInfo
+}
+
 func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name string) {
 	jasmin_file := create_jasmin_file(file_name)
 	defer jasmin_file.Close()
+
+	build := new(build_info)
+	build.file_name = file_name
+	build.jasmin_file = jasmin_file
+	build.parse_info = info
 
 	add_header(jasmin_file, file_name)
 
@@ -18,6 +36,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 	global_var_type := make(map[string]string)
 	global_var_stack_limit := 0
 	global_var_locals_used := make(map[string]bool)
+
 	// Global Variable Definition
 	for _, global_var := range info.GlobalVars {
 		ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&global_var.Expression, nil, nil, global_var_type, file_name)
@@ -89,12 +108,11 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		func_stack_limit += statement_stack_limit
 		func_local_limit := len(locals_used_map)
 
-
 		add_function(jasmin_file, function.Name, function.ReturnType, func_arg_type, func_stack_limit, func_local_limit, func_code)
 	}
 }
 
-func jasmin_type_converter(var_type string) string{
+func jasmin_type_converter(var_type string) string {
 	switch var_type {
 	case "int":
 		return "I"

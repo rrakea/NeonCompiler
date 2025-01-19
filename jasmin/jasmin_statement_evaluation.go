@@ -8,24 +8,48 @@ import (
 type Function = typechecker.Function
 
 // Returns: The code as string, stack limit
-func Statement_block_evaluate(statement_block *tree, file_name string, var_map_index map[string]int, var_map_type map[string]string, global_var_type map[string]string, functions map[string]Function) (string, int) {
+func Statement_block_evaluate(function_body *tree, file_name string, var_info *variable_info, functions map[string]Function, if_count int, while_count int) (string, int) {
 	block_stack_limit := 0
 	code := ""
 
-	statements := typechecker.Parse_tree_search(*statement_block, "STATEMENT")
+	statements := find_top_level_statements(function_body)
 
 	
 	for _, statement := range statements {
 		if len(statement.Branches) == 1 {
 			continue
 		}
-		statement_code, statement_stack_limit := Statement_evaluate(&statement, file_name, var_map_index, var_map_type, global_var_type, functions)
+		statement_code, statement_stack_limit := Statement_evaluate(statement, file_name, var_info.local_vars_index, var_info.local_vars_type, var_info.global_vars, functions, if_count, while_count)
 		if statement_stack_limit > block_stack_limit {
 			block_stack_limit = statement_stack_limit
 		}
 		code += statement_code
 	}
 	return code, block_stack_limit
+}
+
+func find_top_level_statements(block *tree) []*tree {
+	statement_chan := make(chan *tree)
+	go find_routine(block, statement_chan)
+	statements := []*tree{}
+	select {
+	case statement, ok := <- statement_chan:
+		if !ok {
+			break
+		}
+		statements = append(statements, statement)
+	}
+	return statements
+}
+
+func find_routine(block *tree,stat_chan chan *tree) {
+	for _, branch := range block.Branches {
+		if branch.Leaf.Name == "STATEMENT" {
+			stat_chan <- &branch
+		} else {
+			go find_routine(&branch, stat_chan)
+		}
+	} 
 }
 
 // Returns code, stack limit
@@ -119,8 +143,23 @@ func func_call_evaluate(func_name string, arg_block *tree, var_map_index map[str
 	return call, arg_stack_limit
 }
 
-func if_evaluate(expression *tree, var_map_index map[string]int, var_map_type map[string]string, global_var_type map[string]string, file_name string, functions map[string]Function) (string int) {
-	ex_code, ex_type, ex_stack_limit, _ := expression_evaluation(expression, var_map_index, var_map_type, global_var_type, file_name)
+func if_evaluate(if_statement *tree, var_map_index map[string]int, var_map_type map[string]string, global_var_type map[string]string, file_name string, functions map[string]Function) (string int) {
+	condition, err := if_statement.Find_child("EXPRESSION")
+	if err != nil {
+		panic("Internal Error: If statement has no expressions as children")
+	}
+
+	cond_code, cond_type, cond_stack_limit, _ := expression_evaluation(condition, var_map_index, var_map_type, global_var_type, file_name)
+	if cond_type != "Z" { // "Z" is bool in jasmin for some reason
+		panic("Internal error: Typecheck passed, but conditional expression does not evaluate to bool")
+	}
+	
+	if_code := "" +
+	cond_code + "\n" +
+	"iconst_0\n" +
+	"if_icmpeq else_label" + if_count + "\n"
+
+	return if_code
 }
 
 func while_evaluate(expression *tree, var_map_index map[string]int, var_map_type map[string]string, global_var_type map[string]string, file_name string, functions map[string]Function) (string, int) {
