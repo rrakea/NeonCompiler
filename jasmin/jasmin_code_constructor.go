@@ -15,21 +15,21 @@ func create_jasmin_file(name string) *os.File {
 
 // Returns current line count ~ Line where next instruction will be written
 // 0 indexed
-func add_header(jasmin_file *os.File, file_name string) {
+func (build *build_info) add_header() {
 	boiler_plate := "" +
-		".class <public> <" + file_name + ">\n" +
+		".class <public> <" + build.file_name + ">\n" +
 		".super <java/lang/object> \n"
-	_, err := jasmin_file.WriteString(boiler_plate)
+	_, err := build.jasmin_file.WriteString(boiler_plate)
 	if err != nil {
 		panic("Could not write to file")
 	}
 }
 
 // Add global vars. Values get set in clinit
-func add_global_var(jasmin_file *os.File, name string, vartype string) {
+func (build *build_info) add_global_var(var_name string, var_type string) {
 	global_var_dec := "" +
-		".field public static " + name + " " + vartype
-	jasmin_file.WriteString(global_var_dec)
+		".field public static " + var_name + " " + var_type
+	build.jasmin_file.WriteString(global_var_dec)
 }
 
 func local_var_dec(name string, var_type string, var_count int, expression string) string {
@@ -41,8 +41,8 @@ func local_var_dec(name string, var_type string, var_count int, expression strin
 }
 
 // To initialize fields on the class initialisation
-func add_clinit(jasmin_file *os.File, static_vars map[string]string, var_type map[string]string, stack_limit int, local_limit int) {
-	file_name := jasmin_file.Name()
+func (build *build_info) add_clinit(global_var_code map[string]string, global_var_type map[string]string, stack_limit int, local_limit int) {
+	file_name := build.jasmin_file.Name()
 	local_limit_string := strconv.Itoa(local_limit)
 	stack_limit_string := strconv.Itoa(stack_limit)
 	clinit := "" +
@@ -50,17 +50,17 @@ func add_clinit(jasmin_file *os.File, static_vars map[string]string, var_type ma
 		".limit locals " + local_limit_string +
 		".limit stack " + stack_limit_string
 
-	for name, statement_block := range static_vars {
+	for name, statement_block := range global_var_code {
 		clinit += statement_block
-		clinit += "putstatic " + file_name + "/" + name + var_type[name] + "\n"
+		clinit += "putstatic " + file_name + "/" + name + global_var_type[name] + "\n"
 	}
 
 	clinit += "return \n"
 
-	jasmin_file.WriteString(clinit)
+	build.jasmin_file.WriteString(clinit)
 }
 
-func add_function(jasmin_file *os.File, method_name string, return_type string, arg_types string, stack_limit int, local_limit int, statements string) {
+func (build *build_info) add_function(method_name string, return_type string, arg_types string, stack_limit int, local_limit int, statements string) {
 	stack_limit_string := strconv.Itoa(stack_limit)
 	local_limit_string := strconv.Itoa(local_limit)
 	func_dec := "" +
@@ -72,7 +72,7 @@ func add_function(jasmin_file *os.File, method_name string, return_type string, 
 		method_name + "_end:\n" +
 		".end method\n"
 
-	_, err := jasmin_file.WriteString(func_dec)
+	_, err := build.jasmin_file.WriteString(func_dec)
 	if err != nil {
 		panic("Could not write to file")
 	}

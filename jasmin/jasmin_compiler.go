@@ -29,7 +29,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 	build.jasmin_file = jasmin_file
 	build.parse_info = info
 
-	add_header(jasmin_file, file_name)
+	build.add_header()
 
 	// Name -> Code
 	global_var_code := make(map[string]string)
@@ -51,14 +51,14 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		}
 
 		global_var_stack_limit += ex_stack_limit
-		add_global_var(jasmin_file, global_var.Name, global_var.Vartype)
+		build.add_global_var(global_var.Name, global_var.Vartype)
 		global_var_code[global_var.Name] = ex_code
 		global_var_type[global_var.Name] = ex_type
 	}
 
 	// The global var initialisation is in <clinit>
 	global_var_local_limit := len(global_var_locals_used)
-	add_clinit(jasmin_file, global_var_code, global_var_type, global_var_stack_limit, global_var_local_limit)
+	build.add_clinit(global_var_code, global_var_type, global_var_stack_limit, global_var_local_limit)
 
 	// Functions
 	for _, function := range info.Functions {
@@ -102,13 +102,14 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 			var_map_count[local_var.Name] = var_index + arg_count
 			var_map_type[local_var.Name] = local_var.Vartype
 		}
+		
 
 		statements, statement_stack_limit := Statement_block_evaluate(function.CodeTree, file_name, var_map_count, var_map_type, global_var_type, info.Functions)
 		func_code := local_var_code + statements
 		func_stack_limit += statement_stack_limit
 		func_local_limit := len(locals_used_map)
 
-		add_function(jasmin_file, function.Name, function.ReturnType, func_arg_type, func_stack_limit, func_local_limit, func_code)
+		build.add_function(function.Name, function.ReturnType, func_arg_type, func_stack_limit, func_local_limit, func_code)
 	}
 }
 
