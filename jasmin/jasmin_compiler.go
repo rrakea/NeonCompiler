@@ -43,10 +43,11 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 	global_var_type := make(map[string]string)
 	global_var_stack_limit := 0
 	global_var_locals_used := make(map[string]bool)
+	var_info_only_for_globals := variable_info{nil, nil, global_var_type}
 
 	// Global Variable Definition
 	for _, global_var := range info.GlobalVars {
-		ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&global_var.Expression, nil, nil, global_var_type, file_name)
+		ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&global_var.Expression, &var_info_only_for_globals, build)
 		if ex_type != global_var.Vartype {
 			panic("Internal Error: Type Checked Expression does not equal actual type of expression")
 		}
@@ -78,6 +79,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		// Maps the var name to its local var number
 		var_map_count := make(map[string]int)
 		var_map_type := make(map[string]string)
+		var_info := variable_info{local_vars_index: var_map_count, local_vars_type: var_map_type, global_vars: global_var_type}
 
 		// Function Arguments
 		arg_count := 0
@@ -91,7 +93,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		// Local Variables
 		local_var_code := ""
 		for var_index, local_var := range info.LocalVar[function.Name] {
-			ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&local_var.Expression, var_info, )
+			ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&local_var.Expression, &var_info, build)
 			if ex_type != local_var.Vartype {
 				panic("Internal Error: Type Checked Expression does not equal actual type of expression")
 			}
@@ -110,8 +112,6 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 			var_map_type[local_var.Name] = local_var.Vartype
 		}
 		
-		var_info := variable_info{local_vars_index: var_map_count, local_vars_type: var_map_type, global_vars: global_var_type}
-
 		statements, statement_stack_limit := Statement_block_evaluate(function.CodeTree, &var_info, info.Functions, build, &labels)
 		func_code := local_var_code + statements
 		func_stack_limit += statement_stack_limit
