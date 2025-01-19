@@ -17,11 +17,16 @@ type variable_info struct {
 type build_info struct {
 	file_name   string
 	jasmin_file *os.File
-	parse_info        *typechecker.TypeCheckerInfo
+	parse_info  *typechecker.TypeCheckerInfo
+}
+
+type function_signatures struct {
+	return_type    map[string]string
+	parameter_type map[string]string
 }
 
 type label_info struct {
-	if_count int
+	if_count    int
 	while_count int
 }
 
@@ -36,7 +41,9 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 
 	build.add_header()
 
-	labels := label_info{0,0}
+	labels := label_info{0, 0}
+
+	func_sigs := evaluate_func_signatures(info)
 
 	// Name -> Code
 	global_var_code := make(map[string]string)
@@ -47,7 +54,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 
 	// Global Variable Definition
 	for _, global_var := range info.GlobalVars {
-		ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&global_var.Expression, &var_info_only_for_globals, build)
+		ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&global_var.Expression, &var_info_only_for_globals, build, &func_sigs)
 		if ex_type != global_var.Vartype {
 			panic("Internal Error: Type Checked Expression does not equal actual type of expression")
 		}
@@ -93,7 +100,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		// Local Variables
 		local_var_code := ""
 		for var_index, local_var := range info.LocalVar[function.Name] {
-			ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&local_var.Expression, &var_info, build)
+			ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&local_var.Expression, &var_info, build, &func_sigs)
 			if ex_type != local_var.Vartype {
 				panic("Internal Error: Type Checked Expression does not equal actual type of expression")
 			}
@@ -111,14 +118,27 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 			var_map_count[local_var.Name] = var_index + arg_count
 			var_map_type[local_var.Name] = local_var.Vartype
 		}
-		
-		statements, statement_stack_limit := Statement_block_evaluate(function.CodeTree, &var_info, info.Functions, build, &labels)
+
+		statements, statement_stack_limit := Statement_block_evaluate(function.CodeTree, &var_info, &func_sigs, build, &labels)
 		func_code := local_var_code + statements
 		func_stack_limit += statement_stack_limit
 		func_local_limit := len(locals_used_map)
 
 		build.add_function(function.Name, function.ReturnType, func_arg_type, func_stack_limit, func_local_limit, func_code)
 	}
+}
+
+func evaluate_func_signatures (info *typechecker.TypeCheckerInfo) function_signatures {
+	func_sig := function_signatures{map[string]string{}, map[string]string{}}
+	for func_name, func_struct := range info.Functions {
+		func_sig.return_type[func_name] = jasmin_type_converter(func_struct.ReturnType)
+		parameters := ""
+		for _, parameter := range func_struct.InputTypes {
+			parameters += jasmin_type_converter(parameter.Inputtype)
+		}
+		func_sig.parameter_type[func_name] = parameters
+	}
+	return func_sig
 }
 
 func jasmin_type_converter(var_type string) string {
