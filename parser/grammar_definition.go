@@ -51,9 +51,10 @@ func testGrammar() []Rule {
 		MakeRule("INPUTCONTINUED", []string{")"}),
 		MakeRule("ARGBLOCK", []string{")"}),
 		MakeRule("ARGBLOCK", []string{"ARGSSTART"}),
-		MakeRule("ARGSSTART", []string{"EXPRESSION", "ARGCONTINUED"}),
+		MakeRule("ARG", []string{"EXPRESSION"}),
+		MakeRule("ARGSSTART", []string{"ARG", "ARGCONTINUED"}),
 		MakeRule("ARGCONTINUED", []string{")"}),
-		MakeRule("ARGCONTINUED", []string{",", "EXPRESSION", "ARGCONTINUED"}),
+		MakeRule("ARGCONTINUED", []string{",", "ARG", "ARGCONTINUED"}),
 		MakeRule("FUNCCALL", []string{"name", "(", "ARGBLOCK"}),
 		MakeRule("FUNCCALL", []string{"WRITE"}),
 		MakeRule("WRITE", []string{"name", ".", "name", "(", "ARGBLOCK"}),
@@ -61,6 +62,7 @@ func testGrammar() []Rule {
 		MakeRule("RETURN", []string{"return", ";"}),
 		MakeRule("VARASSIGN", []string{"name", "=", "EXPRESSION", ";"}),
 		
+		// TODO else without {}
 		MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "{", "STATEMENTBLOCK"}),
 		MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "{", "STATEMENTBLOCK", "ELSE"}),
 		MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "STATEMENT"}),

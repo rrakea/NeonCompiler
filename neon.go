@@ -1,9 +1,9 @@
 package main
 
 import (
+	"compiler/jasmin"
 	"compiler/parser"
 	"compiler/typechecker"
-	"compiler/jasmin"
 	"flag"
 	"fmt"
 	"os"
@@ -14,7 +14,7 @@ func main() {
 	compile := flag.Bool("compile", false, "Compile the code")
 	liveness := flag.Bool("liveness", false, "Start liveness analysis")
 	constants := flag.Bool("constants", false, "Start constant propagation analysis")
-	
+
 	flag.Parse()
 
 	fmt.Println()
@@ -62,7 +62,7 @@ func main() {
 		tree, file_name, parsingSuccesful := parser.Parse(path, true)
 		fmt.Println()
 
-		if !parsingSuccesful{
+		if !parsingSuccesful {
 			return
 		}
 
@@ -72,8 +72,8 @@ func main() {
 		}
 		fmt.Println("Type Check Succesful!")
 		fmt.Println()
-		jasmin.Compile(&tree, &typeinfo, file_name)
-		
+		jasmin.Build_jasmin(&tree, &typeinfo, file_name)
+
 		fmt.Println("Compilation completed!")
 		fmt.Println("Jasmin file created!")
 	}

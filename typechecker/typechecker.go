@@ -33,9 +33,9 @@ type InputType struct {
 
 type TypeCheckerInfo struct {
 	Main       Function
-	Functions  map[string]Function            // Name -> Function
-	GlobalVars map[string]Variable            // Name -> Variable
-	LocalVar   map[string]map[string]Variable // Func Name -> Var Name -> Variable
+	Functions  map[string]Function   // Name -> Function
+	GlobalVars map[string]Variable   // Name -> Variable
+	LocalVar   map[string][]Variable // Func Name -> []Variables
 	Code       map[string]ParseTree
 }
 
@@ -52,16 +52,18 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 
 	// Determine Function Signatures
 	// Return & Input types -> Function Map
-	main := treeSearch(tree, "MAIN")
+	main := Parse_tree_search(tree, "MAIN")
 	if len(main) != 1 {
 		TypeCheckError("Wrong amount of main function in source file")
 		return info, false
 	}
 	mainFunc := Function{Name: "main", ReturnType: "void", InputTypes: make(map[string]InputType), CodeTree: &main[0].Branches[10]}
+	args_name := main[0].Branches[7].Leaf.Value.(string)
+	mainFunc.InputTypes[args_name] = InputType{"string[]", 0}
 	info.Main = mainFunc
 
 	functions := make(map[string]Function)
-	funcArr := treeSearch(tree, "FUNC")
+	funcArr := Parse_tree_search(tree, "FUNC")
 	for _, f := range funcArr {
 		name := f.Branches[locationOfNameInFuncDec].Leaf.Value.(string)
 		//fmt.Println(name)
@@ -79,7 +81,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 	info.Functions = functions
 
 	// Determine Global scoped vars
-	globals := treeSearch(tree, "GLOBALVARBLOCK")
+	globals := Parse_tree_search(tree, "GLOBALVARBLOCK")
 	globalvars := make(map[string]Variable)
 	for _, globalvar := range globals {
 		if len(globalvar.Branches) == 1 {
@@ -102,7 +104,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 	for _, f := range info.Functions {
 		localVars[f.Name] = make(map[string]Variable)
 		functiontree := *f.CodeTree
-		locals := treeSearch(functiontree, "VIRTUALVARBLOCK")
+		locals := Parse_tree_search(functiontree, "VIRTUALVARBLOCK")
 		for _, l := range locals {
 			if len(l.Branches) == 1 {
 				break
@@ -128,7 +130,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 
 	for _, f := range info.Functions {
 		functiontree := f.CodeTree
-		assigns := treeSearch(*functiontree, "VARASSIGN")
+		assigns := Parse_tree_search(*functiontree, "VARASSIGN")
 		for _, assign := range assigns {
 			name := assign.Branches[0].Leaf.Value.(string)
 			actualtype := ""
@@ -156,7 +158,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 	for _, f := range info.Functions {
 
 		// Determine each function call is correct
-		for _, call := range treeSearch(tree, "FUNCCALL") {
+		for _, call := range Parse_tree_search(tree, "FUNCCALL") {
 			if len(call.Branches) == 1 {
 				// Console.Log
 			}
@@ -200,7 +202,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 		}
 
 		functree := f.CodeTree
-		returnarr := treeSearch(*functree, "RETURN")
+		returnarr := Parse_tree_search(*functree, "RETURN")
 		for _, r := range returnarr {
 			if len(r.Branches) <= 1 {
 				if f.ReturnType == "void" {
@@ -222,7 +224,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 			}
 		}
 
-		ifarr := treeSearch(*functree, "IF")
+		ifarr := Parse_tree_search(*functree, "IF")
 
 		for _, r := range ifarr {
 			extype, err := typeCheckExpression(r.Branches[2], f.Name, info)
@@ -237,7 +239,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 			}
 		}
 
-		whilearr := treeSearch(*functree, "WHILE")
+		whilearr := Parse_tree_search(*functree, "WHILE")
 
 		for _, r := range whilearr {
 			extype, err := typeCheckExpression(r.Branches[2], f.Name, info)
@@ -260,7 +262,7 @@ func TypeCheckError(s string) {
 	fmt.Println(s)
 }
 
-func treeSearch(tree ParseTree, name string) []ParseTree {
+func Parse_tree_search(tree ParseTree, name string) []ParseTree {
 	tokenchannel := make(chan ParseTree)
 	wg := new(sync.WaitGroup)
 	res := []ParseTree{}
