@@ -189,6 +189,9 @@ func deduplicate_locals_used(locals []string) []string {
 }
 
 func check_for_cast(left_side_type string, right_side_type string) (string, string, string, string) {
+		left_side_type = jasmin_type_prefix_converter(left_side_type)
+		right_side_type = jasmin_type_prefix_converter(right_side_type)
+
 	if left_side_type == "Z" {
 		if right_side_type != "Z" {
 			panic("A bool and a non bool are being compared")

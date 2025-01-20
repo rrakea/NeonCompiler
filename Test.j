@@ -16,28 +16,11 @@ return
 .limit stack 2
 ldc 0
 istore 0
-iload 4
-iload 3
+iload 0
+iload 1
 dadd
 iload 2
 dadd
 return
-.end method
-
-.method public static main([Ljava/lang/String;) V
-.limit locals 2
-.limit stack 4
-ldc 1
-ldc 2
-getstatic Test/i I
-imul
-iadd
-istore 0
-getstatic Test/i I
-
-iload 1
-
-invokestatic Test/add(II)I
-return 
 .end method
 

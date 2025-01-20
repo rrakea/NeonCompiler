@@ -115,9 +115,9 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 				func_stack_limit += ex_stack_limit
 				var_code := local_var_dec(local_var.Name, local_var.Vartype, var_index, ex_code)
 				local_var_code += var_code
+				var_map_count[local_var.Name] = var_index + arg_count
+				var_map_type[local_var.Name] = local_var.Vartype
 			}
-			var_map_count[local_var.Name] = var_index + arg_count
-			var_map_type[local_var.Name] = local_var.Vartype
 		}
 
 		statements, statement_stack_limit := Statement_block_evaluate(function.CodeTree, &var_info, &func_sigs, build, &labels)
@@ -156,8 +156,10 @@ func jasmin_type_converter(var_type string) string {
 		return "Ljava/lang/String;"
 	case "string[]":
 		return "[Ljava/lang/String;"
-	case "void":
+	case "void", "":
 		return "V"
+	case "I", "V", "[Ljava/lang/String;", "D":
+		return var_type
 	default:
 		panic("Internal Error: Invalid Type used")
 	}
@@ -165,16 +167,18 @@ func jasmin_type_converter(var_type string) string {
 
 func jasmin_type_prefix_converter(var_type string) string {
 	switch var_type {
-	case "int":
+	case "int", "I":
 		return "i"
-	case "double":
+	case "double", "D":
 		return "d"
-	case "bool":
+	case "bool", "Z":
 		return "z"
-	case "string":
+	case "string", "Ljava/lang/String;":
 		return "a"
-	case "string[]":
+	case "string[]", "[Ljava/lang/String;":
 		return "[a"
+	case "void", "V", "":
+		return ""
 	default:
 		panic("Internal Error: Invalid Type used " + var_type)
 	}
