@@ -18,8 +18,9 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 		case "name":
 			name := child.Leaf.Value.(string)
 			var_type, ok := var_info.local_vars_type[name]
+			index := var_info.local_vars_index[name]
 			if ok {
-				return var_type + "load " + name, var_type, 1, []string{name}
+				return jasmin_type_prefix_converter(var_type) + "load " + strconv.Itoa(index), var_type, 1, []string{name}
 			}
 			var_type, ok = var_info.global_vars[name]
 			if ok {
@@ -35,7 +36,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			case "intliteral":
 				return "ldc " + strconv.Itoa(child.Branches[0].Leaf.Value.(int)) + "\n", "I", 1, []string{}
 			case "doubleliteral":
-				return "ldc2_w " + strconv.FormatFloat(child.Leaf.Value.(float64) , 'f', -1, 64) + "\n", "D", 1, []string{}
+				return "ldc2_w " + strconv.FormatFloat(child.Leaf.Value.(float64), 'f', -1, 64) + "\n", "D", 1, []string{}
 			default:
 				panic("Invalid Literal name " + child.Leaf.Name)
 			}

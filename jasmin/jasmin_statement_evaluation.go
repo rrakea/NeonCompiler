@@ -35,19 +35,18 @@ func find_closest_children(block *tree, name string) []*tree {
 	wg.Add(1)
 	go find_routine(block, statement_chan, name, wg)
 	statements := []*tree{}
-	wg.Wait()
-	close(statement_chan)
-	select {
-	case statement, ok := <-statement_chan:
-		if !ok {
-			break
-		}
-		statements = append(statements, statement)
+	go func() {
+		wg.Wait()
+		close(statement_chan)
+	}()
+	for stat := range statement_chan {
+		statements = append(statements, stat)
 	}
 	return statements
 }
 
 func find_routine(block *tree, stat_chan chan *tree, name string, wg *sync.WaitGroup) {
+	defer wg.Done()
 	for _, branch := range block.Branches {
 		if branch.Leaf.Name == name {
 			stat_chan <- &branch
@@ -56,7 +55,6 @@ func find_routine(block *tree, stat_chan chan *tree, name string, wg *sync.WaitG
 			go find_routine(&branch, stat_chan, name, wg)
 		}
 	}
-	wg.Done()
 }
 
 // Returns code, stack limit
@@ -152,7 +150,7 @@ func func_call_evaluate(func_name string, arg_block *tree, func_sigs *function_s
 	}
 	call := "" +
 		arg_code +
-		"invokestatic " + build.file_name + "/" + func_name + "(" + func_sigs.parameter_type[func_name] + ")" + func_sigs.return_type[func_name]
+		"invokestatic " + build.file_name + "/" + func_name + "(" + func_sigs.parameter_type[func_name] + ")" + func_sigs.return_type[func_name] + "\n"
 	return call, arg_stack_limit
 }
 

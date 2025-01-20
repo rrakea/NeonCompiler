@@ -21,7 +21,7 @@ func create_jasmin_file(name string) *os.File {
 func (build *build_info) add_header() {
 	boiler_plate := "" +
 		".class public " + build.file_name + "\n" +
-		".super java/lang/Object \n"
+		".super java/lang/Object \n\n"
 	_, err := build.jasmin_file.WriteString(boiler_plate)
 	if err != nil {
 		panic("Could not write to file")
@@ -64,15 +64,20 @@ func (build *build_info) add_clinit(global_var_code map[string]string, global_va
 	build.jasmin_file.WriteString(clinit)
 }
 
-func (build *build_info) add_function(method_name string, return_type string, arg_types string, stack_limit int, local_limit int, statements string) {
+func (build *build_info) add_function(method_name string, return_type string, arg_types []string, stack_limit int, local_limit int, statements string) {
 	stack_limit_string := strconv.Itoa(stack_limit)
 	local_limit_string := strconv.Itoa(local_limit)
 	void_return := ""
 	if return_type == "void" {
 		void_return = "return \n"
 	}
+	arg_type_string := ""
+	for _, arg := range arg_types {
+		arg_type_string += jasmin_type_converter(arg)
+	}
+
 	func_dec := "" +
-		".method public static " + method_name + "(" + arg_types + ") " + return_type + "\n" +
+		".method public static " + method_name + "(" + arg_type_string + ") " + return_type + "\n" +
 		".limit stack " + stack_limit_string + "\n" +
 		".limit locals " + local_limit_string + "\n" +
 		statements +

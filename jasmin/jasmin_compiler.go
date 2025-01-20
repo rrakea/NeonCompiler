@@ -71,6 +71,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		global_var_code[global_var.Name] = ex_code
 		global_var_type[global_var.Name] = ex_type
 	}
+	build.jasmin_file.WriteString("\n")
 
 	// The global var initialisation is in <clinit>
 	global_var_local_limit := len(global_var_locals_used)
@@ -79,7 +80,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 	// Functions
 	for _, function := range info.Functions {
 		func_stack_limit := 0
-		func_arg_type := ""
+		func_arg_type := []string{}
 
 		// Which locals are used by name, so that we dont set a local limit that is too high
 		locals_used_map := make(map[string]bool)
@@ -92,7 +93,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		// Function Arguments
 		arg_count := 0
 		for arg_name, arg_type := range info.Functions[function.Name].InputTypes {
-			func_arg_type += arg_type.Inputtype
+			func_arg_type = append(func_arg_type, arg_type.Inputtype)
 			var_map_count[arg_name] = arg_count
 			var_map_type[arg_name] = arg_type.Inputtype
 			arg_count++
@@ -127,7 +128,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		func_stack_limit += statement_stack_limit
 		func_local_limit := len(locals_used_map)
 
-		build.add_function(function.Name, jasmin_type_converter(function.ReturnType), jasmin_type_converter(func_arg_type), func_stack_limit, func_local_limit, func_code)
+		build.add_function(function.Name, jasmin_type_converter(function.ReturnType), func_arg_type, func_stack_limit, func_local_limit, func_code)
 	}
 }
 
