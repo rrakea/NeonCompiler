@@ -15,6 +15,10 @@ go build neon.go
 Run:
 ./main -compile [filepath]
 
+Build Jasmin:
+java -jar [path to jasmin.jar] [filepath]
+
+Flags:
 -liveness for variable liveness analysis
 -constant for constant propogation analysis
 
