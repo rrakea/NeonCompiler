@@ -63,7 +63,7 @@ func Statement_evaluate(statement_tree *tree, func_sigs *function_signatures, va
 		if err != nil {
 			panic("Invalid funccall found in parse tree")
 		}
-		return func_call_evaluate(name, argblock, func_sigs, var_info, build)
+		return func_call_evaluate(name, argblock, func_sigs, var_info, build, labels)
 	case "VARASSIGN":
 		name_tree, err := statement.Find_child("name")
 		name := name_tree.Leaf.Value.(string)
@@ -71,14 +71,14 @@ func Statement_evaluate(statement_tree *tree, func_sigs *function_signatures, va
 		if err != nil {
 			panic("Invalid var assign in parse tree")
 		}
-		return var_assign_evaluate(name, expression, var_info, build, func_sigs)
+		return var_assign_evaluate(name, expression, var_info, build, func_sigs, labels)
 
 	case "RETURN":
 		expression, err := statement.Find_child("EXPRESSION")
 		if err != nil {
 			expression = nil
 		}
-		return return_evaluate(expression, var_info, build, func_sigs)
+		return return_evaluate(expression, var_info, build, func_sigs, labels)
 	case "IF":
 		condition, err := statement.Find_child("EXPRESSION")
 		if err != nil {
@@ -104,8 +104,8 @@ func Statement_evaluate(statement_tree *tree, func_sigs *function_signatures, va
 	}
 }
 
-func var_assign_evaluate(var_name string, expression *tree, var_info *variable_info, build *build_info, func_sigs *function_signatures) (string, int) {
-	ex_code, ex_type, ex_stack_limit, _ := expression_evaluation(expression, var_info, build, func_sigs)
+func var_assign_evaluate(var_name string, expression *tree, var_info *variable_info, build *build_info, func_sigs *function_signatures, labels *label_info) (string, int) {
+	ex_code, ex_type, ex_stack_limit, _ := expression_evaluation(expression, var_info, build, func_sigs, labels)
 	location, ok := var_info.local_vars_index[var_name]
 	if !ok {
 		panic("Unitialized Variable " + var_name)
@@ -118,13 +118,13 @@ func var_assign_evaluate(var_name string, expression *tree, var_info *variable_i
 	return retstring, ex_stack_limit
 }
 
-func return_evaluate(expression *tree, var_info *variable_info, build *build_info, func_sigs *function_signatures) (string, int) {
+func return_evaluate(expression *tree, var_info *variable_info, build *build_info, func_sigs *function_signatures, labels *label_info) (string, int) {
 	if expression == nil {
 		// Void Return
 		return "return\n", 0
 	}
 
-	ex_code, ex_type, ex_stack_limit, _ := expression_evaluation(expression, var_info, build, func_sigs)
+	ex_code, ex_type, ex_stack_limit, _ := expression_evaluation(expression, var_info, build, func_sigs, labels)
 
 	retstring := "" +
 		ex_code +
@@ -132,13 +132,13 @@ func return_evaluate(expression *tree, var_info *variable_info, build *build_inf
 	return retstring, ex_stack_limit
 }
 
-func func_call_evaluate(func_name string, arg_block *tree, func_sigs *function_signatures, var_info *variable_info, build *build_info) (string, int) {
+func func_call_evaluate(func_name string, arg_block *tree, func_sigs *function_signatures, var_info *variable_info, build *build_info, labels *label_info) (string, int) {
 	args := typechecker.Parse_tree_search(*arg_block, "ARG")
 	arg_stack_limit := 0
 	arg_code := ""
 
 	for _, arg := range args {
-		ex_code, ex_type, ex_stack_limit, _ := expression_evaluation(&arg.Branches[0], var_info, build, func_sigs)
+		ex_code, ex_type, ex_stack_limit, _ := expression_evaluation(&arg.Branches[0], var_info, build, func_sigs, labels)
 		_ = ex_type
 		arg_code += ex_code + "\n"
 		arg_stack_limit = max(arg_stack_limit, ex_stack_limit+len(args))
@@ -151,7 +151,7 @@ func func_call_evaluate(func_name string, arg_block *tree, func_sigs *function_s
 
 func if_evaluate(condition *tree, statement_block *tree, var_info *variable_info, build *build_info, labels *label_info, func_sigs *function_signatures) (string, int) {
 	// TODO else
-	cond_code, cond_type, cond_stack_limit, _ := expression_evaluation(condition, var_info, build, func_sigs)
+	cond_code, cond_type, cond_stack_limit, _ := expression_evaluation(condition, var_info, build, func_sigs, labels)
 	if cond_type != "Z" { // "Z" is bool in jasmin for some reason
 		panic("Internal error: Typecheck passed, but conditional expression does not evaluate to bool")
 	}
@@ -170,7 +170,7 @@ func if_evaluate(condition *tree, statement_block *tree, var_info *variable_info
 }
 
 func while_evaluate(condition *tree, statement_block *tree, var_info *variable_info, build *build_info, labels *label_info, func_sigs *function_signatures) (string, int) {
-	cond_code, cond_type, cond_stack_limit, _ := expression_evaluation(condition, var_info, build, func_sigs)
+	cond_code, cond_type, cond_stack_limit, _ := expression_evaluation(condition, var_info, build, func_sigs, labels)
 	if cond_type != "Z" { // "Z" is bool in jasmin for some reason
 		panic("Internal error: Typecheck passed, but conditional expression does not evaluate to bool")
 	}

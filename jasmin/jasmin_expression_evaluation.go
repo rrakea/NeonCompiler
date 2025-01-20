@@ -4,7 +4,7 @@ import "strconv"
 
 // Returns jasmincode, type, stacklimit, locals used
 // Leaves the result on top of the stack!!!
-func expression_evaluation(expression *tree, var_info *variable_info, build *build_info, func_sigs *function_signatures) (string, string, int, []string) {
+func expression_evaluation(expression *tree, var_info *variable_info, build *build_info, func_sigs *function_signatures, labels *label_info) (string, string, int, []string) {
 	// Local Var Maps can also be nil!!!
 
 	child := expression.Branches[0]
@@ -14,7 +14,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 	case 1:
 		switch expression.Branches[0].Leaf.Name {
 		case "EL1", "EL2", "EL3", "EL4", "EL5", "EL6", "EL7":
-			return expression_evaluation(&child, var_info, build, func_sigs)
+			return expression_evaluation(&child, var_info, build, func_sigs, labels)
 		case "name":
 			name := child.Leaf.Value.(string)
 			var_type, ok := var_info.local_vars_type[name] 
@@ -50,7 +50,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			arg_total_locals_used := map[string]bool{}
 			args := find_closest_children(&child, "arg")
 			for i, arg := range args {
-				arg_code, arg_type, arg_stack_limit, arg_locals_used := expression_evaluation(arg, var_info, build, func_sigs)
+				arg_code, arg_type, arg_stack_limit, arg_locals_used := expression_evaluation(arg, var_info, build, func_sigs, labels)
 				_ = arg_type
 				args_code += arg_code + "\n"
 				if arg_stack_limit + i > arg_total_stack_limit {
@@ -71,9 +71,9 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 	case 2: // Unary Operations
 		switch child.Leaf.Value {
 		case "+":
-			return expression_evaluation(&expression.Branches[1], var_info, build, func_sigs)  
+			return expression_evaluation(&expression.Branches[1], var_info, build, func_sigs, labels)  
 		case "-":
-			code, var_type, stack_limit, locals_used :=expression_evaluation(&expression.Branches[1], var_info, build, func_sigs)
+			code, var_type, stack_limit, locals_used :=expression_evaluation(&expression.Branches[1], var_info, build, func_sigs, labels)
 			switch var_type {
 			case "D":
 				code = "dneg " + code
@@ -84,27 +84,123 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			}
 			return code, var_type, stack_limit, locals_used
 		case "!":
-			
+			code, var_type, stack_limit, locals_used :=expression_evaluation(&expression.Branches[1], var_info, build, func_sigs, labels)
+			if var_type != "B" {
+				panic("Invalic Operator \"!\" before non bool value")
+			}
+			code = "" +
+			code +
+			"iconst_0 \n" +
+			"ifeq bool_ex_false_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
+			"iconst_0\n" +
+			"goto bool_ex_end_" + strconv.Itoa(labels.bool_jump_count) + ":\n" +
+			"bool_ex_false_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
+			"iconst_1\n" +
+			"bool_ex_end_" + strconv.Itoa(labels.bool_jump_count) + ":\n"
+			labels.bool_jump_count += 1
+			return code, "B", stack_limit + 1, locals_used
 		}
 	case 3:
-		left_side_code, left_side_type, left_side_stack_limit, left_side_locals_used := expression_evaluation(&expression.Branches[0], var_info, build, func_sigs)
-		right_side_code, right_side_type, right_side_stack_limit, right_side_locals_used := expression_evaluation(&expression.Branches[2], var_info, build, func_sigs)
+		left_side_code, left_side_type, left_side_stack_limit, left_side_locals_used := expression_evaluation(&expression.Branches[0], var_info, build, func_sigs, labels)
+		right_side_code, right_side_type, right_side_stack_limit, right_side_locals_used := expression_evaluation(&expression.Branches[2], var_info, build, func_sigs, labels)
 		
-		op_jasmin, type_required, return_type := operator_to_jasmin(expression.Branches[1].Leaf.Value.(string)) 
-	}
+		op_code := ""
+		potential_cast_left, potential_cast_right, res_type, op_code_prefix := check_for_cast(left_side_type, right_side_type)
+		op := expression.Branches[1].Leaf.Value.(string)
+		switch op{
+		case "+":
+			op_code = op_code_prefix + "add"
+		case "*":
+			op_code = op_code_prefix + "mul"
+		case "/":
+			op_code = op_code_prefix + "div"
+		case "%":
+			op_code = op_code_prefix + "mod"
+		case "-":
+			op_code = op_code_prefix + "sub"
+		case ">":
+			res_type = "Z"
+			op_code =  
+			"if" + op_code_prefix + "cmpgt bool_ex_false_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
+			"iconst_1\n" + 
+			"goto bool_ex_end_" + strconv.Itoa(labels.bool_jump_count) + ":\n" +
+			"bool_ex_false_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
+			"iconst_0\n" +
+			"bool_ex_end_" + strconv.Itoa(labels.bool_jump_count) + ":\n"
+			labels.bool_jump_count += 1
+		case "<":
+			res_type = "Z"
+			op_code =  
+			"if" + op_code_prefix + "cmpgt bool_ex_false_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
+			"iconst_0 ;reversed here\n" + 
+			"goto bool_ex_end_" + strconv.Itoa(labels.bool_jump_count) + ":\n" +
+			"bool_ex_false_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
+			"iconst_1\n" +
+			"bool_ex_end_" + strconv.Itoa(labels.bool_jump_count) + ":\n"
+			labels.bool_jump_count += 1
+		case "<=":
+			switch res_type {
+			case "I":
+			case "D":
+				op_code =
+				"dcmpge\n" +
+				""
+			}
+		case ">=":
+		case "!=":
+			// Can be bools or ints!
+		case "==":
+		case "&&":
+		case "||":
 
-	return "\n", "int", 1, []string{}
+
+		default:
+			panic("Unknown operator in expression: " + expression.Branches[0].Leaf.Value.(string))
+		}
+		code := potential_cast_left + left_side_code + potential_cast_right + right_side_code + op_code
+
+		total_locals_used := deduplicate_locals_used(append(left_side_locals_used, right_side_locals_used...))
+		
+		return code, res_type, max(left_side_stack_limit, right_side_stack_limit), total_locals_used  
+	}
+	panic("I dont even know how you got here")
 }
 
-func operator_to_jasmin (op string) (string, string, string){
-	switch op {
-	case "+":
-		return "add", "num", "num"
-	case "-":
-		return "sub", "num", "num"
-	case  "*":
-		return "mul", "num", "num"
-	case ">":
-		return ""
+func deduplicate_locals_used (locals []string) []string{
+	tmp_map := map[string]bool{}
+	for _, local := range locals {
+		tmp_map[local] = true
 	}
+	ret_locals := []string{}
+	for local := range tmp_map {
+		ret_locals = append(ret_locals, local)
+	}
+	return ret_locals
+}  
+
+func check_for_cast (left_side_type string, right_side_type string) (string, string, string, string) {
+	res_type := ""
+	potential_cast_left := ""
+	potential_cast_right := ""
+	op_code_type := ""
+
+	if left_side_type == "I" && right_side_type == "I" {
+		res_type = "I"
+		op_code_type = "i"
+		return potential_cast_left, potential_cast_right, res_type, op_code_type
+	}
+	if left_side_type == "D"{
+		res_type = "D"
+		potential_cast_right = "i2d"
+	}
+	if right_side_type == "D" {
+		res_type = "D"
+		if potential_cast_right == "i2d" {
+			potential_cast_right = ""
+		} else {
+			potential_cast_left = "i2d"
+		}
+	}
+	op_code_type = "d"
+	return potential_cast_left, potential_cast_right, res_type, op_code_type
 }

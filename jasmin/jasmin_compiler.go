@@ -26,8 +26,9 @@ type function_signatures struct {
 }
 
 type label_info struct {
-	if_count    int
-	while_count int
+	if_count        int
+	while_count     int
+	bool_jump_count int
 }
 
 func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name string) {
@@ -41,7 +42,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 
 	build.add_header()
 
-	labels := label_info{0, 0}
+	labels := label_info{0, 0, 0}
 
 	func_sigs := evaluate_func_signatures(info)
 
@@ -54,7 +55,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 
 	// Global Variable Definition
 	for _, global_var := range info.GlobalVars {
-		ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&global_var.Expression, &var_info_only_for_globals, build, &func_sigs)
+		ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&global_var.Expression, &var_info_only_for_globals, build, &func_sigs, &labels)
 		if ex_type != global_var.Vartype {
 			panic("Internal Error: Type Checked Expression does not equal actual type of expression")
 		}
@@ -100,7 +101,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		// Local Variables
 		local_var_code := ""
 		for var_index, local_var := range info.LocalVar[function.Name] {
-			ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&local_var.Expression, &var_info, build, &func_sigs)
+			ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&local_var.Expression, &var_info, build, &func_sigs, &labels)
 			if ex_type != local_var.Vartype {
 				panic("Internal Error: Type Checked Expression does not equal actual type of expression")
 			}
@@ -128,7 +129,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 	}
 }
 
-func evaluate_func_signatures (info *typechecker.TypeCheckerInfo) function_signatures {
+func evaluate_func_signatures(info *typechecker.TypeCheckerInfo) function_signatures {
 	func_sig := function_signatures{map[string]string{}, map[string]string{}}
 	for func_name, func_struct := range info.Functions {
 		func_sig.return_type[func_name] = jasmin_type_converter(func_struct.ReturnType)
