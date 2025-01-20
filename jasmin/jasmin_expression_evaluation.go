@@ -20,7 +20,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			var_type, ok := var_info.local_vars_type[name]
 			index := var_info.local_vars_index[name]
 			if ok {
-				return jasmin_type_prefix_converter(var_type) + "load " + strconv.Itoa(index), var_type, 1, []string{name}
+				return jasmin_type_prefix_converter(var_type) + "load " + strconv.Itoa(index) + "\n", var_type, 1, []string{name}
 			}
 			var_type, ok = var_info.global_vars[name]
 			if ok {

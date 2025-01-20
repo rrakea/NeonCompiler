@@ -16,9 +16,6 @@ func Statement_block_evaluate(function_body *tree, var_info *variable_info, func
 	statements := find_closest_children(function_body, "STATEMENT")
 
 	for _, statement := range statements {
-		if len(statement.Branches) == 1 {
-			continue
-		}
 		statement_code, statement_stack_limit := Statement_evaluate(statement, func_sigs, var_info, build, labels)
 		if statement_stack_limit > block_stack_limit {
 			block_stack_limit = statement_stack_limit
@@ -133,7 +130,7 @@ func return_evaluate(expression *tree, var_info *variable_info, build *build_inf
 
 	retstring := "" +
 		ex_code +
-		ex_type + "return"
+		ex_type + "return\n"
 	return retstring, ex_stack_limit
 }
 
