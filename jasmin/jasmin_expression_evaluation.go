@@ -27,7 +27,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			}
 			panic("Internal Error: Var lookup failed. " + name + " not found in local or global var map")
 		case "LITERAL":
-			switch child.Leaf.Name {
+			switch child.Branches[0].Leaf.Name {
 			case "stringliteral":
 				return "ldc " + child.Leaf.Value.(string), "Ljava/lang/String;", 1, []string{}
 			case "boolliteral":
@@ -36,6 +36,8 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 				return "ldc " + strconv.Itoa(child.Leaf.Value.(int)), "I", 1, []string{}
 			case "doubleliteral":
 				return "ldc2_w " + strconv.FormatFloat(child.Leaf.Value.(float64), 'f', -1, 64), "D", 1, []string{}
+			default:
+				panic("Invalid Literal name " + child.Leaf.Name)
 			}
 		case "FUNCCALL":
 			func_name := child.Leaf.Value.(string)

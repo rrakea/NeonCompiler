@@ -87,7 +87,11 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 		if len(globalvar.Branches) == 1 {
 			break
 		}
-		successful, err := determineVariables(globalvar, globalvars, 1, "", info)
+		ex, err := globalvar.Find_child("EXPRESSION")
+		if err != nil {
+			panic("Internal Error: Global Varblock does not have expression child")
+		}
+		successful, err := determineVariables(globalvar, globalvars, ex, 1, "", info)
 		if err != nil {
 			successful = false
 			TypeCheckError(err.Error())
@@ -110,7 +114,11 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 			if len(l.Branches) == 1 {
 				break
 			}
-			successful, err := determineVariables(l, localVars[f.Name], 0, f.Name, info)
+			ex, err := l.Find_child("EXPRESSION")
+			if err != nil {
+				panic("Internal Error: Global Varblock does not have expression child")
+			}
+			successful, err := determineVariables(l, localVars[f.Name], ex, 0, f.Name, info)
 			if err != nil {
 				successful = false
 				TypeCheckError(err.Error())
@@ -340,10 +348,10 @@ func detFuncInputRec(tree ParseTree, inputs *map[string]InputType, index int) er
 	return detFuncInputRec(tree.Branches[3], inputs, index+1)
 }
 
-func determineVariables(tree ParseTree, vars map[string]Variable, static int, funcname string, info TypeCheckerInfo) (bool, error) {
+func determineVariables(tree ParseTree, vars map[string]Variable, expression *ParseTree, static int, funcname string, info TypeCheckerInfo) (bool, error) {
 	name := tree.Branches[1+static].Leaf.Value.(string)
 	vartype := tree.Branches[static].Branches[0].Leaf.Name
-	newVar := Variable{Name: name, Vartype: vartype}
+	newVar := Variable{Name: name, Vartype: vartype, Expression: *expression}
 	expressiontype, err := typeCheckExpression(tree.Branches[3+static], funcname, info)
 	if err != nil {
 		return false, err
