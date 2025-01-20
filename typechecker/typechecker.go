@@ -54,6 +54,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 	// Return & Input types -> Function Map
 	main := Parse_tree_search(tree, "MAIN")
 	if len(main) != 1 {
+		// TODO RACE CONDITION????
 		TypeCheckError("Wrong amount of main function in source file")
 		return info, false
 	}
@@ -190,14 +191,17 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 					return info, false
 				}
 			}
+
 			starttype, err := typeCheckExpression(start.Branches[0], f.Name, info)
 			if err != nil {
 				TypeCheckError("In funccall expression " + name)
 			}
+
+			//TODO Arg Type Checking
 			calltype := []string{starttype}
 			calc, err := calcArgContinue(start.Branches[1], f.Name, info)
 			if err != nil {
-				TypeCheckError(err.Error() + "In funccall expression " + name)
+				TypeCheckError(err.Error() + " In funccall expression \"" + name + "\"")
 				return info, false
 			}
 			calltype = append(calltype, calc...)
@@ -207,6 +211,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 				TypeCheckError("Wrong number of Inputs for function call of function " + name)
 				return info, false
 			}
+
 			/*for i, calltype := range calltype {
 				for _, input := range f.InputTypes {
 					if input.Index == i{

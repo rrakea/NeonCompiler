@@ -127,7 +127,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		func_stack_limit += statement_stack_limit
 		func_local_limit := len(locals_used_map)
 
-		build.add_function(function.Name, function.ReturnType, func_arg_type, func_stack_limit, func_local_limit, func_code)
+		build.add_function(function.Name, jasmin_type_converter(function.ReturnType), jasmin_type_converter(func_arg_type), func_stack_limit, func_local_limit, func_code)
 	}
 }
 

@@ -4,6 +4,11 @@ namespace test {
     static int i = 2;
         static void Main (string[] args) {
             int val = 1 + 2 * i;
-        } 
+            add(a, val);
+        }
+
+        static int add (int a, int b) {
+            return a + b;
+        }
     }
 }

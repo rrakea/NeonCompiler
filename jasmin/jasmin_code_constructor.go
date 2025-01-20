@@ -2,11 +2,14 @@ package jasmin
 
 import (
 	"os"
+	"path/filepath"
 	"strconv"
+	"strings"
 )
 
 func create_jasmin_file(name string) *os.File {
-	jasminfile, err := os.Create(name + ".j")
+	file_name := strings.TrimSuffix(name, filepath.Ext(name))
+	jasminfile, err := os.Create(file_name + ".j")
 	if err != nil {
 		panic("File could not be created")
 	}
@@ -33,6 +36,7 @@ func (build *build_info) add_global_var(var_name string, var_type string) {
 }
 
 func local_var_dec(name string, var_type string, var_count int, expression string) string {
+	_ = name
 	var_count_string := strconv.Itoa(var_count)
 	var_dec := "" +
 		expression +
@@ -68,7 +72,7 @@ func (build *build_info) add_function(method_name string, return_type string, ar
 		void_return = "return \n"
 	}
 	func_dec := "" +
-		".method public static " + method_name + "(" + arg_types + ")" + return_type + "\n" +
+		".method public static " + method_name + "(" + arg_types + ") " + return_type + "\n" +
 		".limit stack " + stack_limit_string + "\n" +
 		".limit locals " + local_limit_string + "\n" +
 		statements +
