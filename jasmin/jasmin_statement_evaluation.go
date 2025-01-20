@@ -36,6 +36,7 @@ func find_closest_children(block *tree, name string) []*tree {
 	go find_routine(block, statement_chan, name, wg)
 	statements := []*tree{}
 	wg.Wait()
+	close(statement_chan)
 	select {
 	case statement, ok := <-statement_chan:
 		if !ok {
@@ -50,12 +51,12 @@ func find_routine(block *tree, stat_chan chan *tree, name string, wg *sync.WaitG
 	for _, branch := range block.Branches {
 		if branch.Leaf.Name == name {
 			stat_chan <- &branch
-			wg.Done()
 		} else {
 			wg.Add(1)
 			go find_routine(&branch, stat_chan, name, wg)
 		}
 	}
+	wg.Done()
 }
 
 // Returns code, stack limit

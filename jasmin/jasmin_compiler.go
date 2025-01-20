@@ -56,7 +56,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 	// Global Variable Definition
 	for _, global_var := range info.GlobalVars {
 		ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&global_var.Expression, &var_info_only_for_globals, build, &func_sigs, &labels)
-		if ex_type != global_var.Vartype {
+		if ex_type != jasmin_type_converter(global_var.Vartype) {
 			panic("Internal Error: Type Checked Expression does not equal actual type of expression")
 		}
 		for _, locals_used := range ex_locals_used {
@@ -160,5 +160,22 @@ func jasmin_type_converter(var_type string) string {
 		return "V"
 	default:
 		panic("Internal Error: Invalid Type used")
+	}
+}
+
+func jasmin_type_prefix_converter(var_type string) string {
+	switch var_type {
+	case "int":
+		return "i"
+	case "double":
+		return "d"
+	case "bool":
+		return "z"
+	case "string":
+		return "a"
+	case "string[]":
+		return "[a"
+	default:
+		panic("Internal Error: Invalid Type used " + var_type)
 	}
 }

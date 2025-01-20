@@ -23,19 +23,19 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			}
 			var_type, ok = var_info.global_vars[name]
 			if ok {
-				return build.file_name + "/" + name, var_type, 1, []string{}
+				return "getstatic " + build.file_name + "/" + name + " " + var_type + "\n", var_type, 1, []string{}
 			}
 			panic("Internal Error: Var lookup failed. " + name + " not found in local or global var map")
 		case "LITERAL":
 			switch child.Branches[0].Leaf.Name {
 			case "stringliteral":
-				return "ldc " + child.Leaf.Value.(string), "Ljava/lang/String;", 1, []string{}
+				return "ldc " + child.Leaf.Value.(string) + "\n", "Ljava/lang/String;", 1, []string{}
 			case "boolliteral":
-				return "ldc " + strconv.FormatBool(child.Leaf.Value.(bool)), "Z", 1, []string{}
+				return "ldc " + strconv.FormatBool(child.Leaf.Value.(bool)) + "\n", "Z", 1, []string{}
 			case "intliteral":
-				return "ldc " + strconv.Itoa(child.Leaf.Value.(int)), "I", 1, []string{}
+				return "ldc " + strconv.Itoa(child.Branches[0].Leaf.Value.(int)) + "\n", "I", 1, []string{}
 			case "doubleliteral":
-				return "ldc2_w " + strconv.FormatFloat(child.Leaf.Value.(float64), 'f', -1, 64), "D", 1, []string{}
+				return "ldc2_w " + strconv.FormatFloat(child.Leaf.Value.(float64) , 'f', -1, 64) + "\n", "D", 1, []string{}
 			default:
 				panic("Invalid Literal name " + child.Leaf.Name)
 			}
