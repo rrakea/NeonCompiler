@@ -12,7 +12,7 @@ func Statement_block_evaluate(function_body *tree, var_info *variable_info, func
 	block_stack_limit := 0
 	code := ""
 
-	statements := find_top_level_statements(function_body)
+	statements := find_closest_children(function_body, "STATEMENT")
 
 	for _, statement := range statements {
 		if len(statement.Branches) == 1 {
@@ -27,9 +27,10 @@ func Statement_block_evaluate(function_body *tree, var_info *variable_info, func
 	return code, block_stack_limit
 }
 
-func find_top_level_statements(block *tree) []*tree {
+// Finds the children of the name, without searching the children of these nodes  
+func find_closest_children(block *tree, name string) []*tree {
 	statement_chan := make(chan *tree)
-	go find_routine(block, statement_chan)
+	go find_routine(block, statement_chan, name)
 	statements := []*tree{}
 	select {
 	case statement, ok := <-statement_chan:
@@ -41,12 +42,12 @@ func find_top_level_statements(block *tree) []*tree {
 	return statements
 }
 
-func find_routine(block *tree, stat_chan chan *tree) {
+func find_routine(block *tree, stat_chan chan *tree, name string) {
 	for _, branch := range block.Branches {
-		if branch.Leaf.Name == "STATEMENT" {
+		if branch.Leaf.Name == name {
 			stat_chan <- &branch
 		} else {
-			go find_routine(&branch, stat_chan)
+			go find_routine(&branch, stat_chan, name)
 		}
 	}
 }
