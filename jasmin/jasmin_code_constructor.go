@@ -2,14 +2,17 @@ package jasmin
 
 import (
 	"os"
-	"path/filepath"
 	"strconv"
 	"strings"
 )
 
-func create_jasmin_file(name string) *os.File {
-	file_name := strings.TrimSuffix(name, filepath.Ext(name))
-	jasminfile, err := os.Create(file_name + ".j")
+func create_jasmin_file(source_file string, build *build_info) *os.File {
+	tmp := strings.TrimSuffix(source_file, ".cs")
+	tmp = strings.Split(tmp, "/")[1]
+	build.class = tmp
+	file_name := build.class + ".j"
+
+	jasminfile, err := os.Create(file_name)
 	if err != nil {
 		panic("File could not be created")
 	}
@@ -20,7 +23,7 @@ func create_jasmin_file(name string) *os.File {
 // 0 indexed
 func (build *build_info) add_header() {
 	boiler_plate := "" +
-		".class public " + build.file_name + "\n" +
+		".class public " + build.class + "\n" +
 		".super java/lang/Object \n\n"
 	_, err := build.jasmin_file.WriteString(boiler_plate)
 	if err != nil {
@@ -68,7 +71,7 @@ func (build *build_info) add_function(method_name string, return_type string, ar
 	stack_limit_string := strconv.Itoa(stack_limit)
 	local_limit_string := strconv.Itoa(local_limit)
 	void_return := ""
-	if return_type == "void" {
+	if return_type == "V" {
 		void_return = "return \n"
 	}
 	arg_type_string := ""

@@ -15,7 +15,7 @@ type variable_info struct {
 }
 
 type build_info struct {
-	file_name   string
+	class       string
 	jasmin_file *os.File
 	parse_info  *typechecker.TypeCheckerInfo
 }
@@ -32,11 +32,10 @@ type label_info struct {
 }
 
 func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name string) {
-	jasmin_file := create_jasmin_file(file_name)
+	build := new(build_info)
+	jasmin_file := create_jasmin_file(file_name, build)
 	defer jasmin_file.Close()
 
-	build := new(build_info)
-	build.file_name = file_name
 	build.jasmin_file = jasmin_file
 	build.parse_info = info
 

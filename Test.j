@@ -1,4 +1,4 @@
-.class public testcode/Test.cs
+.class public Test
 .super java/lang/Object 
 
 .field public static i int
@@ -7,8 +7,13 @@
 .limit locals 0
 .limit stack 1
 ldc 2
-putstatic testcode/Test.j/i I
+putstatic Test.j/i I
 return 
+.end method
+
+.method public static add(II) I
+.limit stack 0
+.limit locals 0
 .end method
 
 .method public static main([Ljava/lang/String;) V
@@ -16,13 +21,14 @@ return
 .limit locals 0
 ldc 1
 ldc 2
-getstatic testcode/Test.cs/i I
+getstatic Test/i I
 imul
 iadd
 istore 0
-iload 1
-getstatic testcode/Test.cs/i I
+getstatic Test/i I
 
-invokestatic testcode/Test.cs/add()
+iload 1
+invokestatic Test/add(II)I
+return 
 .end method
 

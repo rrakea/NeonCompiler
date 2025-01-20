@@ -150,7 +150,7 @@ func func_call_evaluate(func_name string, arg_block *tree, func_sigs *function_s
 	}
 	call := "" +
 		arg_code +
-		"invokestatic " + build.file_name + "/" + func_name + "(" + func_sigs.parameter_type[func_name] + ")" + func_sigs.return_type[func_name] + "\n"
+		"invokestatic " + build.class + "/" + func_name + "(" + func_sigs.parameter_type[func_name] + ")" + func_sigs.return_type[func_name] + "\n"
 	return call, arg_stack_limit
 }
 

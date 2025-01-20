@@ -24,7 +24,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			}
 			var_type, ok = var_info.global_vars[name]
 			if ok {
-				return "getstatic " + build.file_name + "/" + name + " " + var_type + "\n", var_type, 1, []string{}
+				return "getstatic " + build.class + "/" + name + " " + var_type + "\n", var_type, 1, []string{}
 			}
 			panic("Internal Error: Var lookup failed. " + name + " not found in local or global var map")
 		case "LITERAL":
@@ -67,7 +67,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			for local := range arg_total_locals_used {
 				total_locals_used = append(total_locals_used, local)
 			}
-			return args_code + "invocestatic " + build.file_name + "/" + func_name + "()" + return_type, return_type, arg_total_stack_limit, total_locals_used
+			return args_code + "invocestatic " + build.class + "/" + func_name + "()" + return_type, return_type, arg_total_stack_limit, total_locals_used
 		default:
 			panic("Internal Error: Expression has a unrecognized child. Name: " + expression.Branches[0].Leaf.Name)
 		}
