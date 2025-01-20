@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "debug",
             "program": "${workspaceFolder}",
-            "args": ["--compile", "/home/rrakea/Code/Uni/NeonCompiler/testcode/Test.cs"]
+            "args": ["--compile", "testcode/Test.cs"]
         }
     ]
 }
