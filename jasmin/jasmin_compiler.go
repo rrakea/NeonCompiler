@@ -101,21 +101,23 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		// Local Variables
 		local_var_code := ""
 		for var_index, local_var := range info.LocalVar[function.Name] {
-			ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&local_var.Expression, &var_info, build, &func_sigs, &labels)
-			if ex_type != jasmin_type_converter(local_var.Vartype) {
-				panic("Internal Error: Type Checked Expression does not equal actual type of expression")
-			}
-			// Set which local vars were used in the expression
-			for _, locals_used := range ex_locals_used {
-				ok := global_var_locals_used[locals_used]
-				if !ok {
-					global_var_locals_used[locals_used] = true
+			// Check if the var is a parameter
+			if len(local_var.Expression.Branches) != 0 {
+				ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&local_var.Expression, &var_info, build, &func_sigs, &labels)
+				if ex_type != jasmin_type_converter(local_var.Vartype) {
+					panic("Internal Error: Type Checked Expression does not equal actual type of expression")
 				}
+				// Set which local vars were used in the expression
+				for _, locals_used := range ex_locals_used {
+					ok := global_var_locals_used[locals_used]
+					if !ok {
+						global_var_locals_used[locals_used] = true
+					}
+				}
+				func_stack_limit += ex_stack_limit
+				var_code := local_var_dec(local_var.Name, local_var.Vartype, var_index, ex_code)
+				local_var_code += var_code
 			}
-			func_stack_limit += ex_stack_limit
-
-			var_code := local_var_dec(local_var.Name, local_var.Vartype, var_index, ex_code)
-			local_var_code += var_code
 			var_map_count[local_var.Name] = var_index + arg_count
 			var_map_type[local_var.Name] = local_var.Vartype
 		}

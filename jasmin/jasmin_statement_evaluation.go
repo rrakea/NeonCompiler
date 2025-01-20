@@ -3,6 +3,7 @@ package jasmin
 import (
 	"compiler/typechecker"
 	"strconv"
+	"sync"
 )
 
 type Function = typechecker.Function
@@ -27,11 +28,14 @@ func Statement_block_evaluate(function_body *tree, var_info *variable_info, func
 	return code, block_stack_limit
 }
 
-// Finds the children of the name, without searching the children of these nodes  
+// Finds the children of the name, without searching the children of these nodes
 func find_closest_children(block *tree, name string) []*tree {
 	statement_chan := make(chan *tree)
-	go find_routine(block, statement_chan, name)
+	wg := new(sync.WaitGroup)
+	wg.Add(1)
+	go find_routine(block, statement_chan, name, wg)
 	statements := []*tree{}
+	wg.Wait()
 	select {
 	case statement, ok := <-statement_chan:
 		if !ok {
@@ -42,12 +46,14 @@ func find_closest_children(block *tree, name string) []*tree {
 	return statements
 }
 
-func find_routine(block *tree, stat_chan chan *tree, name string) {
+func find_routine(block *tree, stat_chan chan *tree, name string, wg *sync.WaitGroup) {
 	for _, branch := range block.Branches {
 		if branch.Leaf.Name == name {
 			stat_chan <- &branch
+			wg.Done()
 		} else {
-			go find_routine(&branch, stat_chan, name)
+			wg.Add(1)
+			go find_routine(&branch, stat_chan, name, wg)
 		}
 	}
 }
