@@ -3,6 +3,7 @@ package jasmin
 import (
 	"compiler/parser"
 	"compiler/typechecker"
+	"fmt"
 	"os"
 )
 
@@ -81,9 +82,6 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		func_stack_limit := 0
 		func_arg_type := []string{}
 
-		// Which locals are used by name, so that we dont set a local limit that is too high
-		locals_used_map := make(map[string]bool)
-
 		// Maps the var name to its local var number
 		var_map_count := make(map[string]int)
 		var_map_type := make(map[string]string)
@@ -125,9 +123,11 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		statements, statement_stack_limit := Statement_block_evaluate(function.CodeTree, &var_info, &func_sigs, build, &labels)
 		func_code := local_var_code + statements
 		func_stack_limit += statement_stack_limit
-		func_local_limit := len(locals_used_map)
+		func_local_limit := len(var_map_count)
 
 		build.add_function(function.Name, jasmin_type_converter(function.ReturnType), func_arg_type, func_stack_limit, func_local_limit, func_code)
+		fmt.Println("Locals of " + function.Name + "()")
+		fmt.Println(var_info)
 	}
 }
 
