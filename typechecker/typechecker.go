@@ -100,16 +100,16 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 	info.GlobalVars = globalvars
 
 	// Determine locally scoped vars per function
-	localVars := make(map[string]map[string]Variable)
+	localVars := map[string]map[string]Variable{}
+	local_var_array := map[string][]Variable{}
 	for _, f := range info.Functions {
-		localVars[f.Name] = make(map[string]Variable)
+		localVars[f.Name] = map[string]Variable{}
 		functiontree := *f.CodeTree
 		locals := Parse_tree_search(functiontree, "VIRTUALVARBLOCK")
 		for _, l := range locals {
 			if len(l.Branches) == 1 {
 				break
 			}
-
 			successful, err := determineVariables(l, localVars[f.Name], 0, f.Name, info)
 			if err != nil {
 				successful = false
@@ -123,8 +123,11 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 		for vname, vtype := range info.Functions[f.Name].InputTypes {
 			localVars[f.Name][vname] = Variable{Name: vname, Vartype: vtype.Inputtype}
 		}
+		for _, v := range localVars[f.Name] {
+			local_var_array[f.Name] = append(local_var_array[f.Name], v)
+		}
 	}
-	info.LocalVar = localVars
+	info.LocalVar = local_var_array
 
 	// Determine set of a var is correct
 
@@ -134,7 +137,14 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 		for _, assign := range assigns {
 			name := assign.Branches[0].Leaf.Value.(string)
 			actualtype := ""
-			localvartype, ok := info.LocalVar[f.Name][name]
+			ok := false
+			localvartype := Variable{}
+			for _, l := range info.LocalVar[f.Name] {
+				if l.Name == name {
+					ok = true
+					break
+				}
+			}
 			if !ok {
 				globalvartype, ok := info.GlobalVars[name]
 				if !ok {
@@ -359,7 +369,16 @@ func typeCheckExpression(expression ParseTree, funcName string, info TypeChecker
 
 		case "name":
 			name := expression.Branches[0].Leaf.Value.(string)
-			local, ok := info.LocalVar[funcName][name]
+			locals := info.LocalVar[funcName]
+			ok := false
+			local := Variable{}
+			for _, l := range locals {
+				if l.Name == name {
+					ok = true
+					local = l
+					break
+				}
+			}
 			if !ok {
 				global, ok := info.GlobalVars[name]
 				if !ok {
