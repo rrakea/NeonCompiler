@@ -20,7 +20,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			var_type, ok := var_info.local_vars_type[name]
 			index := var_info.local_vars_index[name]
 			if ok {
-				return jasmin_type_prefix_converter(var_type) + "load " + strconv.Itoa(index) + "\n", var_type, 1, []string{name}
+				return var_type + "load " + strconv.Itoa(index) + "\n", var_type, 1, []string{name}
 			}
 			var_type, ok = var_info.global_vars[name]
 			if ok {
@@ -32,11 +32,11 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			case "stringliteral":
 				return "ldc " + child.Leaf.Value.(string) + "\n", "Ljava/lang/String;", 1, []string{}
 			case "boolliteral":
-				return "ldc " + strconv.FormatBool(child.Leaf.Value.(bool)) + "\n", "Z", 1, []string{}
+				return "ldc " + strconv.FormatBool(child.Leaf.Value.(bool)) + "\n", "z", 1, []string{}
 			case "intliteral":
-				return "ldc " + strconv.Itoa(child.Branches[0].Leaf.Value.(int)) + "\n", "I", 1, []string{}
+				return "ldc " + strconv.Itoa(child.Branches[0].Leaf.Value.(int)) + "\n", "i", 1, []string{}
 			case "doubleliteral":
-				return "ldc2_w " + strconv.FormatFloat(child.Leaf.Value.(float64), 'f', -1, 64) + "\n", "D", 1, []string{}
+				return "ldc2_w " + strconv.FormatFloat(child.Leaf.Value.(float64), 'f', -1, 64) + "\n", "d", 1, []string{}
 			default:
 				panic("Invalid Literal name " + child.Leaf.Name)
 			}
@@ -78,9 +78,9 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 		case "-":
 			code, var_type, stack_limit, locals_used := expression_evaluation(&expression.Branches[1], var_info, build, func_sigs, labels)
 			switch var_type {
-			case "D":
+			case "d":
 				code = "dneg " + code
-			case "I":
+			case "i":
 				code = "ineg " + code
 			default:
 				panic("Unary Operator \"-\" used before non numeric value")
@@ -88,7 +88,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			return code, var_type, stack_limit, locals_used
 		case "!":
 			code, var_type, stack_limit, locals_used := expression_evaluation(&expression.Branches[1], var_info, build, func_sigs, labels)
-			if var_type != "B" {
+			if var_type != "b" {
 				panic("Invalic Operator \"!\" before non bool value")
 			}
 			code = "" +
@@ -102,6 +102,8 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 				"bool_ex_end_" + strconv.Itoa(labels.bool_jump_count) + ":\n"
 			labels.bool_jump_count += 1
 			return code, "B", stack_limit + 1, locals_used
+		default:
+			panic("Internal Error: Unary Operator not +/-/!")
 		}
 	case 3:
 		left_side_code, left_side_type, left_side_stack_limit, left_side_locals_used := expression_evaluation(&expression.Branches[0], var_info, build, func_sigs, labels)
@@ -122,44 +124,48 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 		case "-":
 			op_code = op_code_prefix + "sub\n"
 		case ">":
-			res_type = "Z"
+			res_type = "z"
 			op_code = op_to_bool("if"+op_code_prefix+"cmpgt", labels)
 		case "<":
-			res_type = "Z"
+			res_type = "z"
 			op_code = op_to_bool_negated("if"+op_code_prefix+"cmpgt", labels)
 		case ">=":
 			switch res_type {
-			case "I":
+			case "i":
 				op_code = op_to_bool("ificmpge", labels)
-			case "D":
+			case "d":
 				op_code =
 					"dcmpge\n"
-				res_type = "Z"
+				res_type = "z"
+			default:
+				panic(">= used on non numeric value")
 			}
 		case "<=":
 			switch res_type {
-			case "I":
+			case "i":
 				op_code = op_to_bool_negated("ificmpge", labels)
-			case "D":
-				res_type = "Z"
+			case "d":
+				res_type = "z"
 				op_code =
 					"dcmpge\n" +
 						"iconst_0\n" +
 						op_to_bool_negated("ifeq", labels)
+			default:
+				panic("<= used on non numeric value")
 			}
 		case "==":
-			res_type = "Z"
+			res_type = "z"
 			op_code = op_to_bool("ifeq", labels)
 		case "!=":
-			res_type = "Z"
+			res_type = "z"
 			op_code = op_to_bool("ifne", labels)
 		case "&&":
-			if res_type != "Z" {
+			if res_type != "t" {
 				panic("&& Used with 2 values that are not booleans")
 			}
 			op_code = "iand\n"
 		case "||":
-			if res_type != "Z" {
+			if res_type != "z" {
 				panic("&& Used with 2 values that are not booleans")
 			}
 			op_code = "ior\n"
@@ -172,8 +178,9 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 		total_locals_used := deduplicate_locals_used(append(left_side_locals_used, right_side_locals_used...))
 
 		return code, res_type, max(left_side_stack_limit, right_side_stack_limit), total_locals_used
+	default:
+		panic("Internal Error: Expression has more than 3 children")
 	}
-	panic("I dont even know how you got here")
 }
 
 func deduplicate_locals_used(locals []string) []string {
@@ -189,31 +196,28 @@ func deduplicate_locals_used(locals []string) []string {
 }
 
 func check_for_cast(left_side_type string, right_side_type string) (string, string, string, string) {
-		left_side_type = jasmin_type_prefix_converter(left_side_type)
-		right_side_type = jasmin_type_prefix_converter(right_side_type)
-
-	if left_side_type == "Z" {
-		if right_side_type != "Z" {
+	if left_side_type == "z" {
+		if right_side_type != "z" {
 			panic("A bool and a non bool are being compared")
 		}
-		return "Z", "", "", "i"
+		return "z", "", "", "i"
 	}
 	res_type := ""
 	potential_cast_left := ""
 	potential_cast_right := ""
 	op_code_type := ""
 
-	if left_side_type == "I" && right_side_type == "I" {
-		res_type = "I"
+	if left_side_type == "i" && right_side_type == "i" {
+		res_type = "i"
 		op_code_type = "i"
 		return potential_cast_left, potential_cast_right, res_type, op_code_type
 	}
-	if left_side_type == "D" {
-		res_type = "D"
+	if left_side_type == "d" {
+		res_type = "d"
 		potential_cast_right = "i2d"
 	}
-	if right_side_type == "D" {
-		res_type = "D"
+	if right_side_type == "d" {
+		res_type = "d"
 		if potential_cast_right == "i2d" {
 			potential_cast_right = ""
 		} else {

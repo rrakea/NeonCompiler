@@ -32,6 +32,10 @@ type label_info struct {
 	bool_jump_count int
 }
 
+// Usage of info:
+// Once for local/ global var access
+// .functions more often
+
 func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name string) {
 	build := new(build_info)
 	jasmin_file := create_jasmin_file(file_name, build)
@@ -55,8 +59,9 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 
 	// Global Variable Definition
 	for _, global_var := range info.GlobalVars {
+		var_type := jasmin_type_prefix_converter(global_var.Vartype)
 		ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&global_var.Expression, &var_info_only_for_globals, build, &func_sigs, &labels)
-		if ex_type != jasmin_type_converter(global_var.Vartype) {
+		if ex_type != var_type {
 			panic("Internal Error: Type Checked Expression does not equal actual type of expression")
 		}
 		for _, locals_used := range ex_locals_used {
@@ -67,9 +72,9 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		}
 
 		global_var_stack_limit += ex_stack_limit
-		build.add_global_var(global_var.Name, global_var.Vartype)
+		build.add_global_var(global_var.Name, var_type)
 		global_var_code[global_var.Name] = ex_code
-		global_var_type[global_var.Name] = ex_type
+		global_var_type[global_var.Name] = var_type
 	}
 	build.jasmin_file.WriteString("\n")
 
@@ -92,17 +97,18 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		for arg_name, arg_type := range info.Functions[function.Name].InputTypes {
 			func_arg_type = append(func_arg_type, arg_type.Inputtype)
 			var_map_count[arg_name] = arg_count
-			var_map_type[arg_name] = arg_type.Inputtype
+			var_map_type[arg_name] = jasmin_type_prefix_converter(arg_type.Inputtype)
 			arg_count++
 		}
 
 		// Local Variables
 		local_var_code := ""
 		for var_index, local_var := range info.LocalVar[function.Name] {
+			local_var_type := jasmin_type_prefix_converter(local_var.Vartype)
 			// Check if the var is a parameter
 			if len(local_var.Expression.Branches) != 0 {
 				ex_code, ex_type, ex_stack_limit, ex_locals_used := expression_evaluation(&local_var.Expression, &var_info, build, &func_sigs, &labels)
-				if ex_type != jasmin_type_converter(local_var.Vartype) {
+				if ex_type != local_var_type {
 					panic("Internal Error: Type Checked Expression does not equal actual type of expression")
 				}
 				// Set which local vars were used in the expression
@@ -113,10 +119,10 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 					}
 				}
 				func_stack_limit += ex_stack_limit
-				var_code := local_var_dec(local_var.Name, local_var.Vartype, var_index, ex_code)
+				var_code := local_var_dec(local_var.Name, local_var_type, var_index, ex_code)
 				local_var_code += var_code
 				var_map_count[local_var.Name] = var_index + arg_count
-				var_map_type[local_var.Name] = local_var.Vartype
+				var_map_type[local_var.Name] = local_var_type
 			}
 		}
 
@@ -146,19 +152,19 @@ func evaluate_func_signatures(info *typechecker.TypeCheckerInfo) function_signat
 
 func jasmin_type_converter(var_type string) string {
 	switch var_type {
-	case "int":
+	case "int", "i":
 		return "I"
-	case "double":
+	case "double", "d":
 		return "D"
-	case "bool":
+	case "bool", "z":
 		return "Z"
-	case "string":
+	case "string", "a":
 		return "Ljava/lang/String;"
 	case "string[]":
 		return "[Ljava/lang/String;"
 	case "void", "":
 		return "V"
-	case "I", "V", "[Ljava/lang/String;", "D":
+	case "I", "V", "[Ljava/lang/String;", "D", "Ljava/lang/String;":
 		return var_type
 	default:
 		panic("Internal Error: Invalid Type used")

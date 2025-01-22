@@ -6,8 +6,6 @@ import (
 	"sync"
 )
 
-type Function = typechecker.Function
-
 // Returns: The code as string, stack limit
 func Statement_block_evaluate(function_body *tree, var_info *variable_info, func_sigs *function_signatures, build *build_info, labels *label_info) (string, int) {
 	block_stack_limit := 0
@@ -145,6 +143,8 @@ func func_call_evaluate(func_name string, arg_block *tree, func_sigs *function_s
 		arg_code += ex_code + "\n"
 		arg_stack_limit = max(arg_stack_limit, ex_stack_limit+len(args))
 	}
+
+	
 	call := "" +
 		arg_code +
 		"invokestatic " + build.class + "/" + func_name + "(" + func_sigs.parameter_type[func_name] + ")" + func_sigs.return_type[func_name] + "\n"
@@ -154,7 +154,7 @@ func func_call_evaluate(func_name string, arg_block *tree, func_sigs *function_s
 func if_evaluate(condition *tree, statement_block *tree, var_info *variable_info, build *build_info, labels *label_info, func_sigs *function_signatures) (string, int) {
 	// TODO else
 	cond_code, cond_type, cond_stack_limit, _ := expression_evaluation(condition, var_info, build, func_sigs, labels)
-	if cond_type != "Z" { // "Z" is bool in jasmin for some reason
+	if cond_type != "z" { // "Z" is bool in jasmin for some reason
 		panic("Internal error: Typecheck passed, but conditional expression does not evaluate to bool")
 	}
 
@@ -173,7 +173,7 @@ func if_evaluate(condition *tree, statement_block *tree, var_info *variable_info
 
 func while_evaluate(condition *tree, statement_block *tree, var_info *variable_info, build *build_info, labels *label_info, func_sigs *function_signatures) (string, int) {
 	cond_code, cond_type, cond_stack_limit, _ := expression_evaluation(condition, var_info, build, func_sigs, labels)
-	if cond_type != "Z" { // "Z" is bool in jasmin for some reason
+	if cond_type != "z" { // "Z" is bool in jasmin for some reason
 		panic("Internal error: Typecheck passed, but conditional expression does not evaluate to bool")
 	}
 
