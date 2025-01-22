@@ -11,19 +11,32 @@ return
 .end method
 
 .method public static main([Ljava/lang/String;)V
-.limit stack 4
+.limit stack 6
 .limit locals 2
 ldc 1
 ldc 2
-getstatic Test/i i
+getstatic Test/i I
 imul
 iadd
 istore_1
-getstatic Test/i i
+getstatic Test/i I
 
-iload_2
+iload_1
 
 invokestatic Test/add(II)I
 return 
+.end method
+
+.method public static add(II)I
+.limit stack 4
+.limit locals 3
+ldc 0
+istore_2
+iload_0
+iload_1
+iadd
+iload_2
+iadd
+ireturn
 .end method
 
