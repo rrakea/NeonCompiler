@@ -144,7 +144,14 @@ func func_call_evaluate(func_name string, arg_block *tree, func_sigs *function_s
 		arg_stack_limit = max(arg_stack_limit, ex_stack_limit+len(args))
 	}
 
-	
+	if func_name == "Console.WriteLine" {
+		call := "" +
+			"getstatic java/lang/System/out Ljava/io/PrintStream;\n" +
+			arg_code +
+			"invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V\n"
+		return call, arg_stack_limit
+	}
+
 	call := "" +
 		arg_code +
 		"invokestatic " + build.class + "/" + func_name + "(" + func_sigs.parameter_type[func_name] + ")" + func_sigs.return_type[func_name] + "\n"

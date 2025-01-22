@@ -74,10 +74,17 @@ func Lex(path string, tokenChannel chan Token) {
 			case c == '"':
 				if !isString {
 					isString = true
+					isSymbolString = false
+					if buffer != "" {
+						tokens = append(tokens, buffer)
+						buffer = string(c)
+					}
+					
 				} else {
 					isString = false
-					tokens = append(tokens, buffer)
+					tokens = append(tokens, buffer + "\"")
 					buffer = ""
+					continue
 				}
 
 			case isString:
@@ -93,7 +100,7 @@ func Lex(path string, tokenChannel chan Token) {
 					isSymbolString = false
 					continue
 				}
-
+				// TODO can crash on func call fn() without ;
 				// Is symbol -> Can be concatonated to // /* etc.
 				concSymbol := concatonateSymbols([]rune(buffer)[0], c)
 
@@ -168,6 +175,15 @@ func Lex(path string, tokenChannel chan Token) {
 				}
 				sendToken("intliteral", tmpdigit, tokenChannel, lineNumber)
 				continue
+			}
+
+			// Check for Console.WriteLine
+			if token == "Console" {
+				if tokens[i + 1] == "." && tokens[i + 2] == "WriteLine"{
+					sendToken("name", "Console.WriteLine", tokenChannel, lineNumber)
+					i += 2
+					continue
+				}
 			}
 
 			tmpbool, boolConvErr := strconv.ParseBool(token)
@@ -286,7 +302,7 @@ func sendToken(identifier string, value any, channel chan Token, linenumber int)
 }
 
 func isSymbol(r rune) bool {
-	symbols := []rune{';', '.', '-', '+', '*', '>', '<', '=', '{', '}', '(', ')', '[', ']', '|', ',', '/', '%', '!'}
+	symbols := []rune{';', '"', '.', '-', '+', '*', '>', '<', '=', '{', '}', '(', ')', '[', ']', '|', ',', '/', '%', '!'}
 	for _, symbol := range symbols {
 		if r == symbol {
 			return true

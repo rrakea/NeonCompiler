@@ -5,11 +5,11 @@ namespace test {
         static void Main (string[] args) {
             int val = 1 + 2 * i;
             add(i, val);
+            Console.WriteLine("Hello World");
         }
 
         static int add (int a, int b) {
-            int c = 0;
-            return a + b + c;
+            return a + b;
         }
     }
 }

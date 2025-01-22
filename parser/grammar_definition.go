@@ -56,8 +56,6 @@ func testGrammar() []Rule {
 		MakeRule("ARGCONTINUED", []string{")"}),
 		MakeRule("ARGCONTINUED", []string{",", "ARG", "ARGCONTINUED"}),
 		MakeRule("FUNCCALL", []string{"name", "(", "ARGBLOCK"}),
-		MakeRule("FUNCCALL", []string{"WRITE"}),
-		MakeRule("WRITE", []string{"name", ".", "name", "(", "ARGBLOCK"}),
 		MakeRule("RETURN", []string{"return", "EXPRESSION", ";"}),
 		MakeRule("RETURN", []string{"return", ";"}),
 		MakeRule("VARASSIGN", []string{"name", "=", "EXPRESSION", ";"}),

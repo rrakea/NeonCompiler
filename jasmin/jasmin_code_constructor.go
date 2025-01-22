@@ -67,7 +67,7 @@ func (build *build_info) add_clinit(global_var_code map[string]string, global_va
 	}
 
 	clinit += "return \n"
-	clinit += ".end method\n\n"
+	clinit += ".end method\n\n\n\n"
 	build.jasmin_file.WriteString(clinit)
 }
 
