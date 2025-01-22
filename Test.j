@@ -15,11 +15,11 @@ return
 .limit locals 3
 .limit stack 2
 ldc 0
-istore 0
+istore 1
 iload 0
 iload 1
 dadd
-iload 2
+iload 3
 dadd
 return
 .end method
