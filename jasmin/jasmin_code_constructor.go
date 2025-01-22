@@ -43,18 +43,23 @@ func local_var_dec(name string, var_type string, var_count int, expression strin
 	var_count_string := strconv.Itoa(var_count)
 	var_dec := "" +
 		expression +
-		var_type + "store " + var_count_string + "\n"
+		var_type + "store_" + var_count_string + "\n"
 	return var_dec
 }
 
 // To initialize fields on the class initialisation
 func (build *build_info) add_clinit(global_var_code map[string]string, global_var_type map[string]string, stack_limit int, local_limit int) {
+	if stack_limit == 0 {
+		return
+	}
 	local_limit_string := strconv.Itoa(local_limit)
 	stack_limit_string := strconv.Itoa(stack_limit)
 	clinit := "" +
 		".method static <clinit>()V \n" +
-		".limit locals " + local_limit_string + "\n" +
 		".limit stack " + stack_limit_string + "\n"
+	if local_limit != 0 {
+		clinit += ".limit locals " + local_limit_string + "\n"
+	}
 
 	for name, statement_block := range global_var_code {
 		clinit += statement_block
@@ -75,14 +80,16 @@ func (build *build_info) add_function(method_name string, return_type string, ar
 	}
 	arg_type_string := ""
 	for _, arg := range arg_types {
-		arg_type_string += arg
+		arg_type_string += jasmin_type_converter(arg)
 	}
 
 	func_dec := "" +
-		".method public static " + method_name + "(" + arg_type_string + ") " + return_type + "\n" +
-		".limit locals " + local_limit_string + "\n" +
-		".limit stack " + stack_limit_string + "\n" +
-		statements +
+		".method public static " + method_name + "(" + arg_type_string + ")" + return_type + "\n" +
+		".limit stack " + stack_limit_string + "\n"
+	if local_limit != 0 {
+		func_dec += ".limit locals " + local_limit_string + "\n"
+	}
+	func_dec += statements +
 		void_return +
 		".end method\n\n"
 

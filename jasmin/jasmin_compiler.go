@@ -119,7 +119,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 					}
 				}
 				func_stack_limit += ex_stack_limit
-				var_code := local_var_dec(local_var.Name, local_var_type, var_index, ex_code)
+				var_code := local_var_dec(local_var.Name, local_var_type, var_index+arg_count, ex_code)
 				local_var_code += var_code
 				var_map_count[local_var.Name] = var_index + arg_count
 				var_map_type[local_var.Name] = local_var_type

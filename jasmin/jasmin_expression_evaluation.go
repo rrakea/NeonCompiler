@@ -20,7 +20,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			var_type, ok := var_info.local_vars_type[name]
 			index := var_info.local_vars_index[name]
 			if ok {
-				return var_type + "load " + strconv.Itoa(index) + "\n", var_type, 1, []string{name}
+				return var_type + "load_" + strconv.Itoa(index) + "\n", var_type, 1, []string{name}
 			}
 			var_type, ok = var_info.global_vars[name]
 			if ok {
@@ -177,7 +177,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 
 		total_locals_used := deduplicate_locals_used(append(left_side_locals_used, right_side_locals_used...))
 
-		return code, res_type, max(left_side_stack_limit, right_side_stack_limit), total_locals_used
+		return code, res_type, max(left_side_stack_limit, right_side_stack_limit) + 1, total_locals_used
 	default:
 		panic("Internal Error: Expression has more than 3 children")
 	}
