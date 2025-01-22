@@ -34,7 +34,7 @@ func (build *build_info) add_header() {
 // Add global vars. Values get set in clinit
 func (build *build_info) add_global_var(var_name string, var_type string) {
 	global_var_dec := "" +
-		".field public static " + var_name + " " + var_type + "\n"
+		".field public static " + var_name + " " + jasmin_type_converter(var_type) + "\n"
 	build.jasmin_file.WriteString(global_var_dec)
 }
 
@@ -58,7 +58,7 @@ func (build *build_info) add_clinit(global_var_code map[string]string, global_va
 
 	for name, statement_block := range global_var_code {
 		clinit += statement_block
-		clinit += "putstatic " + build.class + "/" + name + " " + global_var_type[name] + "\n"
+		clinit += "putstatic " + build.class + "/" + name + " " + jasmin_type_converter(global_var_type[name]) + "\n"
 	}
 
 	clinit += "return \n"
