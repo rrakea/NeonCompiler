@@ -100,7 +100,6 @@ func Lex(path string, tokenChannel chan Token) {
 					isSymbolString = false
 					continue
 				}
-				// TODO can crash on func call fn() without ;
 				// Is symbol -> Can be concatonated to // /* etc.
 				concSymbol := concatonateSymbols([]rune(buffer)[0], c)
 

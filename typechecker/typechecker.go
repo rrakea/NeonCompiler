@@ -37,10 +37,11 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 	// Determine Functions, Return Types, Paramter Types etc.
 	functions := make(map[string]Function)
 	funcArr := tree.Search_tree("FUNC")
+	parameter_type_arr := []string{}
 	for _, f := range funcArr {
 		name := f.Search_first_child("name").Leaf.Value.(string)
 		returnType := f.Search_first_child("RETURNTYPE").Branches[0].Branches[0].Leaf.Name
-		input, err := det_func_parameters(*f.Search_first_child("INPUTBLOCK"))
+		input, parameter_type_arr, err := det_func_parameters(*f.Search_first_child("INPUTBLOCK"))
 		pVarBlock := *f.Search_first_child("VIRTUALVARBLOCK")
 		// Find the actual code after the local vars
 		var code *ParseTree
@@ -147,53 +148,24 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 
 		// Determine each function call is correct
 		// TODO
-		for _, call := range tree.Search_tree("FUNCCALL") {
-			if len(call.Branches) == 1 {
-				// Console.Log
+		for _, call := range tree.Search_tree("FUNCCALL") {			
+			args := call.Search_top_occurences("ARG")
+			input_amount_wanted := len(info.Functions[f.Name].ParameterTypes) 
+			if len(args) != input_amount_wanted{
+				TypeCheckError("Function \"" + f.Name + "\" called with the incorect amount of inputs (needs " + strconv.Itoa(input_amount_wanted) + " got " + strconv.Itoa(len(args)) )
+				return info, false
 			}
-			name := call.Branches[0].Leaf.Value.(string)
-			start := call.Branches[2].Branches[0]
-			if len(start.Branches) <= 1 {
-				if len(info.Functions[f.Name].ParameterTypes) == 0 {
-					continue
-				} else {
-					TypeCheckError("Function \"" + f.Name + "\" called with input values (needs 0)")
-					return info, false
-				}
-			}
-			_ = name
-			/*starttype, err := typeCheckExpression(start.Branches[0], f.Name, info)
-			if err != nil {
-				TypeCheckError("In funccall expression " + name)
-			}
-			_ = starttype
-			*/
-			/*
-				//TODO Arg Type Checking
-				calltype := []string{starttype}
-				calc, err := calcArgContinue(start.Branches[1], f.Name, info)
+			for i, arg := range args {
+				ex := arg.Branches[0]
+				ex_type, err := typeCheckExpression(ex, f.Name, info)
 				if err != nil {
-					TypeCheckError(err.Error() + " In funccall expression \"" + name + "\"")
+					TypeCheckError(err.Error() + "\nIn funccall expression " + f.Name)
 					return info, false
 				}
-				calltype = append(calltype, calc...)
-
-				// Check return type links up
-				if len(calltype) != len(info.Functions[name].InputTypes) {
-					TypeCheckError("Wrong number of Inputs for function call of function " + name)
-					return info, false
+				if parameter_type_arr[i] != ex_type {
+					TypeCheckError("Parameter " + ex.Leaf.Value.(string) + "misplaced. Function does not take a " + ex_type + "at that index")
 				}
-			*/
-			/*for i, calltype := range calltype {
-				for _, input := range f.InputTypes {
-					if input.Index == i{
-						if calltype != input.Inputtype {
-							TypeCheckError("Function \"" + f.Name + "\" called with wrong parameter at index " + strconv.Itoa(i))
-							return info, false
-						}
-					}
-				}
-			}*/
+			}
 		}
 
 		for _, r := range functiontree.Search_tree("RETURN") {
@@ -251,22 +223,24 @@ func TypeCheckError(s string) {
 	fmt.Println(s)
 }
 
-func det_func_parameters(tree ParseTree) (map[string]string, error) {
+func det_func_parameters(tree ParseTree) (map[string]string,  []string, error) {
 	retMap := map[string]string{}
 	// Has no inputs
 	if tree.Branches[0].Leaf.Name == ")" {
-		return retMap, nil
+		return retMap, []string{}, nil
 	}
-	for _, parameter := range tree.Search_tree("PARAMETER") {
+	parameters_type_arr := []string{} 
+	for _, parameter := range tree.Search_tree("PARAMETER"){
 		name := parameter.Branches[1].Leaf.Value.(string)
 		paratype := det_func_input_type(parameter)
+		parameters_type_arr = append(parameters_type_arr, paratype)
 		_, exists := retMap[name]
 		if exists {
-			return retMap, errors.New("Variable name declared twice in function signature " + name)
+			return retMap, parameters_type_arr, errors.New("Variable name declared twice in function signature " + name)
 		}
 		retMap[name] = paratype
 	}
-	return retMap, nil
+	return retMap, parameters_type_arr, nil
 }
 
 func det_func_input_type(tree *ParseTree) string {
@@ -297,19 +271,4 @@ func type_check_declaration(tree *ParseTree, vars map[string]Variable, funcname 
 	}
 	vars[name] = newVar
 	return nil
-}
-
-func calcArgContinue(start ParseTree, fname string, info TypeCheckerInfo) ([]string, error) {
-	if len(start.Branches) <= 1 {
-		return []string{}, nil
-	}
-	argtype, err := typeCheckExpression(start.Branches[1], fname, info)
-	if err != nil {
-		return []string{}, err
-	}
-	calc, err := calcArgContinue(start.Branches[2], fname, info)
-	if err != nil {
-		return []string{}, err
-	}
-	return append([]string{argtype}, calc...), nil
 }
