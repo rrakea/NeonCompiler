@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
-	"sync"
 )
 
 // Type alias
@@ -52,7 +51,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 
 	// Determine Function Signatures
 	// Return & Input types -> Function Map
-	main := Parse_tree_search(tree, "MAIN")
+	main := tree.Search_tree("MAIN")
 	if len(main) != 1 {
 		// TODO RACE CONDITION????
 		TypeCheckError("Wrong amount of main function in source file")
@@ -64,7 +63,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 	info.Main = mainFunc
 
 	functions := make(map[string]Function)
-	funcArr := Parse_tree_search(tree, "FUNC")
+	funcArr := tree.Search_tree("FUNC")
 	for _, f := range funcArr {
 		name := f.Branches[locationOfNameInFuncDec].Leaf.Value.(string)
 		//fmt.Println(name)
@@ -82,17 +81,17 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 	info.Functions = functions
 
 	// Determine Global scoped vars
-	globals := Parse_tree_search(tree, "GLOBALVARBLOCK")
+	globals := tree.Search_tree("GLOBALVARBLOCK")
 	globalvars := make(map[string]Variable)
 	for _, globalvar := range globals {
 		if len(globalvar.Branches) == 1 {
 			break
 		}
-		ex, err := globalvar.Find_child("EXPRESSION")
-		if err != nil {
+		ex := globalvar.Search_first_child("EXPRESSION")
+		if ex == nil {
 			panic("Internal Error: Global Varblock does not have expression child")
 		}
-		successful, err := determineVariables(globalvar, globalvars, ex, 1, "", info)
+		successful, err := determineVariables(*globalvar, globalvars, ex, 1, "", info)
 		if err != nil {
 			successful = false
 			TypeCheckError(err.Error())
@@ -110,16 +109,16 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 	for _, f := range info.Functions {
 		localVars[f.Name] = map[string]Variable{}
 		functiontree := *f.CodeTree
-		locals := Parse_tree_search(functiontree, "VIRTUALVARBLOCK")
+		locals := functiontree.Search_tree("VIRTUALVARBLOCK")
 		for _, l := range locals {
 			if len(l.Branches) == 1 {
 				break
 			}
-			ex, err := l.Find_child("EXPRESSION")
-			if err != nil {
+			ex := l.Search_first_child("EXPRESSION")
+			if ex == nil {
 				panic("Internal Error: Global Varblock does not have expression child")
 			}
-			successful, err := determineVariables(l, localVars[f.Name], ex, 0, f.Name, info)
+			successful, err := determineVariables(*l, localVars[f.Name], ex, 0, f.Name, info)
 			if err != nil {
 				successful = false
 				TypeCheckError(err.Error())
@@ -142,7 +141,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 
 	for _, f := range info.Functions {
 		functiontree := f.CodeTree
-		assigns := Parse_tree_search(*functiontree, "VARASSIGN")
+		assigns := functiontree.Search_tree("VARASSIGN")
 		for _, assign := range assigns {
 			name := assign.Branches[0].Leaf.Value.(string)
 			actualtype := ""
@@ -177,7 +176,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 	for _, f := range info.Functions {
 
 		// Determine each function call is correct
-		for _, call := range Parse_tree_search(tree, "FUNCCALL") {
+		for _, call := range tree.Search_tree("FUNCCALL") {
 			if len(call.Branches) == 1 {
 				// Console.Log
 			}
@@ -227,7 +226,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 		}
 
 		functree := f.CodeTree
-		returnarr := Parse_tree_search(*functree, "RETURN")
+		returnarr := functree.Search_tree("RETURN")
 		for _, r := range returnarr {
 			if len(r.Branches) <= 1 {
 				if f.ReturnType == "void" {
@@ -249,7 +248,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 			}
 		}
 
-		ifarr := Parse_tree_search(*functree, "IF")
+		ifarr := functree.Search_tree("IF")
 
 		for _, r := range ifarr {
 			extype, err := typeCheckExpression(r.Branches[2], f.Name, info)
@@ -264,7 +263,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 			}
 		}
 
-		whilearr := Parse_tree_search(*functree, "WHILE")
+		whilearr := functree.Search_tree("WHILE")
 
 		for _, r := range whilearr {
 			extype, err := typeCheckExpression(r.Branches[2], f.Name, info)
@@ -285,40 +284,6 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 func TypeCheckError(s string) {
 	fmt.Print("TYPE ERROR: ")
 	fmt.Println(s)
-}
-
-func Parse_tree_search(tree ParseTree, name string) []ParseTree {
-	tokenchannel := make(chan ParseTree)
-	wg := new(sync.WaitGroup)
-	res := []ParseTree{}
-	go func() {
-		for true {
-			token, ok := <-tokenchannel
-			if !ok {
-				return
-			}
-			res = append(res, token)
-		}
-	}()
-	wg.Add(1)
-	go treeSearchRoutine(tree, name, tokenchannel, wg)
-	wg.Wait()
-	close(tokenchannel)
-
-	return res
-}
-
-func treeSearchRoutine(tree ParseTree, name string, channel chan ParseTree, wg *sync.WaitGroup) {
-	defer wg.Done()
-	if tree.Leaf.Name == name {
-		channel <- tree
-	}
-	//fmt.Print(len(tree.Branches))
-	for _, t := range tree.Branches {
-		wg.Add(1)
-		go treeSearchRoutine(t, name, channel, wg)
-	}
-	return
 }
 
 func detFuncInput(tree ParseTree) (map[string]InputType, error) {

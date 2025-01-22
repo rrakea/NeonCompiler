@@ -51,7 +51,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			args_code := ""
 			arg_total_stack_limit := 0
 			arg_total_locals_used := map[string]bool{}
-			args := find_closest_children(&child, "arg")
+			args := child.Search_top_occurences("arg")
 			for i, arg := range args {
 				arg_code, arg_type, arg_stack_limit, arg_locals_used := expression_evaluation(arg, var_info, build, func_sigs, labels)
 				_ = arg_type

@@ -1,9 +1,7 @@
 package jasmin
 
 import (
-	"compiler/typechecker"
 	"strconv"
-	"sync"
 )
 
 // Returns: The code as string, stack limit
@@ -11,7 +9,7 @@ func Statement_block_evaluate(function_body *tree, var_info *variable_info, func
 	block_stack_limit := 0
 	code := ""
 
-	statements := find_closest_children(function_body, "STATEMENT")
+	statements := function_body.Search_top_occurences("STATEMENT")
 
 	for _, statement := range statements {
 		statement_code, statement_stack_limit := Statement_evaluate(statement, func_sigs, var_info, build, labels)
@@ -23,81 +21,32 @@ func Statement_block_evaluate(function_body *tree, var_info *variable_info, func
 	return code, block_stack_limit
 }
 
-// Finds the children of the name, without searching the children of these nodes
-func find_closest_children(block *tree, name string) []*tree {
-	statement_chan := make(chan *tree)
-	wg := new(sync.WaitGroup)
-	wg.Add(1)
-	go find_routine(block, statement_chan, name, wg)
-	statements := []*tree{}
-	go func() {
-		wg.Wait()
-		close(statement_chan)
-	}()
-	for stat := range statement_chan {
-		statements = append(statements, stat)
-	}
-	return statements
-}
-
-func find_routine(block *tree, stat_chan chan *tree, name string, wg *sync.WaitGroup) {
-	defer wg.Done()
-	for _, branch := range block.Branches {
-		if branch.Leaf.Name == name {
-			stat_chan <- &branch
-		} else {
-			wg.Add(1)
-			go find_routine(&branch, stat_chan, name, wg)
-		}
-	}
-}
 
 // Returns code, stack limit
 func Statement_evaluate(statement_tree *tree, func_sigs *function_signatures, var_info *variable_info, build *build_info, labels *label_info) (string, int) {
 	statement := statement_tree.Branches[0]
 	switch statement.Leaf.Name {
 	case "FUNCCALL":
-		name_tree, err := statement.Find_child("name")
+		name_tree := statement.Search_first_child("name")
 		name := name_tree.Leaf.Value.(string)
-		argblock, err := statement.Find_child("ARGBLOCK")
-		if err != nil {
-			panic("Invalid funccall found in parse tree")
-		}
+		argblock := statement.Search_first_child("ARGBLOCK")
 		return func_call_evaluate(name, argblock, func_sigs, var_info, build, labels)
 	case "VARASSIGN":
-		name_tree, err := statement.Find_child("name")
+		name_tree := statement.Search_first_child("name")
 		name := name_tree.Leaf.Value.(string)
-		expression, err := statement.Find_child("EXPRESSION")
-		if err != nil {
-			panic("Invalid var assign in parse tree")
-		}
+		expression := statement.Search_first_child("EXPRESSION")
 		return var_assign_evaluate(name, expression, var_info, build, func_sigs, labels)
 
 	case "RETURN":
-		expression, err := statement.Find_child("EXPRESSION")
-		if err != nil {
-			expression = nil
-		}
+		expression := statement.Search_first_child("EXPRESSION")
 		return return_evaluate(expression, var_info, build, func_sigs, labels)
 	case "IF":
-		condition, err := statement.Find_child("EXPRESSION")
-		if err != nil {
-			panic("Internal Error: Invalid if statements block, expression missing")
-		}
-		statement_block, err := statement.Find_child("STATEMENTBLOCK")
-		if err != nil {
-			panic("Internal Error: Invalid if statement block, no statement block")
-		}
+		condition := statement.Search_first_child("EXPRESSION")
+		statement_block := statement.Search_first_child("STATEMENTBLOCK")
 		return if_evaluate(condition, statement_block, var_info, build, labels, func_sigs)
 	case "WHILE":
-		condition, err := statement.Find_child("EXPRESSION")
-		if err != nil {
-			panic("Invalid while found in parse tree")
-		}
-		statement_block, err := statement.Find_child("STATEMENTBLOCK")
-		if err != nil {
-			panic("Internal Error: Invalid while statement block, no statement block")
-		}
+		condition := statement.Search_first_child("EXPRESSION")
+		statement_block := statement.Search_first_child("STATEMENTBLOCK")
 		return while_evaluate(condition, statement_block, var_info, build, labels, func_sigs)
 	default:
 		panic("Unrecognized statement in parse tree")
@@ -133,14 +82,14 @@ func return_evaluate(expression *tree, var_info *variable_info, build *build_inf
 }
 
 func func_call_evaluate(func_name string, arg_block *tree, func_sigs *function_signatures, var_info *variable_info, build *build_info, labels *label_info) (string, int) {
-	args := typechecker.Parse_tree_search(*arg_block, "ARG")
+	args := arg_block.Search_top_occurences("ARG")
 	arg_stack_limit := 0
 	arg_code := ""
 
 	for _, arg := range args {
 		ex_code, ex_type, ex_stack_limit, _ := expression_evaluation(&arg.Branches[0], var_info, build, func_sigs, labels)
 		_ = ex_type
-		arg_code += ex_code + "\n"
+		arg_code += ex_code
 		arg_stack_limit = max(arg_stack_limit, ex_stack_limit+len(args))
 	}
 

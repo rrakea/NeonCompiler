@@ -2,7 +2,6 @@ package parser
 
 import (
 	"compiler/lexer"
-	"errors"
 	"slices"
 )
 
@@ -17,9 +16,6 @@ type ParseLeaf struct {
 }
 
 func createParseTree(parseChan chan any) {
-	//typeCheckerChan := make(chan any)
-	//go typechecker.typecheck(typeCheckerChan)
-
 	Trees := []ParseTree{}
 	for true {
 		newItem := <-parseChan
@@ -60,15 +56,6 @@ func createParseTree(parseChan chan any) {
 		parseChan <- t
 	}
 	close(parseChan)
-}
-
-func (tree *ParseTree) Find_child(name string) (*ParseTree,error) {
-	for _, b := range tree.Branches {
-		if b.Leaf.Name == name {
-			return &b, nil
-		}
-	}
-	return nil, errors.New("Child not found: " + name)
 }
 
 /*func PrintTree(tree ParseTree) {
