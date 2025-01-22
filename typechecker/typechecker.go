@@ -41,7 +41,8 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 	for _, f := range funcArr {
 		name := f.Search_first_child("name").Leaf.Value.(string)
 		returnType := f.Search_first_child("RETURNTYPE").Branches[0].Branches[0].Leaf.Name
-		input, parameter_type_arr, err := det_func_parameters(*f.Search_first_child("INPUTBLOCK"))
+		input, tmp, err := det_func_parameters(*f.Search_first_child("INPUTBLOCK"))
+		parameter_type_arr = tmp
 		pVarBlock := *f.Search_first_child("VIRTUALVARBLOCK")
 		// Find the actual code after the local vars
 		var code *ParseTree
@@ -147,7 +148,6 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 		}
 
 		// Determine each function call is correct
-		// TODO
 		for _, call := range tree.Search_tree("FUNCCALL") {			
 			args := call.Search_top_occurences("ARG")
 			input_amount_wanted := len(info.Functions[f.Name].ParameterTypes) 
