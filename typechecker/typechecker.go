@@ -13,10 +13,10 @@ type ParseTree = parser.ParseTree
 type Linenumber = lexer.LineNumber
 
 type Function struct {
-	Name       string
-	ReturnType string
-	InputTypes map[string]InputType // Name -> Type
-	CodeTree   *ParseTree
+	Name           string
+	ReturnType     string
+	ParameterTypes map[string]string // Name -> Type
+	CodeTree       *ParseTree
 }
 
 type Variable struct {
@@ -25,79 +25,61 @@ type Variable struct {
 	Expression ParseTree
 }
 
-type InputType struct {
-	Inputtype string
-	Index     int
-}
-
 type TypeCheckerInfo struct {
-	Main       Function
 	Functions  map[string]Function   // Name -> Function
 	GlobalVars map[string]Variable   // Name -> Variable
 	LocalVar   map[string][]Variable // Func Name -> []Variables
-	Code       map[string]ParseTree
 }
 
 func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
-	// TODO
-	// You could make this way more efficient by going through the tree once and marking down all the important stuff
-	// But cant be bothered
-
-	const locationOfNameInFuncDec = 2
-	const locationOfRetTypeInFuncDec = 1
-	const locationOfInputInFuncDec = 4
-
 	info := TypeCheckerInfo{}
 
-	// Determine Function Signatures
-	// Return & Input types -> Function Map
-	main := tree.Search_tree("MAIN")
-	if len(main) != 1 {
-		// TODO RACE CONDITION????
-		TypeCheckError("Wrong amount of main function in source file")
-		return info, false
-	}
-	mainFunc := Function{Name: "main", ReturnType: "void", InputTypes: make(map[string]InputType), CodeTree: &main[0].Branches[10]}
-	args_name := main[0].Branches[7].Leaf.Value.(string)
-	mainFunc.InputTypes[args_name] = InputType{"string[]", 0}
-	info.Main = mainFunc
-
+	// Determine Functions, Return Types, Paramter Types etc.
 	functions := make(map[string]Function)
 	funcArr := tree.Search_tree("FUNC")
 	for _, f := range funcArr {
-		name := f.Branches[locationOfNameInFuncDec].Leaf.Value.(string)
-		//fmt.Println(name)
-		//fmt.Println(len(f.Branches))
-		returnType := f.Branches[locationOfRetTypeInFuncDec].Branches[0].Branches[0].Leaf.Name
-		//fmt.Print(returnType)
-		input, err := detFuncInput(f.Branches[4])
+		name := f.Search_first_child("name").Leaf.Value.(string)
+		returnType := f.Search_first_child("RETURNTYPE").Branches[0].Branches[0].Leaf.Name
+		input, err := det_func_parameters(*f.Search_first_child("INPUTBLOCK"))
+		pVarBlock := *f.Search_first_child("VIRTUALVARBLOCK")
+		// Find the actual code after the local vars
+		var code *ParseTree
+		for true {
+			if len(pVarBlock.Branches) == 1 {
+				code = &pVarBlock.Branches[0]
+				break
+			}
+			pVarBlock = *pVarBlock.Search_first_child("VIRTUALVARBLOCK")
+		}
 		if err != nil {
 			TypeCheckError(err.Error())
 			return info, false
 		}
-		functions[name] = Function{Name: name, ReturnType: returnType, InputTypes: input, CodeTree: &f.Branches[6]}
+		// Check against double entries
+		_, exist := functions[name]
+		if exist {
+			TypeCheckError("Function " + name + " declared twice")
+			return info, false
+		}
+		functions[name] = Function{Name: name, ReturnType: returnType, ParameterTypes: input, CodeTree: code}
 	}
-	functions["main"] = info.Main
+	_, exist := functions["Main"]
+	if !exist {
+		TypeCheckError("No main function in code")
+		return info, false
+	}
 	info.Functions = functions
 
 	// Determine Global scoped vars
 	globals := tree.Search_tree("GLOBALVARBLOCK")
-	globalvars := make(map[string]Variable)
+	globalvars := map[string]Variable{}
 	for _, globalvar := range globals {
 		if len(globalvar.Branches) == 1 {
-			break
+			continue
 		}
-		ex := globalvar.Search_first_child("EXPRESSION")
-		if ex == nil {
-			panic("Internal Error: Global Varblock does not have expression child")
-		}
-		successful, err := determineVariables(*globalvar, globalvars, ex, 1, "", info)
+		err := type_check_declaration(globalvar, globalvars, "", &info)
 		if err != nil {
-			successful = false
 			TypeCheckError(err.Error())
-			return info, false
-		}
-		if !successful {
 			return info, false
 		}
 	}
@@ -106,47 +88,38 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 	// Determine locally scoped vars per function
 	localVars := map[string]map[string]Variable{}
 	local_var_array := map[string][]Variable{}
+	info.LocalVar = local_var_array
+
+	// Big Loop over all the functions to type check all statements
 	for _, f := range info.Functions {
+		functiontree := f.CodeTree
+
+		// Local Variables per Function
 		localVars[f.Name] = map[string]Variable{}
-		functiontree := *f.CodeTree
-		locals := functiontree.Search_tree("VIRTUALVARBLOCK")
-		for _, l := range locals {
+		for _, l := range functiontree.Search_tree("VIRTUALVARBLOCK") {
 			if len(l.Branches) == 1 {
 				break
 			}
-			ex := l.Search_first_child("EXPRESSION")
-			if ex == nil {
-				panic("Internal Error: Global Varblock does not have expression child")
-			}
-			successful, err := determineVariables(*l, localVars[f.Name], ex, 0, f.Name, info)
+			err := type_check_declaration(l, localVars[f.Name], f.Name, &info)
 			if err != nil {
-				successful = false
 				TypeCheckError(err.Error())
 				return info, false
 			}
-			if !successful {
-				return info, false
-			}
 		}
-		for vname, vtype := range info.Functions[f.Name].InputTypes {
-			localVars[f.Name][vname] = Variable{Name: vname, Vartype: vtype.Inputtype}
+		for vname, vtype := range info.Functions[f.Name].ParameterTypes {
+			localVars[f.Name][vname] = Variable{Name: vname, Vartype: vtype}
 		}
 		for _, v := range localVars[f.Name] {
 			local_var_array[f.Name] = append(local_var_array[f.Name], v)
 		}
-	}
-	info.LocalVar = local_var_array
 
-	// Determine set of a var is correct
-
-	for _, f := range info.Functions {
-		functiontree := f.CodeTree
-		assigns := functiontree.Search_tree("VARASSIGN")
-		for _, assign := range assigns {
-			name := assign.Branches[0].Leaf.Value.(string)
+		// Determine assign of a var is correct
+		for _, assign := range functiontree.Search_tree("VARASSIGN") {
+			name := assign.Search_first_child("name").Leaf.Value.(string)
 			actualtype := ""
 			ok := false
 			localvartype := Variable{}
+			// local var exists
 			for _, l := range info.LocalVar[f.Name] {
 				if l.Name == name {
 					ok = true
@@ -154,28 +127,26 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 				}
 			}
 			if !ok {
+				// Check if global var
 				globalvartype, ok := info.GlobalVars[name]
 				if !ok {
 					TypeCheckError("Variable has not been initialized. Variable name: " + name)
 					return info, false
 				} else {
-					actualtype = globalvartype.Name
+					actualtype = globalvartype.Vartype
 				}
 			} else {
 				actualtype = localvartype.Vartype
 			}
-			expressionType, err := typeCheckExpression(assign.Branches[2], f.Name, info)
+			expressionType, err := typeCheckExpression(*assign.Search_first_child("EXPRESSION"), f.Name, info)
 			if actualtype != expressionType || err != nil {
 				TypeCheckError(err.Error() + "\nVariable assingnment did not type check.\nVariable has been declared as type " + actualtype + " while Expression has type: " + expressionType)
 				return info, false
 			}
 		}
-	}
-
-	// Determine if / while / return expressions are correct
-	for _, f := range info.Functions {
 
 		// Determine each function call is correct
+		// TODO
 		for _, call := range tree.Search_tree("FUNCCALL") {
 			if len(call.Branches) == 1 {
 				// Console.Log
@@ -183,7 +154,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 			name := call.Branches[0].Leaf.Value.(string)
 			start := call.Branches[2].Branches[0]
 			if len(start.Branches) <= 1 {
-				if len(info.Functions[f.Name].InputTypes) == 0 {
+				if len(info.Functions[f.Name].ParameterTypes) == 0 {
 					continue
 				} else {
 					TypeCheckError("Function \"" + f.Name + "\" called with input values (needs 0)")
@@ -225,10 +196,8 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 			}*/
 		}
 
-		functree := f.CodeTree
-		returnarr := functree.Search_tree("RETURN")
-		for _, r := range returnarr {
-			if len(r.Branches) <= 1 {
+		for _, r := range functiontree.Search_tree("RETURN") {
+			if len(r.Branches) == 1 {
 				if f.ReturnType == "void" {
 					continue
 				} else {
@@ -236,7 +205,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 					return info, false
 				}
 			}
-			extype, err := typeCheckExpression(r.Branches[1], f.Name, info)
+			extype, err := typeCheckExpression(*r.Search_first_child("EXPRESSION"), f.Name, info)
 			if extype != f.ReturnType || err != nil {
 				if err != nil {
 					extype = err.Error()
@@ -248,10 +217,8 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 			}
 		}
 
-		ifarr := functree.Search_tree("IF")
-
-		for _, r := range ifarr {
-			extype, err := typeCheckExpression(r.Branches[2], f.Name, info)
+		for _, r := range functiontree.Search_tree("IF") {
+			extype, err := typeCheckExpression(*r.Search_first_child("EXPRESSION"), f.Name, info)
 			if extype != "bool" || err != nil {
 				if err != nil {
 					extype = err.Error()
@@ -263,9 +230,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 			}
 		}
 
-		whilearr := functree.Search_tree("WHILE")
-
-		for _, r := range whilearr {
+		for _, r := range functiontree.Search_tree("WHILE") {
 			extype, err := typeCheckExpression(r.Branches[2], f.Name, info)
 			if extype != "bool" || err != nil {
 				if err != nil {
@@ -286,167 +251,52 @@ func TypeCheckError(s string) {
 	fmt.Println(s)
 }
 
-func detFuncInput(tree ParseTree) (map[string]InputType, error) {
-	retMap := make(map[string]InputType)
-	if tree.Leaf.Name != "INPUTBLOCK" {
-		fmt.Print("TYPE CHECKER ERROR: Function declaration not parsed correctly")
-		return retMap, nil
-	}
+func det_func_parameters(tree ParseTree) (map[string]string, error) {
+	retMap := map[string]string{}
+	// Has no inputs
 	if tree.Branches[0].Leaf.Name == ")" {
 		return retMap, nil
 	}
-	start := tree.Branches[0]
-	retMap[start.Branches[1].Leaf.Value.(string)] = InputType{start.Branches[0].Branches[0].Leaf.Name, 0}
-
-	err := detFuncInputRec(start.Branches[2], &retMap, 0)
-	if err != nil {
-		return retMap, err
+	for _, parameter := range tree.Search_tree("PARAMETER") {
+		name := parameter.Branches[1].Leaf.Value.(string)
+		paratype := det_func_input_type(parameter)
+		_, exists := retMap[name]
+		if exists {
+			return retMap, errors.New("Variable name declared twice in function signature " + name)
+		}
+		retMap[name] = paratype
 	}
 	return retMap, nil
 }
 
-func detFuncInputRec(tree ParseTree, inputs *map[string]InputType, index int) error {
-	if len(tree.Branches) == 0 {
-		fmt.Print(tree)
+func det_func_input_type(tree *ParseTree) string {
+	if tree.Branches == nil {
+		return tree.Leaf.Name
 	}
-
-	if tree.Branches[0].Leaf.Name != "," {
-		return nil
+	if len(tree.Branches) > 1 {
+		return "[]string"
 	}
-	if (*inputs)[tree.Branches[2].Leaf.Value.(string)].Inputtype != "" {
-		return errors.New("Variable name declared twice in function Signature " + (*inputs)[tree.Branches[2].Leaf.Name].Inputtype + " " + tree.Branches[1].Branches[0].Leaf.Name)
-	}
-	(*inputs)[tree.Branches[2].Leaf.Value.(string)] = InputType{tree.Branches[1].Branches[0].Leaf.Name, index}
-	return detFuncInputRec(tree.Branches[3], inputs, index+1)
+	return det_func_input_type(&tree.Branches[0])
 }
 
-func determineVariables(tree ParseTree, vars map[string]Variable, expression *ParseTree, static int, funcname string, info TypeCheckerInfo) (bool, error) {
-	name := tree.Branches[1+static].Leaf.Value.(string)
-	vartype := tree.Branches[static].Branches[0].Leaf.Name
+func type_check_declaration(tree *ParseTree, vars map[string]Variable, funcname string, info *TypeCheckerInfo) error {
+	name := tree.Search_first_child("name").Leaf.Value.(string)
+	vartype := tree.Search_first_child("TYPE").Leaf.Name
+	expression := tree.Search_first_child("EXPRESSION")
 	newVar := Variable{Name: name, Vartype: vartype, Expression: *expression}
-	expressiontype, err := typeCheckExpression(tree.Branches[3+static], funcname, info)
+
+	expressiontype, err := typeCheckExpression(*expression, funcname, *info)
 	if err != nil {
-		return false, err
+		return err
 	}
 	if expressiontype != vartype {
-		return false, errors.New("The variable declaration of " + name + " does not typecheck.\nThe variable is declared as type " + vartype + " while the expression evaluates to " + expressiontype)
+		return errors.New("The variable declaration of " + name + " does not typecheck.\nThe variable is declared as type " + vartype + " while the expression evaluates to " + expressiontype)
 	}
 	if vars[name].Name != "" {
-		return false, errors.New("The variable with name " + newVar.Name + " is declared twice")
+		return errors.New("The variable with name " + newVar.Name + " is declared twice")
 	}
 	vars[name] = newVar
-	return true, nil
-}
-
-func typeCheckExpression(expression ParseTree, funcName string, info TypeCheckerInfo) (string, error) {
-	switch len(expression.Branches) {
-	case 0:
-		return "undefined", errors.New("Expression has 0 Children: " + expression.Leaf.Name)
-	case 1:
-		switch expression.Branches[0].Leaf.Name {
-		case "EL1", "EL2", "EL3", "EL4", "EL5", "EL6", "EL7":
-			return typeCheckExpression(expression.Branches[0], funcName, info)
-
-		case "name":
-			name := expression.Branches[0].Leaf.Value.(string)
-			locals := info.LocalVar[funcName]
-			ok := false
-			local := Variable{}
-			for _, l := range locals {
-				if l.Name == name {
-					ok = true
-					local = l
-					break
-				}
-			}
-			if !ok {
-				global, ok := info.GlobalVars[name]
-				if !ok {
-					return "undefined", errors.New("Variable " + name + " was not initialized.")
-				}
-				return global.Vartype, nil
-			}
-			return local.Vartype, nil
-
-		case "LITERAL":
-			switch expression.Branches[0].Branches[0].Leaf.Name {
-			case "intliteral":
-				return "int", nil
-			case "doubleliteral":
-				return "double", nil
-			case "boolliteral":
-				return "bool", nil
-			case "stringliteral":
-				return "string", nil
-			default:
-				return "undefined", errors.New("Literal error ~ Mt likely error in compiler :).\n Calculated Type: " + expression.Branches[0].Branches[0].Leaf.Name)
-			}
-
-		case "FUNCCALL":
-			return info.Functions[expression.Branches[0].Branches[0].Leaf.Value.(string)].ReturnType, nil
-
-		default:
-			return "undefined", errors.New("Compiler Error, Expression without covered case has only one child")
-		}
-
-	case 2:
-		switch expression.Branches[0].Leaf.Name {
-		case "oplv5":
-			ex, err := typeCheckExpression(expression.Branches[1], funcName, info)
-			if err != nil {
-				return "undefined", err
-			}
-			if ex == "int" || ex == "double" {
-				return ex, nil
-			}
-			return "undefined", errors.New(expression.Branches[0].Leaf.Value.(string) + " did not stand before a number")
-		case "oplv7":
-			ex, err := typeCheckExpression(expression.Branches[1], funcName, info)
-			if err != nil {
-				return "undefined", err
-			}
-			if ex == "bool" {
-				return "bool", nil
-			}
-			return "undefined", errors.New("! did not stand before a boolen expression")
-		}
-
-	case 3:
-		leftside, err := typeCheckExpression(expression.Branches[0], funcName, info)
-		if err != nil {
-			return "undefined", err
-		}
-		rightside, err := typeCheckExpression(expression.Branches[2], funcName, info)
-		if err != nil {
-			return "undefined", err
-		}
-		switch expression.Branches[1].Leaf.Name {
-		case "oplv1", "oplv2":
-			if rightside == "bool" && leftside == "bool" {
-				return "bool", nil
-			}
-		case "oplv3":
-			if (rightside == "bool" && leftside == "bool") || ((rightside == "int" || rightside == "double") && (leftside == "int" || leftside == "double")) {
-				return "bool", nil
-			}
-		case "oplv4":
-			if (rightside == "int" || rightside == "double") && (leftside == "int" || leftside == "double") {
-				return "bool", nil
-			}
-
-		case "oplv5", "oplv6":
-			if rightside == "int" && leftside == "int" {
-				return "int", nil
-			}
-
-			if (rightside == "int" || rightside == "double") && (leftside == "int" || leftside == "double") {
-				return "double", nil
-			}
-		default:
-			return "undefined", errors.New("Compiler Error: Expression with 3 children does not have the correct opperators")
-		}
-	}
-	return "undefined", nil
+	return nil
 }
 
 func calcArgContinue(start ParseTree, fname string, info TypeCheckerInfo) ([]string, error) {

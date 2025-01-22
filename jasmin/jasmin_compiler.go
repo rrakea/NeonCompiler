@@ -94,10 +94,10 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 
 		// Function Arguments
 		arg_count := 0
-		for arg_name, arg_type := range info.Functions[function.Name].InputTypes {
-			func_arg_type = append(func_arg_type, arg_type.Inputtype)
+		for arg_name, arg_type := range info.Functions[function.Name].ParameterTypes {
+			func_arg_type = append(func_arg_type, arg_type)
 			var_map_count[arg_name] = arg_count
-			var_map_type[arg_name] = jasmin_type_prefix_converter(arg_type.Inputtype)
+			var_map_type[arg_name] = jasmin_type_prefix_converter(arg_type)
 			arg_count++
 		}
 
@@ -142,8 +142,8 @@ func evaluate_func_signatures(info *typechecker.TypeCheckerInfo) function_signat
 	for func_name, func_struct := range info.Functions {
 		func_sig.return_type[func_name] = jasmin_type_converter(func_struct.ReturnType)
 		parameters := ""
-		for _, parameter := range func_struct.InputTypes {
-			parameters += jasmin_type_converter(parameter.Inputtype)
+		for _, parameter := range func_struct.ParameterTypes {
+			parameters += jasmin_type_converter(parameter)
 		}
 		func_sig.parameter_type[func_name] = parameters
 	}

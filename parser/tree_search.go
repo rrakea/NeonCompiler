@@ -23,7 +23,7 @@ func (tree *ParseTree) Search_tree (name string) []*ParseTree {
 	ret := []*ParseTree{}
 	for _, br := range tree.Branches {
 		if br.Leaf.Name == name {
-			ret = append(ret, &br)
+			ret = append(ret, tree)
 		}
 		for _, ch := range br.Branches {
 			ret = append(ret, ch.Search_tree(name)...)

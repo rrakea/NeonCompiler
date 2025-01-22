@@ -13,9 +13,12 @@ func testGrammar() []Rule {
 		MakeRule("TYPE", []string{"int"}),
 		MakeRule("TYPE", []string{"string"}),
 		MakeRule("TYPE", []string{"bool"}),
+		MakeRule("VTYPE", []string{"void"}),
 		//
-		MakeRule("RETURNTYPE", []string{"void"}),
+		MakeRule("RETURNTYPE", []string{"VTYPE"}),
 		MakeRule("RETURNTYPE", []string{"TYPE"}),
+		MakeRule("INPUTTYPE", []string{"TYPE"}),
+		MakeRule("INPUTTYPE", []string{"[", "]", "string"}),
 		//
 		MakeRule("LITERAL", []string{"stringliteral"}),
 		MakeRule("LITERAL", []string{"boolliteral"}),
@@ -28,8 +31,8 @@ func testGrammar() []Rule {
 		MakeRule("NAMESPACE", []string{"namespace", "name", "{", "CLASS", "}"}),
 		MakeRule("CLASS", []string{"class", "name", "{", "GLOBALVARBLOCK"}),
 		MakeRule("GLOBALVARBLOCK", []string{"static", "TYPE", "name", "=", "EXPRESSION", ";", "GLOBALVARBLOCK"}),
-		MakeRule("GLOBALVARBLOCK", []string{"MAIN"}),
-		MakeRule("MAIN", []string{"static", "void", "main", "(", "string", "[", "]", "name", ")", "{", "VIRTUALVARBLOCK", "FUNCBLOCK"}),
+		MakeRule("GLOBALVARBLOCK", []string{"FUNCBLOCK"}),
+		//MakeRule("MAIN", []string{"static", "void", "main", "(", "string", "[", "]", "name", ")", "{", "VIRTUALVARBLOCK", "FUNCBLOCK"}),
 		MakeRule("FUNCBLOCK", []string{"FUNC", "FUNCBLOCK"}),
 		MakeRule("FUNCBLOCK", []string{"}"}),
 
@@ -46,8 +49,9 @@ func testGrammar() []Rule {
 
 		MakeRule("INPUTBLOCK", []string{")"}),
 		MakeRule("INPUTBLOCK", []string{"INPUTSTART"}),
-		MakeRule("INPUTSTART", []string{"TYPE", "name", "INPUTCONTINUED"}),
-		MakeRule("INPUTCONTINUED", []string{",", "TYPE", "name", "INPUTCONTINUED"}),
+		MakeRule("INPUTSTART", []string{"PARAMETER", "INPUTCONTINUED"}),
+		MakeRule("INPUTCONTINUED", []string{",", "PARAMETER", "INPUTCONTINUED"}),
+		MakeRule("PARAMETER", []string{"INPUTTYPE", "name"}),
 		MakeRule("INPUTCONTINUED", []string{")"}),
 		MakeRule("ARGBLOCK", []string{")"}),
 		MakeRule("ARGBLOCK", []string{"ARGSSTART"}),

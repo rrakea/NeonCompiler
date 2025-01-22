@@ -12,8 +12,3 @@ return
 
 
 
-.method public static add(II)I
-.limit stack 0
-.limit locals 2
-.end method
-
