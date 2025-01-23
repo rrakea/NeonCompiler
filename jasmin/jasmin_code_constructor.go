@@ -54,7 +54,7 @@ func (build *build_info) add_clinit(global_var_code map[string]string, global_va
 	}
 	local_limit_string := strconv.Itoa(local_limit)
 	stack_limit_string := strconv.Itoa(stack_limit)
-	clinit := "" +
+	clinit := "\n" +
 		".method static <clinit>()V \n" +
 		".limit stack " + stack_limit_string + "\n"
 	if local_limit != 0 {
@@ -83,7 +83,7 @@ func (build *build_info) add_function(method_name string, return_type string, ar
 		arg_type_string += jasmin_type_converter(arg)
 	}
 
-	func_dec := "" +
+	func_dec := "\n" +
 		".method public static " + method_name + "(" + arg_type_string + ")" + return_type + "\n" +
 		".limit stack " + stack_limit_string + "\n"
 	if local_limit != 0 {

@@ -169,11 +169,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 					return info, false
 				}
 				if called_function == "Console.WriteLine" {
-					if ex_type == "string" {
-						break
-					} else {
-						TypeCheckError("Console.WriteLine called with Parameter which is not string")
-					}
+					break
 				}
 				if ex_type != info.Functions[called_function].ParameterOrder[i] {
 					TypeCheckError("Parameter " + strconv.Itoa(i) + " for function call \"" + called_function + "\" is misplaced. Function does not take a " + ex_type + " at that index")

@@ -13,10 +13,12 @@ return
 
 
 .method public static add(II)I
-.limit stack 2
+.limit stack 3
 .limit locals 2
-iload_1
 iload_0
+iload_1
+iadd
+getstatic Test/i I
 iadd
 ireturn
 .end method
@@ -29,13 +31,16 @@ ldc 2
 getstatic Test/i I
 imul
 iadd
-istore_1
+istore_2
 getstatic Test/i I
-iload_1
+iload_2
 invokestatic Test/add(II)I
 getstatic java/lang/System/out Ljava/io/PrintStream;
 ldc "Hello World"
 invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
+getstatic java/lang/System/out Ljava/io/PrintStream;
+ldc 1
+invokevirtual java/io/PrintStream/println(I)V
 return 
 .end method
 

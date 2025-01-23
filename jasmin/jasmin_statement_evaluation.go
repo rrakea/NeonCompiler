@@ -85,19 +85,24 @@ func func_call_evaluate(func_name string, arg_block *tree, func_sigs *function_s
 	args := arg_block.Search_top_occurences("ARG")
 	arg_stack_limit := 0
 	arg_code := ""
+	first_arg_type := ""
 
-	for _, arg := range args {
+	for i, arg := range args {
 		ex_code, ex_type, ex_stack_limit, _ := expression_evaluation(&arg.Branches[0], var_info, build, func_sigs, labels)
+		if i == 0 {
+			first_arg_type = ex_type
+		}
 		_ = ex_type
 		arg_code += ex_code
 		arg_stack_limit = max(arg_stack_limit, ex_stack_limit+len(args))
 	}
 
 	if func_name == "Console.WriteLine" {
+		call_type := jasmin_type_converter(first_arg_type)
 		call := "" +
 			"getstatic java/lang/System/out Ljava/io/PrintStream;\n" +
 			arg_code +
-			"invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V\n"
+			"invokevirtual java/io/PrintStream/println(" + call_type + ")V\n"
 		return call, arg_stack_limit
 	}
 
@@ -117,7 +122,7 @@ func if_evaluate(condition *tree, statement_block *tree, var_info *variable_info
 	if_code := "" +
 		cond_code + "\n" +
 		"iconst_0\n" +
-		"if_icmpeq else_label" + strconv.Itoa(labels.if_count) + "\n"
+		"if_icmpeq ELSE_LABEL_" + strconv.Itoa(labels.if_count) + "\n"
 	labels.if_count += 1
 
 	if_statement_block, statement_block_stack_limit := Statement_block_evaluate(statement_block, var_info, func_sigs, build, labels)
@@ -134,15 +139,15 @@ func while_evaluate(condition *tree, statement_block *tree, var_info *variable_i
 	}
 
 	while_code := "" +
-		"while_begin" + strconv.Itoa(labels.while_count) + ":\n" +
+		"WHILE_BEGIN" + strconv.Itoa(labels.while_count) + ":\n" +
 		cond_code + "\n" +
 		"iconst_0\n" +
-		"if_icmpeq else_label" + strconv.Itoa(labels.if_count) + "\n"
+		"if_icmpeq ELSE_LABEL_" + strconv.Itoa(labels.if_count) + "\n"
 	labels.while_count += 1
 
 	while_statement_block, statement_block_stack_limit := Statement_block_evaluate(statement_block, var_info, func_sigs, build, labels)
 	while_code += while_statement_block
-	while_code += "GOTO while_begin" + strconv.Itoa(labels.while_count)
+	while_code += "GOTO WHILE_BEGIN" + strconv.Itoa(labels.while_count)
 
 	while_statement_stack_limit := cond_stack_limit + 1 + statement_block_stack_limit
 	return while_code, while_statement_stack_limit
