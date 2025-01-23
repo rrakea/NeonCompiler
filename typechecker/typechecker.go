@@ -16,7 +16,9 @@ type Function struct {
 	Name           string
 	ReturnType     string
 	ParameterTypes map[string]string // Name -> Type
+	ParameterOrder []string
 	CodeTree       *ParseTree
+	LocalTree      *ParseTree
 }
 
 type Variable struct {
@@ -39,14 +41,13 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 	info.Functions = functions
 
 	funcArr := tree.Search_tree("FUNC")
-	parameter_type_arr := []string{}
 	for _, f := range funcArr {
 		name := f.Search_first_child("name").Leaf.Value.(string)
 		rettype := f.Search_first_child("RETURNTYPE")
 		returnType := rettype.Branches[0].Branches[0].Leaf.Name
-		input, tmp, err := det_func_parameters(*f.Search_first_child("INPUTBLOCK"))
-		parameter_type_arr = tmp
+		input, parameter_order, err := det_func_parameters(*f.Search_first_child("INPUTBLOCK"))
 		code := f.Search_first_occurenc_depth("STATEMENTBLOCK")
+		localvars := f.Search_first_occurenc_depth("VIRTUALVARBLOCK")
 		// Find the actual code after the local vars
 		if err != nil {
 			TypeCheckError(err.Error())
@@ -62,14 +63,16 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 			TypeCheckError("Function " + name + " declared twice")
 			return info, false
 		}
-		functions[name] = Function{Name: name, ReturnType: returnType, ParameterTypes: input, CodeTree: code}
+		functions[name] = Function{Name: name, ReturnType: returnType, ParameterTypes: input, ParameterOrder: parameter_order, CodeTree: code, LocalTree: localvars}
 	}
 	// Add the main Function
 	maintree := tree.Search_tree("MAIN")[0]
 	argname := maintree.Search_direct_children("name")[0].Leaf.Value.(string)
 	code := maintree.Search_first_occurenc_depth("STATEMENTBLOCK")
-	mainfunc := Function{Name: "main", ReturnType: "void", ParameterTypes: map[string]string{argname : "[]string"}, CodeTree: code}
+	mainlocals := maintree.Search_first_occurenc_depth("VIRTUALVARBLOCK")
+	mainfunc := Function{Name: "main", ReturnType: "void", ParameterTypes: map[string]string{argname: "string[]"}, ParameterOrder: []string{"string[]"}, CodeTree: code, LocalTree: mainlocals}
 	functions["main"] = mainfunc
+
 	// Determine Global scoped vars
 	globals := tree.Search_tree("GLOBALVARBLOCK")
 	globalvars := map[string]Variable{}
@@ -96,7 +99,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 
 		// Local Variables per Function
 		localVars[f.Name] = map[string]Variable{}
-		for _, l := range functiontree.Search_tree("VIRTUALVARBLOCK") {
+		for _, l := range info.Functions[f.Name].LocalTree.Search_tree("VIRTUALVARBLOCK") {
 			if len(l.Branches) == 1 {
 				break
 			}
@@ -146,22 +149,35 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 		}
 
 		// Determine each function call is correct
-		for _, call := range tree.Search_tree("FUNCCALL") {			
+		func_calls := functiontree.Search_tree("FUNCCALL")
+		for _, call := range func_calls {
 			args := call.Search_top_occurences("ARG")
-			input_amount_wanted := len(info.Functions[f.Name].ParameterTypes) 
-			if len(args) != input_amount_wanted{
-				TypeCheckError("Function \"" + f.Name + "\" called with the incorect amount of inputs (needs " + strconv.Itoa(input_amount_wanted) + " got " + strconv.Itoa(len(args)) )
+			called_function := call.Search_first_child("name").Leaf.Value.(string)
+			input_amount_wanted := len(info.Functions[called_function].ParameterOrder)
+			if called_function == "Console.WriteLine" {
+				input_amount_wanted = 1
+			}
+			if len(args) != input_amount_wanted {
+				TypeCheckError("Function \"" + called_function + "\" called with the incorect amount of inputs (needs " + strconv.Itoa(input_amount_wanted) + " got " + strconv.Itoa(len(args)))
 				return info, false
 			}
 			for i, arg := range args {
 				ex := arg.Branches[0]
 				ex_type, err := typeCheckExpression(ex, f.Name, info)
 				if err != nil {
-					TypeCheckError(err.Error() + "\nIn funccall expression " + f.Name)
+					TypeCheckError(err.Error() + "\nIn funccall expression " + called_function)
 					return info, false
 				}
-				if parameter_type_arr[i] != ex_type {
-					TypeCheckError("Parameter " + ex.Leaf.Value.(string) + "misplaced. Function does not take a " + ex_type + "at that index")
+				if called_function == "Console.WriteLine" {
+					if ex_type == "string" {
+						break
+					} else {
+						TypeCheckError("Console.WriteLine called with Parameter which is not string")
+					}
+				}
+				if ex_type != info.Functions[called_function].ParameterOrder[i] {
+					TypeCheckError("Parameter " + strconv.Itoa(i) + " for function call \"" + called_function + "\" is misplaced. Function does not take a " + ex_type + " at that index")
+					return info, false
 				}
 			}
 		}
@@ -221,14 +237,14 @@ func TypeCheckError(s string) {
 	fmt.Println(s)
 }
 
-func det_func_parameters(tree ParseTree) (map[string]string,  []string, error) {
+func det_func_parameters(tree ParseTree) (map[string]string, []string, error) {
 	retMap := map[string]string{}
 	// Has no inputs
 	if tree.Branches[0].Leaf.Name == ")" {
 		return retMap, []string{}, nil
 	}
-	parameters_type_arr := []string{} 
-	for _, parameter := range tree.Search_tree("PARAMETER"){
+	parameters_type_arr := []string{}
+	for _, parameter := range tree.Search_tree("PARAMETER") {
 		name := parameter.Branches[1].Leaf.Value.(string)
 		paratype := det_func_input_type(parameter)
 		parameters_type_arr = append(parameters_type_arr, paratype)
@@ -242,18 +258,15 @@ func det_func_parameters(tree ParseTree) (map[string]string,  []string, error) {
 }
 
 func det_func_input_type(tree *ParseTree) string {
-	if tree.Branches == nil {
+	if len(tree.Branches) == 0 {
 		return tree.Leaf.Name
-	}
-	if len(tree.Branches) > 1 {
-		return "[]string"
 	}
 	return det_func_input_type(&tree.Branches[0])
 }
 
 func type_check_declaration(tree *ParseTree, vars map[string]Variable, funcname string, info *TypeCheckerInfo) error {
 	name := tree.Search_first_child("name").Leaf.Value.(string)
-	vartype := tree.Search_first_child("TYPE").Leaf.Name
+	vartype := tree.Search_first_child("TYPE").Branches[0].Leaf.Name
 	expression := tree.Search_first_child("EXPRESSION")
 	newVar := Variable{Name: name, Vartype: vartype, Expression: *expression}
 

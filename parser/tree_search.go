@@ -21,27 +21,23 @@ func (tree *ParseTree) Search_first_child (name string) *ParseTree {
 
 func (tree *ParseTree) Search_tree (name string) []*ParseTree {
 	ret := []*ParseTree{}
+	if tree.Leaf.Name == name {
+		return []*ParseTree{tree}
+	}
 	for _, br := range tree.Branches {
-		if br.Leaf.Name == name {
-			ret = append(ret,  &br)
-		}
-		for _, ch := range br.Branches {
-			ret = append(ret, ch.Search_tree(name)...)
-		} 
+		ret = append(ret, br.Search_top_occurences(name)...)
 	}
 	return ret
 }
 
 func (tree *ParseTree) Search_top_occurences (name string) []*ParseTree {
+	if tree.Leaf.Name == name {
+		return []*ParseTree{tree}
+	}
+
 	ret := []*ParseTree{}
 	for _, br := range tree.Branches {
-		if br.Leaf.Name == name {
-			ret = append(ret, &br)
-		} else {
-			for _, ch := range br.Branches {
-				ret = append(ret, ch.Search_tree(name)...)
-			} 
-		}
+		ret = append(ret, br.Search_top_occurences(name)...)
 	}
 	return ret
 }
