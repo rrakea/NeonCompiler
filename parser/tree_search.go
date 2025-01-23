@@ -23,7 +23,7 @@ func (tree *ParseTree) Search_tree (name string) []*ParseTree {
 	ret := []*ParseTree{}
 	for _, br := range tree.Branches {
 		if br.Leaf.Name == name {
-			ret = append(ret, tree)
+			ret = append(ret,  &br)
 		}
 		for _, ch := range br.Branches {
 			ret = append(ret, ch.Search_tree(name)...)
@@ -44,4 +44,21 @@ func (tree *ParseTree) Search_top_occurences (name string) []*ParseTree {
 		}
 	}
 	return ret
+}
+
+
+func (tree *ParseTree) Search_first_occurenc_depth (name string) *ParseTree {
+	for _, br := range tree.Branches {
+		if br.Leaf.Name == name {
+			return &br
+		} else {
+			for _, ch := range br.Branches {
+				search := ch.Search_first_occurenc_depth(name)
+				if  search != nil {
+					return search
+				}
+			} 
+		}
+	}
+	return nil
 }

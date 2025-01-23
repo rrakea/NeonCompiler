@@ -36,25 +36,24 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 
 	// Determine Functions, Return Types, Paramter Types etc.
 	functions := make(map[string]Function)
+	info.Functions = functions
+
 	funcArr := tree.Search_tree("FUNC")
 	parameter_type_arr := []string{}
 	for _, f := range funcArr {
 		name := f.Search_first_child("name").Leaf.Value.(string)
-		returnType := f.Search_first_child("RETURNTYPE").Branches[0].Branches[0].Leaf.Name
+		rettype := f.Search_first_child("RETURNTYPE")
+		returnType := rettype.Branches[0].Branches[0].Leaf.Name
 		input, tmp, err := det_func_parameters(*f.Search_first_child("INPUTBLOCK"))
 		parameter_type_arr = tmp
-		pVarBlock := *f.Search_first_child("VIRTUALVARBLOCK")
+		code := f.Search_first_occurenc_depth("STATEMENTBLOCK")
 		// Find the actual code after the local vars
-		var code *ParseTree
-		for true {
-			if len(pVarBlock.Branches) == 1 {
-				code = &pVarBlock.Branches[0]
-				break
-			}
-			pVarBlock = *pVarBlock.Search_first_child("VIRTUALVARBLOCK")
-		}
 		if err != nil {
 			TypeCheckError(err.Error())
+			return info, false
+		}
+		if name == "main" || name == "Main" {
+			TypeCheckError("Main function declared twice")
 			return info, false
 		}
 		// Check against double entries
@@ -65,13 +64,12 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 		}
 		functions[name] = Function{Name: name, ReturnType: returnType, ParameterTypes: input, CodeTree: code}
 	}
-	_, exist := functions["Main"]
-	if !exist {
-		TypeCheckError("No main function in code")
-		return info, false
-	}
-	info.Functions = functions
-
+	// Add the main Function
+	maintree := tree.Search_tree("MAIN")[0]
+	argname := maintree.Search_direct_children("name")[0].Leaf.Value.(string)
+	code := maintree.Search_first_occurenc_depth("STATEMENTBLOCK")
+	mainfunc := Function{Name: "main", ReturnType: "void", ParameterTypes: map[string]string{argname : "[]string"}, CodeTree: code}
+	functions["main"] = mainfunc
 	// Determine Global scoped vars
 	globals := tree.Search_tree("GLOBALVARBLOCK")
 	globalvars := map[string]Variable{}
