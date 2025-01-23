@@ -46,8 +46,8 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 		rettype := f.Search_first_child("RETURNTYPE")
 		returnType := rettype.Branches[0].Branches[0].Leaf.Name
 		input, parameter_order, err := det_func_parameters(*f.Search_first_child("INPUTBLOCK"))
-		code := f.Search_first_occurenc_depth("STATEMENTBLOCK")
-		localvars := f.Search_first_occurenc_depth("VIRTUALVARBLOCK")
+		code := f.Search_first_occurence_depth("STATEMENTBLOCK")
+		localvars := f.Search_first_occurence_depth("VIRTUALVARBLOCK")
 		// Find the actual code after the local vars
 		if err != nil {
 			TypeCheckError(err.Error())
@@ -68,8 +68,8 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 	// Add the main Function
 	maintree := tree.Search_tree("MAIN")[0]
 	argname := maintree.Search_direct_children("name")[0].Leaf.Value.(string)
-	code := maintree.Search_first_occurenc_depth("STATEMENTBLOCK")
-	mainlocals := maintree.Search_first_occurenc_depth("VIRTUALVARBLOCK")
+	code := maintree.Search_first_occurence_depth("STATEMENTBLOCK")
+	mainlocals := maintree.Search_first_occurence_depth("VIRTUALVARBLOCK")
 	mainfunc := Function{Name: "main", ReturnType: "void", ParameterTypes: map[string]string{argname: "string[]"}, ParameterOrder: []string{"string[]"}, CodeTree: code, LocalTree: mainlocals}
 	functions["main"] = mainfunc
 

@@ -13,8 +13,12 @@ return
 
 
 .method public static add(II)I
-.limit stack 0
+.limit stack 2
 .limit locals 2
+iload_1
+iload_0
+iadd
+ireturn
 .end method
 
 .method public static main([Ljava/lang/String;)V
