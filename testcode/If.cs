@@ -1,13 +1,11 @@
 namespace a {
     class b{
         static void Main(string[] args){
-            if (a) {
-                a();
-            } else{
-                b();
-            }
+            if (1 == 1) {
+                Console.WriteLine("Passed");
+                return;
+            } 
+            Console.WriteLine("Not passed");
         }
     }
 }
-
-// C# parser empty else without {}

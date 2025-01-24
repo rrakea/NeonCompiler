@@ -21,7 +21,6 @@ func Statement_block_evaluate(function_body *tree, var_info *variable_info, func
 	return code, block_stack_limit
 }
 
-
 // Returns code, stack limit
 func Statement_evaluate(statement_tree *tree, func_sigs *function_signatures, var_info *variable_info, build *build_info, labels *label_info) (string, int) {
 	statement := statement_tree.Branches[0]
@@ -119,14 +118,17 @@ func if_evaluate(condition *tree, statement_block *tree, var_info *variable_info
 		panic("Internal error: Typecheck passed, but conditional expression does not evaluate to bool")
 	}
 
+	if_statement_block, statement_block_stack_limit := Statement_block_evaluate(statement_block, var_info, func_sigs, build, labels)
+
 	if_code := "" +
 		cond_code + "\n" +
-		"iconst_0\n" +
-		"if_icmpeq ELSE_LABEL_" + strconv.Itoa(labels.if_count) + "\n"
+		"ldc 0\n" +
+		"if_icmpeq ELSE_LABEL_" + strconv.Itoa(labels.if_count) + "\n" +
+		if_statement_block +
+		"goto END_IF_ELSE_" + strconv.Itoa(labels.if_count) + "\n" +
+		"ELSE_LABEL_" + strconv.Itoa(labels.if_count) + "\n" +
+		"END_IF_ELSE_" + strconv.Itoa(labels.if_count) + ":\n"
 	labels.if_count += 1
-
-	if_statement_block, statement_block_stack_limit := Statement_block_evaluate(statement_block, var_info, func_sigs, build, labels)
-	if_code += if_statement_block
 
 	if_statement_stack_limit := cond_stack_limit + 1 + statement_block_stack_limit
 	return if_code, if_statement_stack_limit
@@ -141,7 +143,7 @@ func while_evaluate(condition *tree, statement_block *tree, var_info *variable_i
 	while_code := "" +
 		"WHILE_BEGIN" + strconv.Itoa(labels.while_count) + ":\n" +
 		cond_code + "\n" +
-		"iconst_0\n" +
+		"ldc 0\n" +
 		"if_icmpeq ELSE_LABEL_" + strconv.Itoa(labels.if_count) + "\n"
 	labels.while_count += 1
 

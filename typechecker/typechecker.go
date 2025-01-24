@@ -179,7 +179,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 		}
 
 		for _, r := range functiontree.Search_tree("RETURN") {
-			if len(r.Branches) == 1 {
+			if len(r.Branches) == 2 {
 				if f.ReturnType == "void" {
 					continue
 				} else {

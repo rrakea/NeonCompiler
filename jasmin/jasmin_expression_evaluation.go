@@ -67,7 +67,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			for local := range arg_total_locals_used {
 				total_locals_used = append(total_locals_used, local)
 			}
-			return args_code + "invocestatic " + build.class + "/" + func_name + "()" + return_type + "\n", return_type, arg_total_stack_limit, total_locals_used
+			return args_code + "invokestatic " + build.class + "/" + func_name + "()" + return_type + "\n", return_type, arg_total_stack_limit, total_locals_used
 		default:
 			panic("Internal Error: Expression has a unrecognized child. Name: " + expression.Branches[0].Leaf.Name)
 		}
@@ -93,12 +93,12 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			}
 			code = "" +
 				code +
-				"iconst_0 \n" +
+				"ldc 0 \n" +
 				"ifeq BOOL_EX_FALSE_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
-				"iconst_0\n" +
+				"ldc 0\n" +
 				"goto BOOL_EX_END_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
 				"BOOL_EX_FALSE_" + strconv.Itoa(labels.bool_jump_count) + ":\n" +
-				"iconst_1\n" +
+				"ldc 1\n" +
 				"BOOL_EX_END_" + strconv.Itoa(labels.bool_jump_count) + ":\n"
 			labels.bool_jump_count += 1
 			return code, "B", stack_limit + 1, locals_used
@@ -125,10 +125,10 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			op_code = op_code_prefix + "sub\n"
 		case ">":
 			res_type = "z"
-			op_code = op_to_bool("if"+op_code_prefix+"cmpgt", labels)
+			op_code = op_to_bool("if_"+op_code_prefix+"cmpgt", labels)
 		case "<":
 			res_type = "z"
-			op_code = op_to_bool_negated("if"+op_code_prefix+"cmpgt", labels)
+			op_code = op_to_bool_negated("if_"+op_code_prefix+"cmpgt", labels)
 		case ">=":
 			switch res_type {
 			case "i":
@@ -149,7 +149,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 				res_type = "z"
 				op_code =
 					"dcmpge\n" +
-						"iconst_0\n" +
+						"ldc 0\n" +
 						op_to_bool_negated("ifeq", labels)
 			default:
 				panic("<= used on non numeric value")
@@ -232,10 +232,10 @@ func check_for_cast(left_side_type string, right_side_type string) (string, stri
 func op_to_bool(op_code string, labels *label_info) string {
 	code := op_code + " "+
 		"BOOL_EX_FALSE_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
-		"iconst_1\n" +
+		"ldc 1\n" +
 		"goto BOOL_EX_END_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
 		"BOOL_EX_FALSE_" + strconv.Itoa(labels.bool_jump_count) + ":\n" +
-		"iconst_0\n" +
+		"ldc 0\n" +
 		"BOOL_EX_END_" + strconv.Itoa(labels.bool_jump_count) + ":\n"
 	labels.bool_jump_count += 1
 	return code
@@ -244,10 +244,10 @@ func op_to_bool(op_code string, labels *label_info) string {
 func op_to_bool_negated(op_code string, labels *label_info) string {
 	code := op_code + " " +
 		"BOOL_EX_FALSE_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
-		"iconst_1\n" +
+		"ldc 1\n" +
 		"goto BOOL_EX_END_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
 		"BOOL_EX_FALSE_" + strconv.Itoa(labels.bool_jump_count) + ":\n" +
-		"iconst_0\n" +
+		"ldc 0\n" +
 		"BOOL_EX_END_" + strconv.Itoa(labels.bool_jump_count) + ":\n"
 	labels.bool_jump_count += 1
 	return code
