@@ -1,13 +1,6 @@
 package parser
 
-func defGrammar(test bool) []Rule {
-	_ = test
-	grammar := []Rule{}
-	grammar = append(grammar, testGrammar()...)
-	return grammar
-}
-
-func testGrammar() []Rule {
+func getProjektGrammar() []Rule {
 	rules := []Rule{
 		MakeRule("TYPE", []string{"double"}),
 		MakeRule("TYPE", []string{"int"}),
