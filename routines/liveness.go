@@ -21,7 +21,7 @@ func Liveness(path string) {
 		return
 	}
 
-	fmt.Print("Starting Liveness Analysis...")
+	fmt.Println("Starting Liveness Analysis...")
 
 	liveness.Liveness(&tree)
 }

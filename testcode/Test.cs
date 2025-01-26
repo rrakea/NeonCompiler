@@ -5,8 +5,6 @@ namespace test {
         static void Main (string[] args) {
             int val = 1 + 2 * i;
             add(i, val);
-            Console.WriteLine("Hello World");
-            Console.WriteLine(1);
         }
 
         static int add (int a, int b) {

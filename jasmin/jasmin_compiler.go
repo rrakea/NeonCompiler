@@ -3,7 +3,6 @@ package jasmin
 import (
 	"compiler/parser"
 	"compiler/typechecker"
-	"fmt"
 	"os"
 )
 
@@ -132,8 +131,6 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		func_local_limit := len(var_map_count)
 
 		build.add_function(function.Name, jasmin_type_converter(function.ReturnType), func_arg_type, func_stack_limit, func_local_limit, func_code)
-		fmt.Println("Locals of " + function.Name + "()")
-		fmt.Println(var_info)
 	}
 }
 

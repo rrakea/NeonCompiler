@@ -126,7 +126,7 @@ func if_evaluate(condition *tree, statement_block *tree, var_info *variable_info
 		"if_icmpeq ELSE_LABEL_" + strconv.Itoa(labels.if_count) + "\n" +
 		if_statement_block +
 		"goto END_IF_ELSE_" + strconv.Itoa(labels.if_count) + "\n" +
-		"ELSE_LABEL_" + strconv.Itoa(labels.if_count) + "\n" +
+		"ELSE_LABEL_" + strconv.Itoa(labels.if_count) + ":\n" +
 		"END_IF_ELSE_" + strconv.Itoa(labels.if_count) + ":\n"
 	labels.if_count += 1
 

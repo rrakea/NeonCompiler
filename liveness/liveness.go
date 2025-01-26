@@ -25,7 +25,10 @@ func Liveness (tree *parser.ParseTree) {
 	vars :=  map[string]*liveness_var{}
 	usesInDec := 0 // Lines that use variables in the local var declaration
 
-	for i, dec := range main.Search_tree("VIRTUALVARBLOCK") {
+	for i, dec := range main.Search_first_child("VIRTUALVARBLOCK").Search_tree("VIRTUALVARBLOCK") {
+		if len(dec.Branches) == 1 {
+			break
+		}
 		name := dec.Search_first_child("name").Leaf.Value.(string)
 		vars[name] = &liveness_var{name: name, firstuse: i, lastuse: -1}
 		ex := dec.Search_first_child("EXPRESSION")
@@ -37,7 +40,7 @@ func Liveness (tree *parser.ParseTree) {
 	}
 
 	// We only search the top level statements, since we dont want to search inside of while loops
-	statements := tree.Search_top_occurences("STATEMENT")
+	statements := main.Search_first_child("VIRTUALVARBLOCK").Search_top_occurences("STATEMENT")
 	for i := 0; i < len(statements); i++  {
 		stat := statements[i].Branches[0]
 		switch  stat.Leaf.Name{

@@ -42,20 +42,18 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			}
 		case "FUNCCALL":
 			func_name := child.Search_first_child("name").Leaf.Value.(string)
-			return_type, ok := func_sigs.return_type[func_name]
-			if !ok {
-				panic("Function name " + func_name + " not recognized")
-			}
+			return_type := jasmin_type_converter(func_sigs.return_type[func_name])
+			arg_type := func_sigs.parameter_type[func_name]
 
 			// Evaluate args:
 			args_code := ""
 			arg_total_stack_limit := 0
 			arg_total_locals_used := map[string]bool{}
-			args := child.Search_top_occurences("arg")
+			args := child.Search_top_occurences("ARG")
 			for i, arg := range args {
-				arg_code, arg_type, arg_stack_limit, arg_locals_used := expression_evaluation(arg, var_info, build, func_sigs, labels)
+				arg_code, arg_type, arg_stack_limit, arg_locals_used := expression_evaluation(&arg.Branches[0], var_info, build, func_sigs, labels)
 				_ = arg_type
-				args_code += arg_code + "\n"
+				args_code += arg_code 
 				if arg_stack_limit+i > arg_total_stack_limit {
 					arg_total_stack_limit = arg_stack_limit + i
 				}
@@ -67,7 +65,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			for local := range arg_total_locals_used {
 				total_locals_used = append(total_locals_used, local)
 			}
-			return args_code + "invokestatic " + build.class + "/" + func_name + "()" + return_type + "\n", return_type, arg_total_stack_limit, total_locals_used
+			return args_code + "invokestatic " + build.class + "/" + func_name + "(" + arg_type +")" + return_type + "\n", jasmin_type_prefix_converter(return_type), arg_total_stack_limit, total_locals_used
 		default:
 			panic("Internal Error: Expression has a unrecognized child. Name: " + expression.Branches[0].Leaf.Name)
 		}
@@ -132,7 +130,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 		case ">=":
 			switch res_type {
 			case "i":
-				op_code = op_to_bool("ificmpge", labels)
+				op_code = op_to_bool("if_icmpge", labels)
 			case "d":
 				op_code =
 					"dcmpge\n"
@@ -144,7 +142,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			switch res_type {
 			case "i":
 				res_type = "z"
-				op_code = op_to_bool_negated("ificmpge", labels)
+				op_code = op_to_bool_negated("if_icmpge", labels)
 			case "d":
 				res_type = "z"
 				op_code =
