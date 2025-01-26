@@ -63,7 +63,7 @@ func var_assign_evaluate(var_name string, expression *tree, var_info *variable_i
 
 	retstring := "" +
 		ex_code +
-		ex_type + "load " + location_string + "\n"
+		ex_type + "load_" + location_string + "\n"
 	return retstring, ex_stack_limit
 }
 
