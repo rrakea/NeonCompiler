@@ -41,8 +41,9 @@ func Statement_evaluate(statement_tree *tree, func_sigs *function_signatures, va
 		return return_evaluate(expression, var_info, build, func_sigs, labels)
 	case "IF":
 		condition := statement.Search_first_child("EXPRESSION")
-		statement_block := statement.Search_first_child("STATEMENTBLOCK")
-		return if_evaluate(condition, statement_block, var_info, build, labels, func_sigs)
+		if_block := statement.Search_first_child("STATEMENTBLOCK")
+		else_block := statement.Search_first_child("ELSE")
+		return if_evaluate(condition, if_block, else_block, var_info, build, labels, func_sigs)
 	case "WHILE":
 		condition := statement.Search_first_child("EXPRESSION")
 		statement_block := statement.Search_first_child("STATEMENTBLOCK")
@@ -111,46 +112,52 @@ func func_call_evaluate(func_name string, arg_block *tree, func_sigs *function_s
 	return call, arg_stack_limit
 }
 
-func if_evaluate(condition *tree, statement_block *tree, var_info *variable_info, build *build_info, labels *label_info, func_sigs *function_signatures) (string, int) {
+func if_evaluate(condition *tree, if_block *tree, else_block *tree, var_info *variable_info, build *build_info, labels *label_info, func_sigs *function_signatures) (string, int) {
 	// TODO else
 	cond_code, cond_type, cond_stack_limit, _ := expression_evaluation(condition, var_info, build, func_sigs, labels)
 	if cond_type != "z" { // "Z" is bool in jasmin for some reason
 		panic("Internal error: Typecheck passed, but conditional expression does not evaluate to bool")
 	}
+	if_label := strconv.Itoa(labels.if_count)
+	labels.if_count += 1
 
-	if_statement_block, statement_block_stack_limit := Statement_block_evaluate(statement_block, var_info, func_sigs, build, labels)
+	if_statement_block, if_statement_block_stack_limit := Statement_block_evaluate(if_block, var_info, func_sigs, build, labels)
+	else_statement_block := ""
+	else_statement_block_stack_limit := 0
+	if else_block != nil {
+		else_statement_block, else_statement_block_stack_limit = Statement_block_evaluate(else_block, var_info, func_sigs, build, labels)
+	}
 
 	if_code := "" +
 		cond_code + "\n" +
-		"ldc 0\n" +
-		"if_icmpeq ELSE_LABEL_" + strconv.Itoa(labels.if_count) + "\n" +
+		"ifeq ELSE_LABEL_" +  if_label + "\n" +
 		if_statement_block +
-		"goto END_IF_ELSE_" + strconv.Itoa(labels.if_count) + "\n" +
-		"ELSE_LABEL_" + strconv.Itoa(labels.if_count) + ":\n" +
-		"END_IF_ELSE_" + strconv.Itoa(labels.if_count) + ":\n"
-	labels.if_count += 1
+		"goto END_IF_ELSE_" + if_label + "\n" +
+		"ELSE_LABEL_" + if_label + ":\n" +
+		else_statement_block +
+		"END_IF_ELSE_" + if_label + ":\n"
 
-	if_statement_stack_limit := cond_stack_limit + 1 + statement_block_stack_limit
-	return if_code, if_statement_stack_limit
+	return if_code, max(if_statement_block_stack_limit, else_statement_block_stack_limit) + cond_stack_limit + 1
 }
 
 func while_evaluate(condition *tree, statement_block *tree, var_info *variable_info, build *build_info, labels *label_info, func_sigs *function_signatures) (string, int) {
+	while_label := strconv.Itoa(labels.while_count)
 	cond_code, cond_type, cond_stack_limit, _ := expression_evaluation(condition, var_info, build, func_sigs, labels)
 	if cond_type != "z" { // "Z" is bool in jasmin for some reason
 		panic("Internal error: Typecheck passed, but conditional expression does not evaluate to bool")
 	}
 
-	while_code := "" +
-		"WHILE_BEGIN" + strconv.Itoa(labels.while_count) + ":\n" +
-		cond_code + "\n" +
-		"ldc 0\n" +
-		"if_icmpeq ELSE_LABEL_" + strconv.Itoa(labels.if_count) + "\n"
+	while_statement_block, while_statement_stack_limit := Statement_block_evaluate(statement_block, var_info, func_sigs, build, labels)
 	labels.while_count += 1
+	
+	while_code := "" +
+		"WHILE_BEGIN" +  while_label + ":\n" +
+		cond_code + "\n" +
+		"ifeq WHILE_END_" + while_label + "\n" + 
+		while_statement_block +
+		"goto WHILE_BEGIN" +
+		"WHILE_END_" + while_label
 
-	while_statement_block, statement_block_stack_limit := Statement_block_evaluate(statement_block, var_info, func_sigs, build, labels)
-	while_code += while_statement_block
-	while_code += "GOTO WHILE_BEGIN" + strconv.Itoa(labels.while_count)
-
-	while_statement_stack_limit := cond_stack_limit + 1 + statement_block_stack_limit
-	return while_code, while_statement_stack_limit
+	while_statement_block_stack_limit := cond_stack_limit + 1 + while_statement_stack_limit
+	return while_code, while_statement_block_stack_limit
 }

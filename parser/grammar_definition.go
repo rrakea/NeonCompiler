@@ -61,7 +61,7 @@ func getProjektGrammar() []Rule {
 		MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "STATEMENT"}),
 		//MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "STATEMENT", "ELSE"}),
 		MakeRule("ELSE", []string{"else", "{", "STATEMENTBLOCK"}),
-		MakeRule("ELSE", []string{"else", "STATEMENT"}),
+		//MakeRule("ELSE", []string{"else", "STATEMENT"}),
 		MakeRule("WHILE", []string{"while", "(", "EXPRESSION", ")", "{", "STATEMENTBLOCK"}),
 		MakeRule("WHILE", []string{"while", "(", "EXPRESSION", ")", "STATEMENT"}),
 

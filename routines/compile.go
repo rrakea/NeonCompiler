@@ -9,7 +9,6 @@ import (
 
 func Compile(path string) {
 	tree, file_name, parsingSuccesful := parser.Parse(path)
-	fmt.Println()
 
 	if !parsingSuccesful {
 		return
@@ -21,7 +20,6 @@ func Compile(path string) {
 	}
 
 	fmt.Println("Type Check Succesful!")
-	fmt.Println()
 
 	jasmin.Build_jasmin(&tree, &typeinfo, file_name)
 

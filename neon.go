@@ -21,17 +21,14 @@ func main() {
 	
 	case len(os.Args) < 2:
 		fmt.Println("Please provide a code path and a flag")
-		fmt.Println()
 		flag.PrintDefaults()
 	
 	case len(os.Args) > 3:
 		fmt.Println("To many arguments")
-		fmt.Println()
 		flag.PrintDefaults()
 	
 	case !*compile && !*liveness && !*constants:
 		fmt.Println("Please specify what the program should do.")
-		fmt.Println()
 		flag.PrintDefaults()
 	
 	default:
