@@ -32,7 +32,15 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			case "stringliteral":
 				return "ldc " + child.Branches[0].Leaf.Value.(string) + "\n", "Ljava/lang/String;", 1, []string{}
 			case "boolliteral":
-				return "ldc " + strconv.FormatBool(child.Branches[0].Leaf.Value.(bool)) + "\n", "z", 1, []string{}
+				conv, ok := child.Branches[0].Leaf.Value.(bool)
+				_ = ok
+				var iconv int
+				if conv {
+					iconv = 1
+				} else {
+					iconv = 0
+				}
+				return "ldc " + strconv.Itoa(iconv) + "\n", "z", 1, []string{}
 			case "intliteral":
 				return "ldc " + strconv.Itoa(child.Branches[0].Leaf.Value.(int)) + "\n", "i", 1, []string{}
 			case "doubleliteral":
@@ -118,7 +126,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 		case "/":
 			op_code = op_code_prefix + "div\n"
 		case "%":
-			op_code = op_code_prefix + "mod\n"
+			op_code = op_code_prefix + "rem\n"
 		case "-":
 			op_code = op_code_prefix + "sub\n"
 		case ">":
