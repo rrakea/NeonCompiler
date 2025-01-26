@@ -105,10 +105,14 @@ func func_call_evaluate(func_name string, arg_block *tree, func_sigs *function_s
 			"invokevirtual java/io/PrintStream/println(" + call_type + ")V\n"
 		return call, arg_stack_limit
 	}
+	paras := ""
+	for _, para := range func_sigs.parameter_type[func_name] {
+		paras += string(para)
+	}
 
 	call := "" +
 		arg_code +
-		"invokestatic " + build.class + "/" + func_name + "(" + func_sigs.parameter_type[func_name] + ")" + func_sigs.return_type[func_name] + "\n"
+		"invokestatic " + build.class + "/" + func_name + "(" + paras + ")" + func_sigs.return_type[func_name] + "\n"
 	return call, arg_stack_limit
 }
 
