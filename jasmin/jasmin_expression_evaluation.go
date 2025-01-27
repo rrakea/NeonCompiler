@@ -32,7 +32,15 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			case "stringliteral":
 				return "ldc " + child.Branches[0].Leaf.Value.(string) + "\n", "Ljava/lang/String;", 1, []string{}
 			case "boolliteral":
-				return "ldc " + strconv.FormatBool(child.Branches[0].Leaf.Value.(bool)) + "\n", "z", 1, []string{}
+				conv, ok := child.Branches[0].Leaf.Value.(bool)
+				_ = ok
+				var iconv int
+				if conv {
+					iconv = 1
+				} else {
+					iconv = 0
+				}
+				return "ldc " + strconv.Itoa(iconv) + "\n", "z", 1, []string{}
 			case "intliteral":
 				return "ldc " + strconv.Itoa(child.Branches[0].Leaf.Value.(int)) + "\n", "i", 1, []string{}
 			case "doubleliteral":
@@ -42,20 +50,18 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			}
 		case "FUNCCALL":
 			func_name := child.Search_first_child("name").Leaf.Value.(string)
-			return_type, ok := func_sigs.return_type[func_name]
-			if !ok {
-				panic("Function name " + func_name + " not recognized")
-			}
+			return_type := jasmin_type_converter(func_sigs.return_type[func_name])
+			arg_type := func_sigs.parameter_type[func_name]
 
 			// Evaluate args:
 			args_code := ""
 			arg_total_stack_limit := 0
 			arg_total_locals_used := map[string]bool{}
-			args := child.Search_top_occurences("arg")
+			args := child.Search_top_occurences("ARG")
 			for i, arg := range args {
-				arg_code, arg_type, arg_stack_limit, arg_locals_used := expression_evaluation(arg, var_info, build, func_sigs, labels)
+				arg_code, arg_type, arg_stack_limit, arg_locals_used := expression_evaluation(&arg.Branches[0], var_info, build, func_sigs, labels)
 				_ = arg_type
-				args_code += arg_code + "\n"
+				args_code += arg_code 
 				if arg_stack_limit+i > arg_total_stack_limit {
 					arg_total_stack_limit = arg_stack_limit + i
 				}
@@ -67,7 +73,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			for local := range arg_total_locals_used {
 				total_locals_used = append(total_locals_used, local)
 			}
-			return args_code + "invokestatic " + build.class + "/" + func_name + "()" + return_type + "\n", return_type, arg_total_stack_limit, total_locals_used
+			return args_code + "invokestatic " + build.class + "/" + func_name + "(" + arg_type +")" + return_type + "\n", jasmin_type_prefix_converter(return_type), arg_total_stack_limit, total_locals_used
 		default:
 			panic("Internal Error: Expression has a unrecognized child. Name: " + expression.Branches[0].Leaf.Name)
 		}
@@ -120,19 +126,19 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 		case "/":
 			op_code = op_code_prefix + "div\n"
 		case "%":
-			op_code = op_code_prefix + "mod\n"
+			op_code = op_code_prefix + "rem\n"
 		case "-":
 			op_code = op_code_prefix + "sub\n"
 		case ">":
 			res_type = "z"
-			op_code = op_to_bool("if_"+op_code_prefix+"cmpgt", labels)
+			op_code = if_true_put_1("if_"+op_code_prefix+"cmpgt", labels)
 		case "<":
 			res_type = "z"
-			op_code = op_to_bool_negated("if_"+op_code_prefix+"cmpgt", labels)
+			op_code = if_true_put_0("if_"+op_code_prefix+"cmpge", labels)
 		case ">=":
 			switch res_type {
 			case "i":
-				op_code = op_to_bool("ificmpge", labels)
+				op_code = if_true_put_1("if_icmpge", labels)
 			case "d":
 				op_code =
 					"dcmpge\n"
@@ -144,22 +150,22 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			switch res_type {
 			case "i":
 				res_type = "z"
-				op_code = op_to_bool_negated("ificmpge", labels)
+				op_code = if_true_put_0("if_icmpgt", labels)
 			case "d":
 				res_type = "z"
 				op_code =
 					"dcmpge\n" +
 						"ldc 0\n" +
-						op_to_bool_negated("ifeq", labels)
+						if_true_put_1("ifeq", labels)
 			default:
 				panic("<= used on non numeric value")
 			}
 		case "==":
 			res_type = "z"
-			op_code = op_to_bool("ifeq", labels)
+			op_code = if_true_put_1("if_icmpeq", labels)
 		case "!=":
 			res_type = "z"
-			op_code = op_to_bool("ifne", labels)
+			op_code = if_true_put_1("if_icmpne", labels)
 		case "&&":
 			if res_type != "t" {
 				panic("&& Used with 2 values that are not booleans")
@@ -174,7 +180,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 		default:
 			panic("Unknown operator in expression: " + expression.Branches[0].Leaf.Value.(string))
 		}
-		code := potential_cast_left + left_side_code + potential_cast_right + right_side_code + op_code
+		code := potential_cast_left + left_side_code + potential_cast_right + right_side_code +  op_code
 
 		total_locals_used := deduplicate_locals_used(append(left_side_locals_used, right_side_locals_used...))
 
@@ -229,25 +235,25 @@ func check_for_cast(left_side_type string, right_side_type string) (string, stri
 	return potential_cast_left, potential_cast_right, res_type, op_code_type
 }
 
-func op_to_bool(op_code string, labels *label_info) string {
+func if_true_put_0(op_code string, labels *label_info) string {
 	code := op_code + " "+
-		"BOOL_EX_FALSE_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
+		"IS_FALSE_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
 		"ldc 1\n" +
 		"goto BOOL_EX_END_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
-		"BOOL_EX_FALSE_" + strconv.Itoa(labels.bool_jump_count) + ":\n" +
+		"IS_FALSE_" + strconv.Itoa(labels.bool_jump_count) + ":\n" +
 		"ldc 0\n" +
 		"BOOL_EX_END_" + strconv.Itoa(labels.bool_jump_count) + ":\n"
 	labels.bool_jump_count += 1
 	return code
 }
 
-func op_to_bool_negated(op_code string, labels *label_info) string {
+func if_true_put_1(op_code string, labels *label_info) string {
 	code := op_code + " " +
-		"BOOL_EX_FALSE_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
-		"ldc 1\n" +
-		"goto BOOL_EX_END_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
-		"BOOL_EX_FALSE_" + strconv.Itoa(labels.bool_jump_count) + ":\n" +
+		"IS_TRUE_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
 		"ldc 0\n" +
+		"goto BOOL_EX_END_" + strconv.Itoa(labels.bool_jump_count) + "\n" +
+		"IS_TRUE_" + strconv.Itoa(labels.bool_jump_count) + ":\n" +
+		"ldc 1\n" +
 		"BOOL_EX_END_" + strconv.Itoa(labels.bool_jump_count) + ":\n"
 	labels.bool_jump_count += 1
 	return code

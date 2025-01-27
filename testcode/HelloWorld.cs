@@ -10,7 +10,7 @@ namespace HelloWorld{
                     a = 3;
                 }
                 a = 3 % 4;
-                a(a, a);
+                a(false, a);
         }
 
         static int a(bool a, int b){

@@ -74,9 +74,16 @@ func (build *build_info) add_clinit(global_var_code map[string]string, global_va
 func (build *build_info) add_function(method_name string, return_type string, arg_types []string, stack_limit int, local_limit int, statements string) {
 	stack_limit_string := strconv.Itoa(stack_limit)
 	local_limit_string := strconv.Itoa(local_limit)
-	void_return := ""
-	if return_type == "V" {
-		void_return = "return \n"
+	fail_return := jasmin_type_prefix_converter(return_type) + "return\n"
+	switch jasmin_type_prefix_converter(return_type) {
+	case "i":
+		fail_return = "ldc 0\n" + fail_return
+	case "d":
+		fail_return = "ldc 0.0\n" + fail_return
+	case "b":
+		fail_return = "ldc 0\n" + fail_return
+	case "a":
+		fail_return = "ldc \"\"\n" + fail_return
 	}
 	arg_type_string := ""
 	for _, arg := range arg_types {
@@ -90,7 +97,7 @@ func (build *build_info) add_function(method_name string, return_type string, ar
 		func_dec += ".limit locals " + local_limit_string + "\n"
 	}
 	func_dec += statements +
-		void_return +
+		fail_return +
 		".end method\n\n"
 
 	_, err := build.jasmin_file.WriteString(func_dec)

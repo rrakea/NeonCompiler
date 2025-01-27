@@ -1,9 +1,8 @@
-
 # NEON
 
-Compiler from a subset of C# to JVM Bytecode (Jasmin)
+Compiler from a subset of C# to JVM Jasmin Bytecode 
 
-For the course compiler construction at HHU Düsseldorf
+For the compiler course at HHU Düsseldorf
 
 By Konrad Burgi
 
@@ -24,4 +23,4 @@ Flags:
 
 ## Info
 
-Uses go 1.23.2 & Jasmin 2.4
+Uses golang 1.23.2 & Jasmin 2.4

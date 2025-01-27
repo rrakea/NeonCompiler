@@ -6,8 +6,8 @@ import (
 	"strconv"
 )
 
-func createParser(test bool) (*slr_parsing_Table, *Grammar) {
-	rules := defGrammar(test)
+func createParser() (*slr_parsing_Table, *Grammar) {
+	rules := getProjektGrammar()
 	grammar := MakeGrammar(rules, "START")
 	grammar.Augment()
 	first := grammar.FIRST()
@@ -23,12 +23,12 @@ func createParser(test bool) (*slr_parsing_Table, *Grammar) {
 	return table, grammar
 }
 
-func Parse(path string, test bool) (ParseTree, string, bool) {
+func Parse(path string) (ParseTree, string, bool) {
 	parseTreeChannel := make(chan any)
 	go createParseTree(parseTreeChannel)
 
 	tokenChannel := make(chan lexer.Token)
-	slrTable, grammar := createParser(test)
+	slrTable, grammar := createParser()
 
 	go lexer.Lex(path, tokenChannel)
 	var nameToken lexer.Token

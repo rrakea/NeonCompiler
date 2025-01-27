@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "debug",
             "program": "${workspaceFolder}",
-            "args": ["--compile", "testcode/FibonacciRecursive.cs"]
+            "args": ["--compile", "testcode/HelloWorld.cs"]
         }
     ]
 }

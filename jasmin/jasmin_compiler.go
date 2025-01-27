@@ -3,7 +3,6 @@ package jasmin
 import (
 	"compiler/parser"
 	"compiler/typechecker"
-	"fmt"
 	"os"
 )
 
@@ -95,10 +94,13 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		// Function Arguments
 		arg_count := 0
 		for arg_name, arg_type := range info.Functions[function.Name].ParameterTypes {
-			func_arg_type = append(func_arg_type, arg_type)
 			var_map_count[arg_name] = arg_count
 			var_map_type[arg_name] = jasmin_type_prefix_converter(arg_type)
 			arg_count++
+		}
+
+		for _, name := range info.Functions[function.Name].ParameterOrder {
+			func_arg_type = append(func_arg_type, jasmin_type_prefix_converter(name))
 		}
 
 		// Local Variables
@@ -132,8 +134,6 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 		func_local_limit := len(var_map_count)
 
 		build.add_function(function.Name, jasmin_type_converter(function.ReturnType), func_arg_type, func_stack_limit, func_local_limit, func_code)
-		fmt.Println("Locals of " + function.Name + "()")
-		fmt.Println(var_info)
 	}
 }
 
@@ -142,7 +142,7 @@ func evaluate_func_signatures(info *typechecker.TypeCheckerInfo) function_signat
 	for func_name, func_struct := range info.Functions {
 		func_sig.return_type[func_name] = jasmin_type_converter(func_struct.ReturnType)
 		parameters := ""
-		for _, parameter := range func_struct.ParameterTypes {
+		for _, parameter := range func_struct.ParameterOrder {
 			parameters += jasmin_type_converter(parameter)
 		}
 		func_sig.parameter_type[func_name] = parameters
@@ -160,7 +160,7 @@ func jasmin_type_converter(var_type string) string {
 		return "Z"
 	case "string", "a":
 		return "Ljava/lang/String;"
-	case "string[]":
+	case "string[]", "[a":
 		return "[Ljava/lang/String;"
 	case "void", "":
 		return "V"

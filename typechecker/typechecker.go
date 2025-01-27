@@ -121,11 +121,12 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 			name := assign.Search_first_child("name").Leaf.Value.(string)
 			actualtype := ""
 			ok := false
-			localvartype := Variable{}
+			local_var_type := ""
 			// local var exists
-			for _, l := range info.LocalVar[f.Name] {
+			for i, l := range info.LocalVar[f.Name] {
 				if l.Name == name {
 					ok = true
+					local_var_type = info.LocalVar[f.Name][i].Vartype
 					break
 				}
 			}
@@ -139,11 +140,14 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 					actualtype = globalvartype.Vartype
 				}
 			} else {
-				actualtype = localvartype.Vartype
+				actualtype = local_var_type
 			}
 			expressionType, err := typeCheckExpression(*assign.Search_first_child("EXPRESSION"), f.Name, info)
 			if actualtype != expressionType || err != nil {
-				TypeCheckError(err.Error() + "\nVariable assingnment did not type check.\nVariable has been declared as type " + actualtype + " while Expression has type: " + expressionType)
+				if err == nil {
+					err = errors.New("")
+				}
+				TypeCheckError(err.Error() + "\nVariable assingnment did not type check.\nVariable " + name + " has been declared as type " + actualtype + " while Expression has type: " + expressionType)
 				return info, false
 			}
 		}
