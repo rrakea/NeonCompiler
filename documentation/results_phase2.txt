@@ -1,0 +1,5118 @@
+=============================================
+valid codesnipsets
+=============================================
+/Users/lukas/Library/CloudStorage/OneDrive-Personal/job/compilerbau 2024/projekt/frontend/valid_codesnipsets
+DoubleInWhile.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f0ff720?, 0x10?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100e1f068?, 0x1400021a600, {0x16f0ff720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f0ff720?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d9af720?, 0xd?}, 0x1400017fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x10256f068?, 0x1400000c708, {0x16d9af720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d9af720?, 0x1400010e018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileIf4.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "else" at line 11.
+Expecting: return, if, while, }, descriptor
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithStringExpression2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable Hallo" was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWhileIf3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "else" at line 13.
+Expecting: while, }, descriptor, return, if
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignIntToDouble.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: The variable declaration of s does not typecheck.
+The variable is declared as type double while the expression evaluates to int
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithStringExpression.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable Hallo" was not initialized.
+If statement header: Line: 9 is not bool, is Variable Hallo" was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+DoubleLessThanInteger.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d04b718?, 0x18?}, 0x14000157a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102ed3068?, 0x14000204090, {0x16d04b718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d04b718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+CallDoubleFunctionWithIntArg.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d6b7710?, 0x1f?}, 0x14000193a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102867068?, 0x1400010a510, {0x16d6b7710?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d6b7710?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionSubInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b02b718?, 0x13?}, 0x14000151a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104ef3068?, 0x140001ea270, {0x16b02b718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b02b718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWhileIf2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d3a7720?, 0xd?}, 0x14000153a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102b77068?, 0x14000204270, {0x16d3a7720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d3a7720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignString3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable if" was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+CallInIf.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "(" at line 11.
+Expecting: oplv4, ,, oplv2, oplv3, oplv5, oplv6, ;, ), oplv1
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionModInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16dadf718?, 0x13?}, 0x140000fda08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x10243f068?, 0x1400019a420, {0x16dadf718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16dadf718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWhileIf.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f4e7720?, 0xc?}, 0x14000113a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100a37068?, 0x1400020a2a0, {0x16f4e7720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f4e7720?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignNegativeDouble.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: The variable declaration of d does not typecheck.
+The variable is declared as type double while the expression evaluates to int
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionLessBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b43b718?, 0x15?}, 0x1400014fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104ae3068?, 0x140001ea918, {0x16b43b718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b43b718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+NestedCalls.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16cf3f720?, 0xe?}, 0x1400015ba08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102fdf068?, 0x140002029f0, {0x16cf3f720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16cf3f720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileWithBoolExpression.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f4e3718?, 0x1a?}, 0x14000155a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100a3b068?, 0x14000094180, {0x16f4e3718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f4e3718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+MultilineComment.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b07f718?, 0x13?}, 0x14000155a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104e9f068?, 0x140001ec3d8, {0x16b07f718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b07f718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignString2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable le'foo" was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfNoElse2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d81f720?, 0xc?}, 0x14000153a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1026ff068?, 0x1400009a300, {0x16d81f720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d81f720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionAddInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16cfb3718?, 0x13?}, 0x14000159a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102f6b068?, 0x14000092588, {0x16cfb3718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16cfb3718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+CallInWhile.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "(" at line 11.
+Expecting: oplv2, oplv3, oplv4, oplv6, ;, ), ,, oplv1, oplv5
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionNotBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d283718?, 0x14?}, 0x1400019fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102c9b068?, 0x1400013a480, {0x16d283718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d283718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignString.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable foo" was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionGreaterBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16bbc7718?, 0x18?}, 0x1400010fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104357068?, 0x1400000c4c8, {0x16bbc7718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16bbc7718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionEqualBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b8d7718?, 0x16?}, 0x14000157a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104647068?, 0x140002842a0, {0x16b8d7718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b8d7718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+EmptyMethodWithArgs.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d5bf718?, 0x16?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x10295f068?, 0x1400000c498, {0x16d5bf718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d5bf718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithIntExpression3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16dac7718?, 0x17?}, 0x14000153a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102457068?, 0x140002021b0, {0x16dac7718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16dac7718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileIf.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f4df728?, 0xa?}, 0x14000157a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100a3f068?, 0x14000090000, {0x16f4df728?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f4df728?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionDivInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d02f718?, 0x13?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102eef068?, 0x1400021abd0, {0x16d02f718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d02f718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignIntCompare2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f23b718?, 0x14?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100ce3068?, 0x1400021c5a0, {0x16f23b718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f23b718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignDoubleFunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d393710?, 0x1b?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102b8b068?, 0x14000108060, {0x16d393710?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d393710?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+FunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d8f3720?, 0xf?}, 0x1400017ba08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x10262b068?, 0x1400018c540, {0x16d8f3720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d8f3720?, 0x14000110018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AddInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f01f728?, 0x9?}, 0x14000155a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100eff068?, 0x140000922d0, {0x16f01f728?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f01f728?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+DeclareBoolean.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f2a3720?, 0x11?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100c7b068?, 0x1400021a3a8, {0x16f2a3720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f2a3720?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionMulInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f4cf718?, 0x13?}, 0x1400014fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100a4f068?, 0x140002646d8, {0x16f4cf718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f4cf718?, 0x14000054010?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignStringFunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable foo" was not initialized.
+Returned value of type Variable foo" was not initialized. does not match return type 
+in function signature (string)
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+EmptyWhileLoop.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f4f3720?, 0x11?}, 0x14000177a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100a2b068?, 0x1400020e288, {0x16f4f3720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f4f3720?, 0x14000110018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfNoElse.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d7df720?, 0xb?}, 0x1400010fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x10273f068?, 0x1400020a2d0, {0x16d7df720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d7df720?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithIntExpression2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16dc2b718?, 0x17?}, 0x14000159a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1022f3068?, 0x14000092660, {0x16dc2b718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16dc2b718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+EmptyMethod.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b0d3720?, 0xe?}, 0x14000159a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104e4b068?, 0x14000286300, {0x16b0d3720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b0d3720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionOrBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b51b718?, 0x13?}, 0x14000159a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104a03068?, 0x140001ea8e8, {0x16b51b718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b51b718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileWithIntExpression2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16dd83718?, 0x1a?}, 0x1400014fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x10219b068?, 0x140001ec618, {0x16dd83718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16dd83718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignNegativeNumber.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d847718?, 0x17?}, 0x1400010fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1026d7068?, 0x1400000c678, {0x16d847718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d847718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+TwoFunctions.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f217720?, 0xf?}, 0x1400014fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100d07068?, 0x14000092330, {0x16f217720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f217720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionUnaryPlusInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b093718?, 0x19?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104e8b068?, 0x14000116450, {0x16b093718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b093718?, 0x14000100008?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithElse.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16fb33720?, 0xd?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1003eb068?, 0x1400021a3c0, {0x16fb33720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16fb33720?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileIf2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16fdab720?, 0xb?}, 0x1400010fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100173068?, 0x1400019a2d0, {0x16fdab720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16fdab720?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionLessEqualBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b793718?, 0x1a?}, 0x1400010fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x10478b068?, 0x1400019a540, {0x16b793718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b793718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileWithIntExpression.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16da43718?, 0x19?}, 0x14000157a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1024db068?, 0x140000980c0, {0x16da43718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16da43718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionGreaterEqualBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f2cf710?, 0x1d?}, 0x14000153a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100c4f068?, 0x14000210540, {0x16f2cf710?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f2cf710?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+SinglelineComment.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16fd2f718?, 0x14?}, 0x1400010fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1001ef068?, 0x1400019a378, {0x16fd2f718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16fd2f718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithElseNoBlock.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "else" at line 11.
+Expecting: }, descriptor, return, if, while
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionUnaryMinusInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16fd53718?, 0x1a?}, 0x1400010fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1001cb068?, 0x1400019a1f8, {0x16fd53718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16fd53718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+DeclareInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d057720?, 0xd?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102ec7068?, 0x140001f2210, {0x16d057720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d057720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+DeclareString.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable foo" was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+DeclareDouble.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16ce2f720?, 0x10?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1030ef068?, 0x1400010c690, {0x16ce2f720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16ce2f720?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignIntFunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b21b720?, 0x18?}, 0x1400021da08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104d03068?, 0x1400009e270, {0x16b21b720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b21b720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignNumber.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16dc6f720?, 0xf?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1022af068?, 0x1400000c378, {0x16dc6f720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16dc6f720?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignIntCompare.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f9b7718?, 0x13?}, 0x14000155a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100567068?, 0x140000921c8, {0x16f9b7718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f9b7718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionAndBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d5ef718?, 0x14?}, 0x14000159a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x10292f068?, 0x14000206390, {0x16d5ef718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d5ef718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionUnequalBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f0ef718?, 0x18?}, 0x1400014fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100e2f068?, 0x14000210600, {0x16f0ef718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f0ef718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+EmptyMainMethod.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b8af720?, 0x12?}, 0x1400010fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x10466f068?, 0x1400019a5d0, {0x16b8af720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b8af720?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+FunctionCallWithArgs.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b0fb718?, 0x17?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104e23068?, 0x1400021a300, {0x16b0fb718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b0fb718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileIf3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d8d3720?, 0xb?}, 0x1400010fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x10264b068?, 0x1400000c0a8, {0x16d8d3720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d8d3720?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignBooleanFunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d38f710?, 0x1c?}, 0x1400010fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102b8f068?, 0x14000284660, {0x16d38f710?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d38f710?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithIntExpression.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b72f718?, 0x16?}, 0x14000157a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1047ef068?, 0x140001ea2d0, {0x16b72f718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b72f718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWhileIf4.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "else" at line 13.
+Expecting: return, if, while, }, descriptor
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+failed
+TOTAL: passed 0 tests, failed 70 tests
+
+=============================================
+valid programs
+=============================================
+/Users/lukas/Library/CloudStorage/OneDrive-Personal/job/compilerbau 2024/projekt/frontend/valid_programs
+Gcditerative.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16bd2f720?, 0xf?}, 0x14000153a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1041ef068?, 0x14000286a20, {0x16bd2f720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16bd2f720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+CelsiusToFahrenheit.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16bb43718?, 0x16?}, 0x14000169a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1043db068?, 0x140001ea4e0, {0x16bb43718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16bb43718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+FahrenheitToCelsius.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Expression has 0 Children: (
+Returned value of type Expression has 0 Children: ( does not match return type 
+in function signature (double)
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+HelloWorld.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b65b720?, 0xd?}, 0x14000153a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1048c3068?, 0x140001ea330, {0x16b65b720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b65b720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+FibonacciRecursive.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16ce8f718?, 0x15?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x10308f068?, 0x1400000d338, {0x16ce8f718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16ce8f718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+Fibonacci.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable has not been initialized. Variable name: temp
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+RgbToCYMK.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable has not been initialized. Variable name: c
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+Gcdrecursive.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b32f720?, 0xf?}, 0x14000159a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104bef068?, 0x140000a0cc0, {0x16b32f720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b32f720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+GaussRecursive.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d88b720?, 0x11?}, 0x14000153a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102693068?, 0x140000933c8, {0x16d88b720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d88b720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+failed
+TOTAL: passed 0 tests, failed 9 tests
+
+=============================================
+parse errors
+=============================================
+/Users/lukas/Library/CloudStorage/OneDrive-Personal/job/compilerbau 2024/projekt/frontend/parse_errors
+StringLiteral.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "}" at line 10.
+Expecting: oplv1, oplv4, oplv5, oplv6, ,, ), oplv2, oplv3, (, ;
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+DoubleWithComma.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "," at line 9.
+Expecting: ;
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongIfElse.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "}" at line 12.
+Expecting: {
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+AssgningValueToFunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "=" at line 9.
+Expecting: ,, oplv3, oplv4, oplv6, ;, ), oplv1, oplv2, oplv5
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingReturnType.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "Foo" at line 12.
+Expecting: void, double, int, string, bool
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingBracket3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "args" at line 7.
+Expecting: ]
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingArgAfterUnaryPlus.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: ";" at line 9.
+Expecting: oplv7, (, descriptor, stringliteral, bool, num, num, oplv5
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingBracket2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "{" at line 8.
+Expecting: )
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingSpace.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "staticvoid" at line 7.
+Expecting: static
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+NoneExistingType.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "b" at line 9.
+Expecting: (, =
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+PlusOneOperator.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: ";" at line 9.
+Expecting: oplv7, (, descriptor, stringliteral, bool, num, num, oplv5
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+CommentInDeclaration.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "}" at line 10.
+Expecting: oplv7, (, descriptor, stringliteral, bool, num, num, oplv5
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+IllegalProgramName.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "oplv6" at line 3.
+Expecting: {
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongIfElse2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "else" at line 9.
+Expecting: bool, descriptor, return, if, while, double, int, string, }
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+NoneExistingType2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "i" at line 9.
+Expecting: (, =
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongSpace.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "nt" at line 9.
+Expecting: =, (
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingSemicolon.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "int" at line 10.
+Expecting: oplv1, oplv4, oplv6, ;, ,, oplv3, oplv5, ), oplv2
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+DeclarationInsteadOfExpression.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "int" at line 9.
+Expecting: oplv5, oplv7, (, num, ), descriptor, stringliteral, bool, num
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingArgAfterNot.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: ";" at line 9.
+Expecting: oplv5, oplv7, (, descriptor, stringliteral, bool, num, num
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongSemicolon.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: ";" at line 3.
+Expecting: {
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingBracket.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Unexpected end of file reached. At line: 10.
+Expecting: }
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+IllegalIDName.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b9f3720?, 0x10?}, 0x1400022da08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x10452b068?, 0x1400010c270, {0x16b9f3720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b9f3720?, 0x14000054018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+NotANumber.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable 42EXP was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+MissingBracket4.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "string" at line 7.
+Expecting: (
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+NoneExistingCompare.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "=" at line 9.
+Expecting: oplv1, oplv2, oplv3, oplv4, oplv5, ;, ), ,, oplv6
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+CommaToMuch.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: ")" at line 9.
+Expecting: (, descriptor, stringliteral, bool, num, num, oplv5, oplv7
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+ColonInsteadOfSemi.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "}" at line 10.
+Expecting: oplv2, oplv3, oplv5, (, ), ,, oplv1, oplv4, oplv6, ;
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+StringWrongQuote.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable ''Hallo'' was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+failed
+TOTAL: passed 28 tests, failed 0 tests
+
+=============================================
+type errors
+=============================================
+/Users/lukas/Library/CloudStorage/OneDrive-Personal/job/compilerbau 2024/projekt/frontend/type_errors
+MissingSpace2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable has not been initialized. Variable name: inti
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+AssgningBoolVarToIntVar.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable b was not initialized.
+Variable assingnment did not type check.
+Variable i has been declared as type int while Expression has type: undefined
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongTypesInArithmetic.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable has not been initialized. Variable name: y
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+BoolFunctionToInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: The variable declaration of i does not typecheck.
+The variable is declared as type int while the expression evaluates to bool
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongArgNumber.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Function "Add" called with the incorect amount of inputs (needs 2 got 1
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+UndeclaredFunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16fc4b718?, 0x19?}, 0x140001c5a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1002d3068?, 0x1400021c3f0, {0x16fc4b718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16fc4b718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongCompare.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable Hallo" was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+DuplicateIdentifier2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable name declared twice in function signature a
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongTypesInLogic.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable i was not initialized.
+Variable assingnment did not type check.
+Variable b has been declared as type bool while Expression has type: undefined
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+PutDoubleInInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: The variable declaration of d does not typecheck.
+The variable is declared as type int while the expression evaluates to double
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+TypoBool2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d61b720?, 0xc?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102903068?, 0x1400021a3f0, {0x16d61b720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d61b720?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+AssgningBoolExprToIntVar.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: The variable declaration of i does not typecheck.
+The variable is declared as type int while the expression evaluates to bool
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+UndeclaredVariable.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable y was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+AssgningStringExprToBoolVar.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable Hallo" was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+AssgningIntExprToBoolVar.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: The variable declaration of b does not typecheck.
+The variable is declared as type bool while the expression evaluates to int
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+PlusOnBoolean.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: The variable declaration of b does not typecheck.
+The variable is declared as type bool while the expression evaluates to undefined
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+NotDeclared.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable has not been initialized. Variable name: i
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongTypesInLogic3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable s was not initialized.
+Variable assingnment did not type check.
+Variable b has been declared as type bool while Expression has type: undefined
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongTypesInLogic2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: ! did not stand before a boolen expression
+Variable assingnment did not type check.
+Variable b has been declared as type bool while Expression has type: undefined
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+ReturnWithoutExpression.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Void function returns a value
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongReturnValue.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: 
+Returned value of type bool does not match return type 
+in function signature (int)
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongFunctionArgs.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Parameter 0 for function call "Inc" is misplaced. Function does not take a bool at that index
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+DuplicateIdentifier.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: The variable declaration of d does not typecheck.
+The variable is declared as type double while the expression evaluates to int
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongTypesInArithmetic2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: 
+Variable assingnment did not type check.
+Variable y has been declared as type int while Expression has type: undefined
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+WrongTypesInArithmetic3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable has not been initialized. Variable name: y
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+TypoBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable ture was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: False
+ PASSED the test
+
+
+failed
+TOTAL: passed 26 tests, failed 0 tests
+
+=============================================
+compiled codesnipsets
+=============================================
+/Users/lukas/Library/CloudStorage/OneDrive-Personal/job/compilerbau 2024/projekt/backend/compiled_code_snippets
+DoubleInWhile.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f357720?, 0x10?}, 0x1400015ba08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100bc7068?, 0x140000a8a80, {0x16f357720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f357720?, 0x14000054010?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d3bf720?, 0xd?}, 0x14000161a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102b5f068?, 0x140001ec6d8, {0x16d3bf720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d3bf720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileIf4.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "else" at line 11.
+Expecting: descriptor, return, if, while, }
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithStringExpression2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable Hallo" was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWhileIf3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "else" at line 13.
+Expecting: descriptor, return, if, while, }
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignStringCompare.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable Hallo" was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignIntToDoubleFunction.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b0af710?, 0x1c?}, 0x14000147a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104e6f068?, 0x140002103c0, {0x16b0af710?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b0af710?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignIntToDouble.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: The variable declaration of s does not typecheck.
+The variable is declared as type double while the expression evaluates to int
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithStringExpression.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable Hallo" was not initialized.
+If statement header: Line: 9 is not bool, is Variable Hallo" was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+DoubleLessThanInteger.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f44f718?, 0x18?}, 0x14000157a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100acf068?, 0x14000202780, {0x16f44f718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f44f718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionSubInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable l was not initialized.
+In funccall expression Console.WriteLine
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWhileIf2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f9e3720?, 0xd?}, 0x1400014fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x10053b068?, 0x140001ea5e8, {0x16f9e3720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f9e3720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignString3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable if" was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+CallInIf.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "(" at line 11.
+Expecting: ;, ), oplv3, oplv5, ,, oplv1, oplv2, oplv4, oplv6
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionModInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable l was not initialized.
+In funccall expression Console.WriteLine
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWhileIf.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16fb2f720?, 0xc?}, 0x14000155a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1003ef068?, 0x140001ec498, {0x16fb2f720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16fb2f720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignNegativeDouble.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: The variable declaration of d does not typecheck.
+The variable is declared as type double while the expression evaluates to int
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionLessBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable b was not initialized.
+In funccall expression Console.WriteLine
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+NestedCalls.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d467720?, 0xe?}, 0x140001d9a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102ab7068?, 0x1400000c9d8, {0x16d467720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d467720?, 0x1400009c010?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileWithBoolExpression.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b217718?, 0x1a?}, 0x14000153a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104d07068?, 0x14000202a50, {0x16b217718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b217718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+MultilineComment.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d76f718?, 0x13?}, 0x14000171a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1027af068?, 0x1400000c318, {0x16d76f718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d76f718?, 0x14000110018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignString2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable le'foo" was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfNoElse2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16fc47720?, 0xc?}, 0x14000163a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1002d7068?, 0x1400020a3c0, {0x16fc47720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16fc47720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionAddInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable l was not initialized.
+In funccall expression Console.WriteLine
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+CallInWhile.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "(" at line 11.
+Expecting: ;, ,, oplv1, oplv2, oplv6, ), oplv3, oplv4, oplv5
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionNotBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable b was not initialized.
+In funccall expression Console.WriteLine
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignString.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable foo" was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionGreaterBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable b was not initialized.
+In funccall expression Console.WriteLine
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionEqualBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable b was not initialized.
+In funccall expression Console.WriteLine
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+EmptyMethodWithArgs.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b787718?, 0x16?}, 0x140000ffa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104797068?, 0x1400000c8e8, {0x16b787718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b787718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithIntExpression3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f2cf718?, 0x17?}, 0x1400014fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100c4f068?, 0x14000208120, {0x16f2cf718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f2cf718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileIf.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d9d3728?, 0xa?}, 0x140000fda08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x10254b068?, 0x1400019cc00, {0x16d9d3728?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d9d3728?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionDivInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable l was not initialized.
+In funccall expression Console.WriteLine
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignIntCompare2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f5b7718?, 0x14?}, 0x14000153a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100967068?, 0x140001ea318, {0x16f5b7718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f5b7718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignDoubleFunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f513710?, 0x1b?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100a0b068?, 0x1400000c768, {0x16f513710?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f513710?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+FunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16bb2b720?, 0xf?}, 0x14000153a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1043f3068?, 0x140001ea408, {0x16bb2b720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16bb2b720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AddInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b413728?, 0x9?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104b0b068?, 0x14000106510, {0x16b413728?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b413728?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+DeclareBoolean.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16fd37720?, 0x11?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1001e7068?, 0x14000106570, {0x16fd37720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16fd37720?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionMulInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable l was not initialized.
+In funccall expression Console.WriteLine
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignStringCompare2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable Hallo" was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignStringFunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable foo" was not initialized.
+Returned value of type Variable foo" was not initialized. does not match return type 
+in function signature (string)
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+EmptyWhileLoop.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16ee53720?, 0x11?}, 0x140001dfa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1010cb068?, 0x14000284150, {0x16ee53720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16ee53720?, 0x14000100008?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfNoElse.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b473720?, 0xb?}, 0x14000159a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104aab068?, 0x140002048a0, {0x16b473720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b473720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithIntExpression2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16ddab718?, 0x17?}, 0x1400010fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102173068?, 0x1400020c600, {0x16ddab718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16ddab718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+EmptyMethod.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d0ef720?, 0xe?}, 0x14000157a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102e2f068?, 0x140000942a0, {0x16d0ef720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d0ef720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionOrBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable e was not initialized.
+In funccall expression Console.WriteLine
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileWithIntExpression2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f787718?, 0x1a?}, 0x14000155a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100797068?, 0x14000208ae0, {0x16f787718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f787718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignNegativeNumber.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f697718?, 0x17?}, 0x140000ffa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100887068?, 0x1400000c858, {0x16f697718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f697718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+TwoFunctions.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f073720?, 0xf?}, 0x1400010fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100eab068?, 0x1400000c228, {0x16f073720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f073720?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionUnaryPlusInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable l was not initialized.
+In funccall expression Console.WriteLine
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithElse.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b3f7720?, 0xd?}, 0x140000fda08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104b27068?, 0x1400021c990, {0x16b3f7720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b3f7720?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileIf2.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d59b720?, 0xb?}, 0x140001d5a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102983068?, 0x1400010c540, {0x16d59b720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d59b720?, 0x14000054018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionLessEqualBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable b was not initialized.
+In funccall expression Console.WriteLine
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileWithIntExpression.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16fdfb718?, 0x19?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100123068?, 0x1400021cab0, {0x16fdfb718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16fdfb718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionGreaterEqualBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable b was not initialized.
+In funccall expression Console.WriteLine
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+SinglelineComment.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d963718?, 0x14?}, 0x14000157a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1025bb068?, 0x14000280000, {0x16d963718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d963718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithElseNoBlock.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "else" at line 11.
+Expecting: descriptor, return, if, while, }
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionUnaryMinusInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable l was not initialized.
+In funccall expression Console.WriteLine
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+DeclareInt.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16fac7720?, 0xd?}, 0x14000161a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100457068?, 0x140001ea990, {0x16fac7720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16fac7720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+DeclareString.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable foo" was not initialized.
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+DeclareDouble.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d0d3720?, 0x10?}, 0x1400010fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102e4b068?, 0x1400000c0d8, {0x16d0d3720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d0d3720?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignIntFunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b083718?, 0x18?}, 0x14000159a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104e9b068?, 0x140002846f0, {0x16b083718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b083718?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignNumber.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d287720?, 0xf?}, 0x140001b1a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102c97068?, 0x14000092858, {0x16d287720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d287720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignIntCompare.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b9f3718?, 0x13?}, 0x140000fda08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x10452b068?, 0x1400000c198, {0x16b9f3718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b9f3718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionAndBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable e was not initialized.
+In funccall expression Console.WriteLine
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+ExpressionUnequalBool.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable b was not initialized.
+In funccall expression Console.WriteLine
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+EmptyMainMethod.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16b683720?, 0x12?}, 0x1400018fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x10489b068?, 0x14000092000, {0x16b683720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16b683720?, 0x1400011e018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+FunctionCallWithArgs.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16f293718?, 0x17?}, 0x1400010fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100c8b068?, 0x1400000cbe8, {0x16f293718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16f293718?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+WhileIf3.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16fae7720?, 0xb?}, 0x14000157a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x100437068?, 0x140001eacd8, {0x16fae7720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16fae7720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+AssignBooleanFunctionCall.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d3c7710?, 0x1c?}, 0x1400010fa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102b57068?, 0x1400000c228, {0x16d3c7710?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d3c7710?, 0x1400009c018?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWithIntExpression.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16af93718?, 0x16?}, 0x140001cfa08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x104f8b068?, 0x14000262d08, {0x16af93718?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16af93718?, 0x14000100008?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+IfWhileIf4.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "else" at line 13.
+Expecting: return, if, while, }, descriptor
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+failed
+TOTAL: passed 0 tests, failed 72 tests
+
+=============================================
+compiled programs
+=============================================
+/Users/lukas/Library/CloudStorage/OneDrive-Personal/job/compilerbau 2024/projekt/backend/compiled_programs
+GCDIterative.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16fd5b720?, 0xf?}, 0x14000159a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1001c3068?, 0x140001eb200, {0x16fd5b720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16fd5b720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+CelsiusToFahrenheit.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: The variable declaration of celsius does not typecheck.
+The variable is declared as type double while the expression evaluates to int
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+FahrenheitToCelsius.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Expression has 0 Children: (
+Returned value of type Expression has 0 Children: ( does not match return type 
+in function signature (double)
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+Exponents.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16ee1f720?, 0xc?}, 0x14000157a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1010ff068?, 0x14000204c60, {0x16ee1f720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16ee1f720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+HelloWorld.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d943720?, 0xd?}, 0x14000155a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x1025db068?, 0x140002041b0, {0x16d943720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d943720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+FibonacciRecursive.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "else" at line 19.
+Expecting: descriptor, return, if, while, }
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+Fibonacci.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+TYPE ERROR: Variable has not been initialized. Variable name: temp
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+SquareNumbers.cs
+--------------------------------------------
+
+your compilation stdout:
+
+Code passed parser
+Type Check Succesful!
+
+++++++++++++++
+your compilation stderr:
+panic: runtime error: index out of range [1] with length 1
+
+goroutine 1 [running]:
+compiler/jasmin.create_jasmin_file({0x16d23f720?, 0x10?}, 0x14000153a08)
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_code_constructor.go:11 +0x124
+compiler/jasmin.Build_jasmin(0x102cdf068?, 0x14000286450, {0x16d23f720?, 0x1?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/jasmin/jasmin_compiler.go:40 +0x50
+compiler/routines.Compile({0x16d23f720?, 0x14000054020?})
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/routines/compile.go:24 +0x158
+main.main()
+	/Users/lukas/OneDrive/job/compilerbau 2024/projekt/phase 2 freischuss/Konrad Burgi/neon.go:38 +0x224
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+GCDRecursive.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "else" at line 18.
+Expecting: descriptor, return, if, while, }
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+GaussRecursive.cs
+--------------------------------------------
+
+your compilation stdout:
+
+DID NOT PASS
+Syntax Error: Unexpected: "else" at line 19.
+Expecting: if, while, }, descriptor, return
+
+
+++++++++++++++
+your compilation stderr:
+
+
+--------------------------------------------
+Result: False, expected: True
+ FAILED the test
+
+
+failed
+TOTAL: passed 0 tests, failed 10 tests
+
+=============================================
+SUMMARY
+=============================================
+valid codesnipsets:  0 / 70 passed, 70 / 70 failed
+valid programs:      0 / 9 passed, 9 / 9 failed
+parse errors:        28 / 28 passed, 0 / 28 failed
+type errors:         26 / 26 passed, 0 / 26 failed
+compiled snipsets:   0 / 72 passed, 72 / 72 failed
+compiled programs:   0 / 10 passed, 10 / 10 failed
+TOTAL:               54 / 215 passed, 161 / 215 failed
+
+=============================================
+
+Liveness (Your Result / Expected):
+LiveAppelExample: - / 3
+Crash:
+TYPE ERROR: Variable has not been initialized. Variable name: b
+LiveDFSlideExample:  / 5
+Crash:
+TYPE ERROR: Variable has not been initialized. Variable name: b
+LiveEmptyExample: 0 / 0
+LiveEx11 : - / 3
+Crash:
+TYPE ERROR: Variable has not been initialized. Variable name: x
+LiveFewRegisters: - / 1
+Crash:
+TYPE ERROR: Variable has not been initialized. Variable name: b0
+LiveFibonacci: - / 3
+TYPE ERROR: Variable has not been initialized. Variable name: temp
+LiveManyRegisters: - / 50
+TYPE ERROR: Variable has not been initialized. Variable name: a1
+LiveSimple: - / 2
+Crash:
+Syntax Error: Unexpected: "else" at line 17.
+Expecting: descriptor, return, if, while, }
+
+
+Liveness Total: 1 / 8
+
+Constant (Your Result / Expected):
+ConstantLoop : a(/1), b(/nac), c(/nac)
+ConstantLoop2 : a(/nac), b(/nac), c(/nac)
+ConstantProjektExample : a(/1), b(/nac), c(/nac)
+ConstantProjektExampleAlt : a(/1), b(/2), c(/nac)
+ConstantSlideExample: x(/nac), y(/nac), z(/nac), c(/nac)
+
+Constant Total: 0 / 5 (not implemented)
