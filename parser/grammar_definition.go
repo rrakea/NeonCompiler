@@ -15,8 +15,6 @@ func getProjektGrammar() []Rule {
 		MakeRule("LITERAL", []string{"intliteral"}),
 		MakeRule("LITERAL", []string{"doubleliteral"}),
 
-
-
 		MakeRule("START", []string{"USING"}),
 		MakeRule("USING", []string{"using", "name", ";", "USING"}),
 		MakeRule("USING", []string{"NAMESPACE"}),
@@ -54,14 +52,14 @@ func getProjektGrammar() []Rule {
 		MakeRule("RETURN", []string{"return", "EXPRESSION", ";"}),
 		MakeRule("RETURN", []string{"return", ";"}),
 		MakeRule("VARASSIGN", []string{"name", "=", "EXPRESSION", ";"}),
-		
+
 		// TODO else without {}
 		MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "{", "STATEMENTBLOCK"}),
 		MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "{", "STATEMENTBLOCK", "ELSE"}),
 		MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "STATEMENT"}),
 		//MakeRule("IF", []string{"if", "(", "EXPRESSION", ")", "STATEMENT", "ELSE"}),
 		MakeRule("ELSE", []string{"else", "{", "STATEMENTBLOCK"}),
-		//MakeRule("ELSE", []string{"else", "STATEMENT"}),
+		MakeRule("ELSE", []string{"else", "STATEMENT"}),
 		MakeRule("WHILE", []string{"while", "(", "EXPRESSION", ")", "{", "STATEMENTBLOCK"}),
 		MakeRule("WHILE", []string{"while", "(", "EXPRESSION", ")", "STATEMENT"}),
 
@@ -81,7 +79,7 @@ func getProjektGrammar() []Rule {
 		// +/ - before value
 		MakeRule("EL7", []string{"oplv5", "EL7"}),
 		MakeRule("EL7", []string{"oplv7", "EL7"}),
-		
+
 		MakeRule("EL7", []string{"(", "EL1", ")"}),
 		MakeRule("EL7", []string{"LITERAL"}),
 		MakeRule("EL7", []string{"FUNCCALL"}),
