@@ -90,7 +90,7 @@ func typeCheckExpression(expression ParseTree, funcName string, info TypeChecker
 				return "bool", nil
 			}
 		case "oplv3":
-			if (rightside == "bool" && leftside == "bool") || ((rightside == "int" || rightside == "double") && (leftside == "int" || leftside == "double")) {
+			if (rightside == "bool" && leftside == "bool") || ((rightside == "int" || rightside == "double") && (leftside == "int" || leftside == "double")) || (rightside == "string" && leftside == "string"){
 				return "bool", nil
 			}
 		case "oplv4":

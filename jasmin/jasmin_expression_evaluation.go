@@ -161,8 +161,15 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 				panic("<= used on non numeric value")
 			}
 		case "==":
+			switch res_type {
+			case "z", "i":
+				op_code = if_true_put_1("if_icmpeq", labels)
+			case "d":
+				op_code = if_true_put_1("if_icmpeq", labels)
+			case "a":
+				op_code = "invokevirtual java/lang/String.equals(Ljava/lang/Object;)Z\n"
+			}
 			res_type = "z"
-			op_code = if_true_put_1("if_icmpeq", labels)
 		case "!=":
 			res_type = "z"
 			op_code = if_true_put_1("if_icmpne", labels)
@@ -173,7 +180,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			op_code = "iand\n"
 		case "||":
 			if res_type != "z" {
-				panic("&& Used with 2 values that are not booleans")
+				panic("|| Used with 2 values that are not booleans")
 			}
 			op_code = "ior\n"
 
@@ -207,7 +214,13 @@ func check_for_cast(left_side_type string, right_side_type string) (string, stri
 		if right_side_type != "z" {
 			panic("A bool and a non bool are being compared")
 		}
-		return "z", "", "", "i"
+		return "", "", "z", "i"
+	}
+	if left_side_type == "Ljava/lang/String;" || left_side_type == "a" {
+		if right_side_type != "Ljava/lang/String;" || right_side_type == "a" {
+			panic("String and non String in expression")
+		}
+		return "", "", "a", "a"
 	}
 	res_type := ""
 	potential_cast_left := ""

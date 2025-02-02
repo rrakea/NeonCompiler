@@ -82,7 +82,7 @@ func Lex(path string, tokenChannel chan Token) {
 					
 				} else {
 					isString = false
-					tokens = append(tokens, buffer + "\"")
+					tokens = append(tokens, "\"" + buffer + "\"")
 					buffer = ""
 					continue
 				}

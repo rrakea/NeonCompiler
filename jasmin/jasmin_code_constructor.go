@@ -8,8 +8,8 @@ import (
 
 func create_jasmin_file(source_file string, build *build_info) *os.File {
 	tmp := strings.TrimSuffix(source_file, ".cs")
-	tmp = strings.Split(tmp, "/")[1]
-	build.class = tmp
+	tmparr := strings.Split(tmp, "/")
+	build.class = tmparr[len(tmparr) - 1]
 	file_name := build.class + ".j"
 
 	jasminfile, err := os.Create(file_name)
