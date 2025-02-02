@@ -4,28 +4,11 @@ namespace HelloWorld{
         static bool x = true && false;
         static void Main(string[] args){
             // asdasdad Comments :&///@*(///)
-                int a = 2;
-                
-                if (true){
-                    a = 3;
-                    Console.WriteLine("Inside Loop ");
-                    Console.WriteLine(a);
-                }
-                a = 4 % 2;
-                //a = a(false, a);
-                Console.WriteLine("HIde");
-                Console.WriteLine(a);
-                Console.WriteLine("Consts: ");
-                Console.WriteLine(x);
-                Console.WriteLine(i);
+                Console.WriteLine(a((20.0)));
         }
 
-        static int a(bool a, int b){
-            int x = 2;
-            if (true) {
-
-            }
-            return x;
+        static double a(int a){
+            return 0.0;
         }
     }
 }

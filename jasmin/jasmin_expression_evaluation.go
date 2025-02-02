@@ -112,6 +112,9 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			panic("Internal Error: Unary Operator not +/-/!")
 		}
 	case 3:
+		if  expression.Branches[0].Leaf.Name == "(" {
+			return expression_evaluation(&expression.Branches[1], var_info, build, func_sigs, labels)
+		}
 		left_side_code, left_side_type, left_side_stack_limit, left_side_locals_used := expression_evaluation(&expression.Branches[0], var_info, build, func_sigs, labels)
 		right_side_code, right_side_type, right_side_stack_limit, right_side_locals_used := expression_evaluation(&expression.Branches[2], var_info, build, func_sigs, labels)
 

@@ -175,9 +175,12 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 				if called_function == "Console.WriteLine" {
 					break
 				}
-				if ex_type != info.Functions[called_function].ParameterOrder[i] {
-					TypeCheckError("Parameter " + strconv.Itoa(i) + " for function call \"" + called_function + "\" is misplaced. Function does not take a " + ex_type + " at that index")
-					return info, false
+				expected_type := info.Functions[called_function].ParameterOrder[i]
+				if ex_type !=  expected_type{
+					if !(ex_type == "double" && expected_type == "int") || (ex_type == "int" && expected_type == "double") {
+						TypeCheckError("Parameter " + strconv.Itoa(i) + " for function call \"" + called_function + "\" is misplaced. Function does not take a " + ex_type + " at that index")
+						return info, false	
+					} 
 				}
 			}
 		}
@@ -207,7 +210,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 			extype, err := typeCheckExpression(*r.Search_first_child("EXPRESSION"), f.Name, info)
 			if extype != "bool" || err != nil {
 				if err != nil {
-					extype = err.Error()
+					extype = "Expression Error"
 				} else {
 					err = errors.New("")
 				}
@@ -220,7 +223,7 @@ func Typecheck(tree ParseTree) (TypeCheckerInfo, bool) {
 			extype, err := typeCheckExpression(r.Branches[2], f.Name, info)
 			if extype != "bool" || err != nil {
 				if err != nil {
-					extype = err.Error()
+					extype = "Expression Error"
 				} else {
 					err = errors.New("")
 				}

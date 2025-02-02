@@ -1,5 +1,2 @@
 2. Else Without {}
 4. Assign int to double type error
-5. if (foo() == 2)
-6. while (foo())
-7. Empty Method with args

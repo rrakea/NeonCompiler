@@ -76,6 +76,10 @@ func typeCheckExpression(expression ParseTree, funcName string, info TypeChecker
 		}
 
 	case 3:
+		// In case of  ( EL1 )
+		if expression.Branches[0].Leaf.Name == "(" {
+			return typeCheckExpression(expression.Branches[1], funcName, info)
+		}
 		leftside, err := typeCheckExpression(expression.Branches[0], funcName, info)
 		if err != nil {
 			return "undefined", err

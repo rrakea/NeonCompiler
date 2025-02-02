@@ -155,12 +155,12 @@ func while_evaluate(condition *tree, statement_block *tree, var_info *variable_i
 	labels.while_count += 1
 	
 	while_code := "" +
-		"WHILE_BEGIN" +  while_label + ":\n" +
+		"WHILE_BEGIN_" +  while_label + ":\n" +
 		cond_code + "\n" +
 		"ifeq WHILE_END_" + while_label + "\n" + 
 		while_statement_block +
-		"goto WHILE_BEGIN" +
-		"WHILE_END_" + while_label
+		"goto WHILE_BEGIN_" + while_label + "\n" +
+		"WHILE_END_" + while_label + ":\n"
 
 	while_statement_block_stack_limit := cond_stack_limit + 1 + while_statement_stack_limit
 	return while_code, while_statement_block_stack_limit
