@@ -60,9 +60,16 @@ func var_assign_evaluate(var_name string, expression *tree, var_info *variable_i
 		panic("Unitialized Variable " + var_name)
 	}
 	location_string := strconv.Itoa(location)
-
+	cast := ""
+	if var_info.local_vars_type[var_name] == "d" && ex_type == "i" {
+		cast = "d2i\n"
+	} 
+	if var_info.local_vars_type[var_name] == "i" && ex_type == "d" {
+		cast = "i2d\n"
+	}
 	retstring := "" +
 		ex_code +
+		cast + 
 		ex_type + "store_" + location_string + "\n"
 	return retstring, ex_stack_limit
 }

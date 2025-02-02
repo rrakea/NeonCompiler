@@ -1,18 +1,18 @@
 .class public HelloWorld
 .super java/lang/Object 
 
-.field public static x Z
 .field public static i I
+.field public static x Z
 
 
 .method static <clinit>()V 
 .limit stack 3
+ldc 2
+putstatic HelloWorld/i I
 ldc 1
 ldc 0
 iand
 putstatic HelloWorld/x Z
-ldc 2
-putstatic HelloWorld/i I
 return 
 .end method
 
