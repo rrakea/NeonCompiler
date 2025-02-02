@@ -44,7 +44,11 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			case "intliteral":
 				return "ldc " + strconv.Itoa(child.Branches[0].Leaf.Value.(int)) + "\n", "i", 1, []string{}
 			case "doubleliteral":
-				return "ldc2_w " + strconv.FormatFloat(child.Branches[0].Leaf.Value.(float64), 'f', -1, 64) + "\n", "d", 1, []string{}
+				doublelit := strconv.FormatFloat(child.Branches[0].Leaf.Value.(float64),'f', -1, 64)
+				if len(doublelit) == 1 {
+					doublelit += ".0"
+				}
+				return "ldc2_w " + doublelit + "\n", "d", 1, []string{}
 			default:
 				panic("Invalid Literal name " + child.Leaf.Name)
 			}

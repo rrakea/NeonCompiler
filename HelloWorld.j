@@ -22,7 +22,7 @@ return
 .method public static a(I)D
 .limit stack 1
 .limit locals 1
-ldc2_w 0
+ldc2_w 0.0
 dreturn
 ldc 0.0
 dreturn

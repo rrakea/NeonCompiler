@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "debug",
             "program": "${workspaceFolder}",
-            "args": ["--liveness", "testcode/HelloWorld.cs"]
+            "args": ["--compile", "testcode/HelloWorld.cs"]
         }
     ]
 }
