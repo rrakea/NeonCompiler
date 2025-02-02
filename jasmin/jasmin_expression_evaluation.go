@@ -48,7 +48,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 				if len(doublelit) == 1 {
 					doublelit += ".0"
 				}
-				return "ldc2_w " + doublelit + "\n", "d", 1, []string{}
+				return "ldc2_w " + doublelit + "\n", "d", 2, []string{}
 			default:
 				panic("Invalid Literal name " + child.Leaf.Name)
 			}
