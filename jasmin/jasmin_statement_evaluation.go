@@ -99,8 +99,22 @@ func func_call_evaluate(func_name string, arg_block *tree, func_sigs *function_s
 		if i == 0 {
 			first_arg_type = ex_type
 		}
+		cast := ""
+		argtype, ok := func_sigs.parameter_type[func_name]
+		if ok {
+			jasmin_type_prefix_converter(string([]rune(argtype)[i]))
+		} else {
+			argtype = ""
+		}
+		
+		if ex_type == "i" && argtype == "d" {
+			cast = "d2i\n"
+		} 
+		if argtype == "i" && ex_type == "d" {
+			cast = "i2d\n"
+		}
 		_ = ex_type
-		arg_code += ex_code
+		arg_code += ex_code + cast
 		arg_stack_limit = max(arg_stack_limit, ex_stack_limit+len(args))
 	}
 

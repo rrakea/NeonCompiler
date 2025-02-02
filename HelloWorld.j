@@ -28,14 +28,3 @@ ldc 0.0
 dreturn
 .end method
 
-
-.method public static main([Ljava/lang/String;)V
-.limit stack 3
-.limit locals 1
-getstatic java/lang/System/out Ljava/io/PrintStream;
-ldc2_w 20
-invokestatic HelloWorld/a(I)D
-invokevirtual java/io/PrintStream/println(D)V
-return
-.end method
-
