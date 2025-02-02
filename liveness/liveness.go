@@ -40,7 +40,9 @@ func Liveness (tree *parser.ParseTree) {
 	}
 
 	// We only search the top level statements, since we dont want to search inside of while loops
-	statements := main.Search_first_child("VIRTUALVARBLOCK").Search_top_occurences("STATEMENT")
+	tmp := main.Search_first_child("VIRTUALVARBLOCK")
+	tmp2 := tmp.Search_top_occurences("STATEMENT")
+	statements := tmp2
 	for i := 0; i < len(statements); i++  {
 		stat := statements[i].Branches[0]
 		switch  stat.Leaf.Name{
@@ -48,35 +50,55 @@ func Liveness (tree *parser.ParseTree) {
 		case "VARSSIGN":
 			vars[stat.Search_first_child("name").Leaf.Value.(string)].lastuse = i
 			for _, use := range LivenessCheckExpression(stat.Search_first_child("EXPRESSION")) {
-				vars[use].lastuse = i + usesInDec
+				localvar, ok := vars[use]
+				if !ok {
+					continue
+				}
+				localvar.lastuse = i + usesInDec
 			}
 
 		case "WHILE":
 			for _, ex := range stat.Branches[0].Search_tree("EXPRESSIOn") {
 				for _, use := range LivenessCheckExpression(ex) {
-					vars[use].lastuse = i + usesInDec
+					localvar, ok := vars[use]
+					if !ok {
+						continue
+					}
+					localvar.lastuse = i + usesInDec
 				}
 			}
 
 		case "IF":
 			// Go Through Expression
 			for _, use := range LivenessCheckExpression(stat.Search_first_child("EXPRESSION")) {
-				vars[use].lastuse = i + usesInDec
+				localvar, ok := vars[use]
+				if !ok {
+					continue
+				}
+				localvar.lastuse = i + usesInDec
 			}
 			// Add the values inside the if statement to the statement slice 
 			ifstat := stat.Search_top_occurences("STATEMENT")
-			statements = append(statements[:i], append(ifstat, statements[i:]...)...)
+			statements = append(statements[:i], append(ifstat, statements[i + 1:]...)...)
 		
 		case "FUNCCALL":
 			for _, ex := range stat.Search_tree("EXPRESSION") {
 				for _, use := range LivenessCheckExpression(ex) {
-					vars[use].lastuse = i + usesInDec
+					localvar, ok := vars[use]
+					if !ok {
+						continue
+					}
+					localvar.lastuse = i + usesInDec
 				}
 			}
 
 		case "RETURN":
 			for _, use := range LivenessCheckExpression(stat.Search_first_child("EXPRESSION")) {
-				vars[use].lastuse = i + usesInDec
+				localvar, ok := vars[use]
+				if !ok {
+					continue
+				}
+				localvar.lastuse = i + usesInDec
 			}
 		
 		}

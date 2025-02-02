@@ -22,10 +22,10 @@ func (tree *ParseTree) Search_first_child(name string) *ParseTree {
 func (tree *ParseTree) Search_tree(name string) []*ParseTree {
 	ret := []*ParseTree{}
 	if tree.Leaf.Name == name {
-		return []*ParseTree{tree}
+		ret = append(ret, tree)
 	}
 	for _, br := range tree.Branches {
-		ret = append(ret, br.Search_top_occurences(name)...)
+		ret = append(ret, br.Search_tree(name)...)
 	}
 	return ret
 }

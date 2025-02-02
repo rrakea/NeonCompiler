@@ -105,7 +105,8 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 
 		// Local Variables
 		local_var_code := ""
-		for var_index, local_var := range info.LocalVar[function.Name] {
+		var_index := 0
+		for _, local_var := range info.LocalVar[function.Name] {
 			local_var_type := jasmin_type_prefix_converter(local_var.Vartype)
 			// Check if the var is a parameter
 			if len(local_var.Expression.Branches) != 0 {
@@ -125,6 +126,7 @@ func Build_jasmin(parsetree *tree, info *typechecker.TypeCheckerInfo, file_name 
 				local_var_code += var_code
 				var_map_count[local_var.Name] = var_index + arg_count
 				var_map_type[local_var.Name] = local_var_type
+				var_index++
 			}
 		}
 
@@ -173,15 +175,15 @@ func jasmin_type_converter(var_type string) string {
 
 func jasmin_type_prefix_converter(var_type string) string {
 	switch var_type {
-	case "int", "I":
+	case "int", "I", "i":
 		return "i"
-	case "double", "D":
+	case "double", "D", "d":
 		return "d"
-	case "bool", "Z":
+	case "bool", "Z", "z":
 		return "z"
-	case "string", "Ljava/lang/String;":
+	case "string", "Ljava/lang/String;", "a":
 		return "a"
-	case "string[]", "[Ljava/lang/String;":
+	case "string[]", "[Ljava/lang/String;", "[a":
 		return "[a"
 	case "void", "V", "":
 		return ""

@@ -174,7 +174,7 @@ func expression_evaluation(expression *tree, var_info *variable_info, build *bui
 			res_type = "z"
 			op_code = if_true_put_1("if_icmpne", labels)
 		case "&&":
-			if res_type != "t" {
+			if res_type != "z" {
 				panic("&& Used with 2 values that are not booleans")
 			}
 			op_code = "iand\n"
